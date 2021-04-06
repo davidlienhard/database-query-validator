@@ -1,0 +1,98 @@
+<?php
+
+declare(strict_types=1);
+
+namespace tourBaseTests\Tests\QueryTest;
+
+use \PHPUnit\Framework\TestCase;
+use \tourBase\Tests\Queries\QueryTest;
+
+class QueryTestTest extends TestCase
+{
+    /**
+     * @covers \tourBase\Tests\Queries\QueryTest
+     * @test
+     */
+    public function testCanBeCreated(): void
+    {
+        $this->assertInstanceOf(
+            QueryTest::class,
+            new QueryTest
+        );
+    }
+
+    /**
+     * @covers \tourBase\Tests\Queries\QueryTest
+     * @test
+     */
+    public function testCanGetDumpFile(): void
+    {
+        $this->assertInstanceOf(
+            QueryTest::class,
+            new QueryTest(dirname(__DIR__, 4).DIRECTORY_SEPARATOR."dbstructure.sql")
+        );
+    }
+
+    /**
+     * @covers \tourBase\Tests\Queries\QueryTest
+     * @test
+     */
+    public function testThrowsExceptionWithInvalidDumpFile(): void
+    {
+        $this->expectException(\Exception::class);
+        new QueryTest("inexistent");
+    }
+
+    /**
+     * @covers \tourBase\Tests\Queries\QueryTest
+     * @test
+     */
+    public function testCanValidateDatabaseQuery(): void
+    {
+        $validquery = "SELECT * FROM `test` where `id` = 1";
+        $invalidquery = "SELECT * FROM";
+
+        $this->assertTrue(QueryTest::checkMysqlSyntax($validquery));
+        $this->assertIsArray(QueryTest::checkMysqlSyntax($invalidquery));
+    }
+
+    /**
+     * @covers \tourBase\Tests\Queries\QueryTest
+     * @test
+     */
+    public function testCanGetErrorList(): void
+    {
+        $queries = new QueryTest;
+        $this->assertIsArray($queries->getErrors());
+    }
+
+    /**
+     * @covers \tourBase\Tests\Queries\QueryTest
+     * @test
+     */
+    public function testCanGetErrorCount(): void
+    {
+        $queries = new QueryTest;
+        $this->assertIsInt($queries->getErrorcount());
+    }
+
+    /**
+     * @covers \tourBase\Tests\Queries\QueryTest
+     * @test
+     */
+    public function testCanGetFileCount(): void
+    {
+        $queries = new QueryTest;
+        $this->assertIsInt($queries->getFilecount());
+    }
+
+    /**
+     * @covers \tourBase\Tests\Queries\QueryTest
+     * @test
+     */
+    public function testCanGetQueryCount(): void
+    {
+        $queries = new QueryTest;
+        $this->assertIsInt($queries->getQuerycount());
+    }
+}

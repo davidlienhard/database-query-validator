@@ -1,0 +1,10 @@
+
+parameters:
+    level: max
+
+    paths:
+        - query-validator.php
+        - src
+
+    treatPhpDocTypesAsCertain: false
+    checkMissingIterableValueType: false

@@ -1,0 +1,9 @@
+{
+    "paths": [
+        "examples"
+    ],
+    "exclusions": [
+        "**/invalid.php"
+    ],
+    "dumpfile": "dump.sql"
+}

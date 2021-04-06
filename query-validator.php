@@ -1,0 +1,57 @@
+#!/usr/bin/env php
+<?php
+/**
+ * main entrypoint to validate queries
+ *
+ * @package         Database Query Validator
+ * @author          David Lienhard <david@lienhard.win>
+ * @copyright       David Lienhard
+ */
+
+declare(strict_types=1);
+
+use \DavidLienhard\Database\QueryValidator\QueryValidator;
+
+if (version_compare("8.0.0", PHP_VERSION, ">")) {
+    fwrite(
+        STDERR,
+        "This version of DatabaseTester requires PHP >= 8.0.".PHP_EOL.
+        "You are using PHP ".PHP_VERSION." (".PHP_BINARY.").".PHP_EOL
+    );
+
+    exit(1);
+}
+
+if (!ini_get("date.timezone")) {
+    ini_set("date.timezone", "UTC");
+}
+
+$autoloadCandidates = [
+    dirname(__DIR__, 2)."/vendor/autoload.php",
+    dirname(__DIR__, 1)."/vendor/autoload.php",
+    __DIR__."/vendor/autoload.php"
+];
+
+foreach ($autoloadCandidates as $file) {
+    if (file_exists($file)) {
+        define("DATABASETESTER_COMPOSER_INSTALL", $file);
+        break;
+    }
+}
+
+unset($file);
+
+if (!defined("DATABASETESTER_COMPOSER_INSTALL")) {
+    fwrite(
+        STDERR,
+        "You need to set up the project dependencies using Composer:".PHP_EOL.PHP_EOL.
+        "    composer install".PHP_EOL.PHP_EOL.
+        "You can learn all about Composer on https://getcomposer.org/.".PHP_EOL
+    );
+
+    exit(1);
+}
+
+require DATABASETESTER_COMPOSER_INSTALL;
+
+QueryValidator::main();

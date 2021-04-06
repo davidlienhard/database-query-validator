@@ -58,8 +58,5 @@ jobs:
     - name: Run phpcs
       run: composer phpcs
 
-    - name: Run phpunit
-      run: composer phpunit
-
     - name: Run phpstan
       run: composer phpstan

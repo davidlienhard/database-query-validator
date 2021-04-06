@@ -83,7 +83,7 @@ class QueryValidator
         $configCandidates = [
             [
                 "type"     => "json",
-                "filename" => dirname(__DIR__, 3).DIRECTORY_SEPARATOR."query-validator.json"
+                "filename" => dirname(__DIR__, 4).DIRECTORY_SEPARATOR."query-validator.json"
             ]
         ];
         $configFile = null;
@@ -121,7 +121,7 @@ class QueryValidator
         try {
             $paths = $config->get("paths");
         } catch (\Exception $e) {
-            $baseDirecory = dirname(__DIR__, 2);
+            $baseDirecory = dirname(__DIR__, 4);
             $paths = [ $baseDirecory ];
         }
 

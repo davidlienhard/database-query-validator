@@ -14,14 +14,3 @@ parameters:
 			message: "#^Access to an undefined property PhpParser\\\\Node\\\\Expr\\|PhpParser\\\\Node\\\\Identifier\\:\\:\\$name\\.$#"
 			count: 1
 			path: src/Tester/Visitor.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: src/Tester/Visitor.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between '' and 'db' will always evaluate to false\\.$#"
-			count: 1
-			path: src/Tester/Visitor.php
-

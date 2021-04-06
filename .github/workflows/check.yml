@@ -56,7 +56,7 @@ jobs:
       run: composer changed-files
 
     - name: Run phpcs
-      run: composer phpcs-diff
+      run: composer phpcs
 
     - name: Run phpunit
       run: composer phpunit

@@ -5,7 +5,7 @@ parameters:
     level: max
 
     paths:
-        - query-validator.php
+        - query-validator
         - src
 
     treatPhpDocTypesAsCertain: false

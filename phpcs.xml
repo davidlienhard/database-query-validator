@@ -105,7 +105,7 @@
 
 
     <!-- Paths to check -->
-    <file>query-validator.php</file>
+    <file>query-validator</file>
     <file>src</file>
 
     <!-- dont display warnings -->

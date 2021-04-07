@@ -41,7 +41,7 @@ class Visitor extends NodeVisitorAbstract
     public function enterNode(Node $node) : null | int | Node
     {
         if ($node instanceof MethodCall) {
-            if (($node->var->name ?? "") === "db" && ($node->name->name ?? "") === "query") {
+            if (($node->var->name->name ?? "") === "db" && ($node->name->name ?? "") === "query") {
                 $this->queries[] = [
                     "line" => $node->name->getLine() ?? 0,
                     "data" => explode("\n", (new Standard)->prettyPrint($node->args))

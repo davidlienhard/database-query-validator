@@ -1,6 +1,6 @@
 <?php
 /**
- * contains the QueryTestVisitor class
+ * contains the Visitor class
  *
  * @category        Database Query Validator
  * @author          David Lienhard <david@lienhard.win>
@@ -28,7 +28,7 @@ class Visitor extends NodeVisitorAbstract
      * list of all the queries found
      * @var     array
      */
-    public array $queries = [];
+    private array $queries = [];
 
     /**
      * enters a \PhpParser node and adds the content to the list if its a db->query()
@@ -50,5 +50,16 @@ class Visitor extends NodeVisitorAbstract
         }
 
         return null;
+    }
+
+    /**
+     * returns the queries found in the file
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function getQueries() : array
+    {
+        return $this->queries;
     }
 }

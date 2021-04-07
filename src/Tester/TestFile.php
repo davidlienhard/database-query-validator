@@ -93,7 +93,7 @@ class TestFile implements TestFileInterface
         try {
             $this->validateQueries(
                 $this->file,
-                $visitor->queries,
+                $visitor->getQueries(),
                 $hasUseStmt
             );
         } catch (\Throwable $t) {

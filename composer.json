@@ -16,6 +16,12 @@
     "support": {
         "issues": "https://github.com/davidlienhard/database-query-validator/issues/"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.tourbase.ch"
+        }
+    ],
     "require": {
         "php": "^8.0",
         "nikic/php-parser": "^4",
@@ -27,7 +33,7 @@
         "phpunit/phpunit": "^9",
         "squizlabs/php_codesniffer": "^3",
         "phpstan/phpstan": "^0",
-        "slevomat/coding-standard": "^6.4"
+        "davidlienhard/coding-standard": "^1"
     },
     "autoload": {
         "classmap": [

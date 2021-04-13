@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Config;
 
-use \DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
-use \DavidLienhard\Database\QueryValidator\Config\Config;
+use DavidLienhard\Database\QueryValidator\Config\Config;
+use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 
 /**
  * factory to create a config object

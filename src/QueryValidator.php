@@ -11,13 +11,13 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator;
 
-use \DavidLienhard\Database\QueryValidator\Config\Factory as ConfigFactory;
-use \DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
-use \DavidLienhard\Database\QueryValidator\DumpData\DumpData;
-use \DavidLienhard\Database\QueryValidator\DumpData\FromMysqlDump;
-use \DavidLienhard\Database\QueryValidator\Scanner\Scanner;
-use \DavidLienhard\Database\QueryValidator\Tester\Tester;
-use \DavidLienhard\Database\QueryValidator\Output\Standard as StandardOutput;
+use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
+use DavidLienhard\Database\QueryValidator\Config\Factory as ConfigFactory;
+use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
+use DavidLienhard\Database\QueryValidator\DumpData\FromMysqlDump;
+use DavidLienhard\Database\QueryValidator\Output\Standard as StandardOutput;
+use DavidLienhard\Database\QueryValidator\Scanner\Scanner;
+use DavidLienhard\Database\QueryValidator\Tester\Tester;
 
 /**
  * main entrypoint to validate queries
@@ -54,14 +54,9 @@ class QueryValidator
 
         ini_set("xdebug.max_nesting_level", "1000");
 
-        $tester = new Tester(
-            $output,
-            $dumpData
-        );
+        $tester = new Tester($output, $dumpData);
 
-        $scanner = new Scanner(
-            $tester
-        );
+        $scanner = new Scanner($tester);
 
         $scanner->scan(
             $paths,

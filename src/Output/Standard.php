@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Output;
 
-use \DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
-use \DavidLienhard\Database\QueryValidator\Output\OutputInterface;
+use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
+use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
 
 class Standard implements OutputInterface
 {
@@ -46,10 +46,7 @@ class Standard implements OutputInterface
      */
     public function error(string $error, int $errorCode = 1) : void
     {
-        fwrite(
-            STDERR,
-            $error
-        );
+        fwrite(STDERR, $error);
         exit($errorCode);
     }
 

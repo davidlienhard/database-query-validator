@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Tester;
 
-use \DavidLienhard\Database\QueryValidator\Output\OutputInterface;
-use \DavidLienhard\Database\QueryValidator\DumpData\DumpData;
+use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
+use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
 
 /**
  * interface for tester class

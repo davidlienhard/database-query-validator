@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Scanner;
 
-use \DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
-use \DavidLienhard\Database\QueryValidator\Scanner\ScannerInterface;
-use \DavidLienhard\Database\QueryValidator\Scanner\Filter\Filter;
+use DavidLienhard\Database\QueryValidator\Scanner\Filter\Filter;
+use DavidLienhard\Database\QueryValidator\Scanner\ScannerInterface;
+use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
 
 /**
  * class to scan a folder a start the tests on the files

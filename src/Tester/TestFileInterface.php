@@ -35,10 +35,9 @@ interface TestFileInterface
      * @copyright       tourasia
      * @param           string              $file       the file containing the queries
      * @param           array               $queries    the queries to validate
-     * @param           bool                $hasUseStmt whether this file has the use statement
      * @throws          \Exception                      if the file does not exist
      */
-    public function validateQueries(string $file, array $queries, bool $hasUseStmt) : void;
+    public function validateQueries(string $file, array $queries) : void;
 
     /**
      * returns the number of errors

@@ -26,7 +26,6 @@ All paths are relative to the path of the configuration file. If no configuratio
 ## Todo
 This project is still work in progress and there is a lot of work todo.
  - improve validation of queries
- - remove check of `use` keyword. Tools like `phpstan` can do this better
  - improve documentation (of course)
  - add unit tests
  - improve recognition of database-queries

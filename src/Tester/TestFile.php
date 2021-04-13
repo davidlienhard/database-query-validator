@@ -70,12 +70,6 @@ class TestFile implements TestFileInterface
             }
 
             $stmts = $traverser->traverse($ast);
-
-            // check if use statment is set
-            $hasUseStmt = strpos(
-                $fileContent,
-                "use \\DavidLienhard\\Database\\Parameter as DBParam;"
-            ) !== false;
         } catch (PhpParserError $error) {
             throw new \Exception(
                 "Parse error: ".$error->getMessage()." (".$this->file.")",
@@ -93,8 +87,7 @@ class TestFile implements TestFileInterface
         try {
             $this->validateQueries(
                 $this->file,
-                $visitor->getQueries(),
-                $hasUseStmt
+                $visitor->getQueries()
             );
         } catch (\Throwable $t) {
             throw new \Exception(
@@ -114,14 +107,13 @@ class TestFile implements TestFileInterface
      * @copyright       David Lienhard
      * @param           string              $file       the file containing the queries
      * @param           array               $queries    the queries to validate
-     * @param           bool                $hasUseStmt whether this file has the use statement
      * @throws          \Exception                      if the file does not exist
      * @uses            self::addError()
      * @uses            self::checkPreparedStatement()
      * @uses            self::checkMysqlSyntax()
      * @uses            self::$queryCount
      */
-    public function validateQueries(string $file, array $queries, bool $hasUseStmt) : void
+    public function validateQueries(string $file, array $queries) : void
     {
         $hasPrepared = false;
 
@@ -152,21 +144,9 @@ class TestFile implements TestFileInterface
                 $hasError = true;
             }
 
-            if (!$hasUseStmt && $hasPrepared) {
-                $hasError = true;
-            }
-
             $this->output->query($file, $query['line'], !$hasError);
             $this->queryCount++;
         }//end foreach
-
-        if (!$hasUseStmt && $hasPrepared) {
-            $this->addError(
-                $file,
-                0,
-                "has prepared statements but not use statement"
-            );
-        }
     }
 
     /**

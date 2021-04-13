@@ -11,10 +11,10 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Tester;
 
-use \PhpParser\NodeVisitorAbstract;
-use \PhpParser\Node;
-use \PhpParser\Node\Expr\MethodCall;
-use \PhpParser\PrettyPrinter\Standard;
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\NodeVisitorAbstract;
+use PhpParser\PrettyPrinter\Standard;
 
 /**
  * inspects a node from \PhpParser
@@ -38,7 +38,7 @@ class Visitor extends NodeVisitorAbstract
      * @param           Node                $node       the node to inspect
      * @return          null|int|Node                   Replacement node (or special return value)
      */
-    public function enterNode(Node $node) : null | int | Node
+    public function enterNode(Node $node) : int|Node|null
     {
         if ($node instanceof MethodCall) {
             if (($node->var->name->name ?? "") === "db" && ($node->name->name ?? "") === "query") {

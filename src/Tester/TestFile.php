@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Tester;
 
-use \DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
-use \DavidLienhard\Database\QueryValidator\Output\OutputInterface;
-use \DavidLienhard\Database\QueryValidator\DumpData\DumpData;
-use \PhpMyAdmin\SqlParser\Lexer;
-use \PhpMyAdmin\SqlParser\Parser;
-use \PhpMyAdmin\SqlParser\Utils\Error as SqlParserError;
-use \PhpParser\ParserFactory;
-use \PhpParser\NodeTraverser;
-use \PhpParser\Error as PhpParserError;
+use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
+use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
+use DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
+use PhpMyAdmin\SqlParser\Lexer;
+use PhpMyAdmin\SqlParser\Parser;
+use PhpMyAdmin\SqlParser\Utils\Error as SqlParserError;
+use PhpParser\Error as PhpParserError;
+use PhpParser\NodeTraverser;
+use PhpParser\ParserFactory;
 
 class TestFile implements TestFileInterface
 {
@@ -228,8 +228,8 @@ class TestFile implements TestFileInterface
                 $tableName = $matches[2][$columnNumber] ?? "";
                 $columnName = $matches[3][$columnNumber] ?? "";
 
-                if ($tableName != "" && $this->dumpData->getWithTable($tableName, $columnName) !== null) {
-                    if ($this->dumpData->getWithTable($tableName, $columnName) != ($types[$columnNumber] ?? "")) {
+                if ($tableName !== "" && $this->dumpData->getWithTable($tableName, $columnName) !== null) {
+                    if ($this->dumpData->getWithTable($tableName, $columnName) !== ($types[$columnNumber] ?? "")) {
                         $this->addError(
                             $file,
                             $linenumber,
@@ -240,7 +240,7 @@ class TestFile implements TestFileInterface
                         $isValid = false;
                     }
                 } elseif ($this->dumpData->getWithoutTable($columnName) !== null) {
-                    if ($this->dumpData->getWithoutTable($columnName) != ($types[$columnNumber] ?? "")) {
+                    if ($this->dumpData->getWithoutTable($columnName) !== ($types[$columnNumber] ?? "")) {
                         $this->addError(
                             $file,
                             $linenumber,
@@ -255,7 +255,7 @@ class TestFile implements TestFileInterface
         }//end if
 
         for ($i = 0; $i < strlen($types); $i++) {
-            if (!in_array($types[$i], $allowedTypes)) {
+            if (!in_array($types[$i], $allowedTypes, true)) {
                 $this->addError(
                     $file,
                     $linenumber,
@@ -279,7 +279,7 @@ class TestFile implements TestFileInterface
      * @uses            \PhpMyAdmin\SqlParser\Parser
      * @uses            \PhpMyAdmin\SqlParser\Utils\Error
      */
-    public static function checkMysqlSyntax(string $query) : bool | array
+    public static function checkMysqlSyntax(string $query) : bool|array
     {
         $query = trim($query, " \t\n\r\0\x0B\"");
 

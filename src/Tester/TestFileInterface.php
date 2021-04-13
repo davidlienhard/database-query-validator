@@ -4,15 +4,8 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Tester;
 
-use \DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
-use \DavidLienhard\Database\QueryValidator\Output\OutputInterface;
-use \DavidLienhard\Database\QueryValidator\DumpData\DumpData;
-use \PhpMyAdmin\SqlParser\Lexer;
-use \PhpMyAdmin\SqlParser\Parser;
-use \PhpMyAdmin\SqlParser\Utils\Error as SqlParserError;
-use \PhpParser\ParserFactory;
-use \PhpParser\NodeTraverser;
-use \PhpParser\Error as PhpParserError;
+use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
+use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
 
 interface TestFileInterface
 {

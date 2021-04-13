@@ -61,7 +61,7 @@ class DumpData
      * @param           string          $tableName      name of the table
      * @param           string          $columnName     name of the column
      */
-    public function getWithTable(string $tableName, string $columnName) : string | null
+    public function getWithTable(string $tableName, string $columnName) : string|null
     {
         return $withTable[$tableName][$columnName] ?? null;
     }
@@ -73,7 +73,7 @@ class DumpData
      * @copyright       David Lienhard
      * @param           string          $columnName     name of the column
      */
-    public function getWithoutTable(string $columnName) : string | null
+    public function getWithoutTable(string $columnName) : string|null
     {
         return $withTable[$columnName] ?? null;
     }

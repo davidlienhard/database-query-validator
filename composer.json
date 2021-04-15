@@ -1,6 +1,6 @@
 {
     "name": "davidlienhard/database-query-validator",
-    "license": "proprietary",
+    "license": ["MIT"],
     "description": "🐘 php tool to validate database queries",
     "keywords": [ "database", "mysql", "php", "library" ],
     "type": "libary",

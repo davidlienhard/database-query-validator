@@ -6,6 +6,7 @@ namespace DavidLienhard\Database\QueryValidator\Tester;
 
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
+use DavidLienhard\Database\QueryValidator\Tester\PhpNodeVisitor;
 use DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
 use PhpMyAdmin\SqlParser\Lexer as SqlLexer;
 use PhpMyAdmin\SqlParser\Parser as SqlParser;
@@ -54,7 +55,7 @@ class TestFile implements TestFileInterface
         try {
             $parser = (new PhpParserFactory)->create(PhpParserFactory::PREFER_PHP7);
             $traverser = new PhpNodeTraverser;
-            $visitor = new Visitor;
+            $visitor = new PhpNodeVisitor;
             $traverser->addVisitor($visitor);
 
             $fileContent = \file_get_contents($this->file);

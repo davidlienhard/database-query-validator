@@ -8,9 +8,9 @@ parameters:
 		-
 			message: "#^Access to an undefined property PhpParser\\\\Node\\\\Expr\\:\\:\\$name\\.$#"
 			count: 1
-			path: src/Tester/Visitor.php
+			path: src/Tester/PhpNodeVisitor.php
 
 		-
 			message: "#^Access to an undefined property PhpParser\\\\Node\\\\Expr\\|PhpParser\\\\Node\\\\Identifier\\:\\:\\$name\\.$#"
 			count: 1
-			path: src/Tester/Visitor.php
+			path: src/Tester/PhpNodeVisitor.php

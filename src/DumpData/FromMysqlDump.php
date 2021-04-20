@@ -3,7 +3,7 @@
  * contains FromMysqlDump class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -17,7 +17,7 @@ use \DavidLienhard\Database\QueryValidator\DumpData\DumpData;
  * class to create a DumpData object from a mysql dump
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 class FromMysqlDump
@@ -25,7 +25,7 @@ class FromMysqlDump
     /**
      * creates a new Dump object from a mysql-dump file
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $dumpFile       path to the dump-file
      */
@@ -62,7 +62,7 @@ class FromMysqlDump
     /**
      * converts mysql types to the ones required for prepared statements
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string              $type       the type to convert
      */

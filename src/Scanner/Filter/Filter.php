@@ -3,7 +3,7 @@
  * contains Filter class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -18,7 +18,7 @@ use \Webmozart\PathUtil\Path;
  * class to filter while scanning folders
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 class Filter extends \RecursiveFilterIterator implements FilterInterface
@@ -26,7 +26,7 @@ class Filter extends \RecursiveFilterIterator implements FilterInterface
     /**
      * sets dependencies
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           \RecursiveIterator  $iterator       iterator to use
      * @param           string              $absoluteFolder absolute folder of the root directory of the project to scan
@@ -40,7 +40,7 @@ class Filter extends \RecursiveFilterIterator implements FilterInterface
     /**
      * checks whether or not to accept the current file/folder
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function accept() : bool
@@ -74,7 +74,7 @@ class Filter extends \RecursiveFilterIterator implements FilterInterface
     /**
      * fetches the children of the current iterator
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getChildren() : self

@@ -3,7 +3,7 @@
  * contains Filter Interface
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -15,7 +15,7 @@ namespace DavidLienhard\Database\QueryValidator\Scanner\Filter;
  * contains Filter Interface
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 interface FilterInterface
@@ -23,7 +23,7 @@ interface FilterInterface
     /**
      * sets dependencies
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           \RecursiveIterator  $iterator       iterator to use
      * @param           string              $absoluteFolder absolute folder of the root directory of the project to scan
@@ -34,7 +34,7 @@ interface FilterInterface
     /**
      * checks whether or not to accept the current file/folder
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function accept() : bool;
@@ -42,7 +42,7 @@ interface FilterInterface
     /**
      * fetches the children of the current iterator
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getChildren() : self;

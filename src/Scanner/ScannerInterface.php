@@ -3,7 +3,7 @@
  * contains Scanner Interface
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -17,7 +17,7 @@ use \DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
  * describes a scanner class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 interface ScannerInterface
@@ -25,7 +25,7 @@ interface ScannerInterface
     /**
      * sets dependencies
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           TesterInterface $tester         tester object to use
      */
@@ -34,7 +34,7 @@ interface ScannerInterface
     /**
      * starts the scan
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array           $paths          list of paths to scan
      * @param           string          $absoluteFolder absolute path to the root of the project to scan

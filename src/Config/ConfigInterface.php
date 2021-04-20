@@ -3,7 +3,7 @@
  * contains Config Interface class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -15,7 +15,7 @@ namespace DavidLienhard\Database\QueryValidator\Config;
  * object that contains configuration data for this validator
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 interface ConfigInterface
@@ -23,7 +23,7 @@ interface ConfigInterface
     /**
      * sets dependencies
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array           $config         configuration data to add
      * @param           string          $configFile     path to the configuration file
@@ -33,7 +33,7 @@ interface ConfigInterface
     /**
      * gets a configuration entry from the object
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $keys           keys to find the config entry
      */
@@ -42,7 +42,7 @@ interface ConfigInterface
     /**
      * returns the path to the folder containing the config file
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getConfigFolder() : string;

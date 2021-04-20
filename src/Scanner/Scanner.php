@@ -3,7 +3,7 @@
  * contains Scanner class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -19,7 +19,7 @@ use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
  * class to scan a folder a start the tests on the files
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 class Scanner implements ScannerInterface
@@ -27,7 +27,7 @@ class Scanner implements ScannerInterface
     /**
      * sets dependencies
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           TesterInterface $tester         tester object to use
      */
@@ -38,7 +38,7 @@ class Scanner implements ScannerInterface
     /**
      * starts the scan
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array           $paths          list of paths to scan
      * @param           string          $absoluteFolder absolute path to the root of the project to scan

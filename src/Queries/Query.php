@@ -3,7 +3,7 @@
  * contains Query class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -17,7 +17,7 @@ use DavidLienhard\Database\QueryValidator\Queries\QueryInterface;
  * object that will hold a database-query
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 class Query implements QueryInterface
@@ -25,7 +25,7 @@ class Query implements QueryInterface
     /**
      * creates the query-object
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $query          string representation of the query
      * @param           array<string>   $parameters     list of parameters passed to the query
@@ -43,7 +43,7 @@ class Query implements QueryInterface
     /**
      * returns the query as a string
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getQuery() : string
@@ -54,7 +54,7 @@ class Query implements QueryInterface
     /**
      * returns the parameters as an array
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getParameters() : array
@@ -65,7 +65,7 @@ class Query implements QueryInterface
     /**
      * returns the filename as a string
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getFilename() : string
@@ -76,7 +76,7 @@ class Query implements QueryInterface
     /**
      * returns the linenumber as a string
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getLinenumber() : int

@@ -12,7 +12,7 @@ interface TestFileInterface
     /**
      * sets dependencies
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $file           path to the file to validate
      * @param           OutputInterface $output         output object to use
@@ -23,7 +23,7 @@ interface TestFileInterface
     /**
      * starts the validation
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function validate() : void;
@@ -31,8 +31,8 @@ interface TestFileInterface
     /**
      * validates a list of queries
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string              $file       the file containing the queries
      * @param           array               $queries    the queries to validate
      * @throws          \Exception                      if the file does not exist
@@ -42,7 +42,7 @@ interface TestFileInterface
     /**
      * returns the number of errors
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getErrorcount() : int;
@@ -50,7 +50,7 @@ interface TestFileInterface
     /**
      * returns the number of queries scanned
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getQuerycount() : int;
@@ -58,7 +58,7 @@ interface TestFileInterface
     /**
      * returns the list of errors
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getErrors() : array;

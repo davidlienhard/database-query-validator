@@ -3,7 +3,7 @@
  * containers Query interface
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -15,7 +15,7 @@ namespace DavidLienhard\Database\QueryValidator\Queries;
  * describes an object that will hold a database-query
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 interface QueryInterface
@@ -23,7 +23,7 @@ interface QueryInterface
     /**
      * creates the query-object
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $query          string representation of the query
      * @param           array<string>   $parameters     list of parameters passed to the query
@@ -40,7 +40,7 @@ interface QueryInterface
     /**
      * returns the query as a string
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getQuery() : string;
@@ -48,7 +48,7 @@ interface QueryInterface
     /**
      * returns the parameters as an array
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getParameters() : array;
@@ -56,7 +56,7 @@ interface QueryInterface
     /**
      * returns the filename as a string
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getFilename() : string;
@@ -64,7 +64,7 @@ interface QueryInterface
     /**
      * returns the linenumber as a string
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getLinenumber() : int;

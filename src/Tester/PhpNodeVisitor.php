@@ -31,6 +31,13 @@ class PhpNodeVisitor extends NodeVisitorAbstract
      */
     private array $queries = [];
 
+    /**
+     * initializes the object & saves the current filename
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           string              $filename   name of the file currently beeing parsed
+     */
     public function __construct(private string $filename)
     {
     }

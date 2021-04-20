@@ -56,7 +56,10 @@ class PhpNodeVisitor extends NodeVisitorAbstract
             return null;
         }
 
-        if (($node->var->name->name ?? "") !== "db" || ($node->name->name ?? "") !== "query") {
+        $isDbVar = ($node->var->name ?? "") === "db" || ($node->var->name->name ?? "") === "db";
+        $isQueryNode = ($node->name->name ?? "") === "query";
+
+        if (!$isDbVar || !$isQueryNode) {
             return null;
         }
 

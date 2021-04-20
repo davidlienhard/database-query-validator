@@ -6,13 +6,14 @@ namespace DavidLienhard\Database\QueryValidator\Tester;
 
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
+use DavidLienhard\Database\QueryValidator\Tester\PhpNodeVisitor;
 use DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
-use PhpMyAdmin\SqlParser\Lexer;
-use PhpMyAdmin\SqlParser\Parser;
+use PhpMyAdmin\SqlParser\Lexer as SqlLexer;
+use PhpMyAdmin\SqlParser\Parser as SqlParser;
 use PhpMyAdmin\SqlParser\Utils\Error as SqlParserError;
 use PhpParser\Error as PhpParserError;
-use PhpParser\NodeTraverser;
-use PhpParser\ParserFactory;
+use PhpParser\NodeTraverser as PhpNodeTraverser;
+use PhpParser\ParserFactory as PhpParserFactory;
 
 class TestFile implements TestFileInterface
 {
@@ -52,9 +53,9 @@ class TestFile implements TestFileInterface
     public function validate() : void
     {
         try {
-            $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
-            $traverser = new NodeTraverser;
-            $visitor = new Visitor;
+            $parser = (new PhpParserFactory)->create(PhpParserFactory::PREFER_PHP7);
+            $traverser = new PhpNodeTraverser;
+            $visitor = new PhpNodeVisitor;
             $traverser->addVisitor($visitor);
 
             $fileContent = \file_get_contents($this->file);
@@ -271,8 +272,8 @@ class TestFile implements TestFileInterface
             throw new \Exception("unable to read query");
         }
 
-        $lexer = new Lexer($query, false);
-        $parser = new Parser($lexer->list);
+        $lexer = new SqlLexer($query, false);
+        $parser = new SqlParser($lexer->list);
         $errors = SqlParserError::get([$lexer, $parser]);
         if (count($errors) === 0) {
             return true;

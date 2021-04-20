@@ -1,6 +1,6 @@
 <?php
 /**
- * contains the Visitor class
+ * contains the PhpNodeVisitor class
  *
  * @category        Database Query Validator
  * @author          David Lienhard <david@lienhard.win>
@@ -22,7 +22,7 @@ use PhpParser\PrettyPrinter\Standard;
  * @author          David Lienhard <david@lienhard.win>
  * @copyright       David Lienhard
  */
-class Visitor extends NodeVisitorAbstract
+class PhpNodeVisitor extends NodeVisitorAbstract
 {
     /**
      * list of all the queries found

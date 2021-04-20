@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Tester;
 
+use \DavidLienhard\Database\QueryValidator\Queries\Query;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\NodeVisitorAbstract;
@@ -26,9 +27,20 @@ class PhpNodeVisitor extends NodeVisitorAbstract
 {
     /**
      * list of all the queries found
-     * @var     array
+     * @var     array<\DavidLienhard\Database\QueryValidator\Queries\QueryInterface>
      */
     private array $queries = [];
+
+    /**
+     * initializes the object & saves the current filename
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           string              $filename   name of the file currently beeing parsed
+     */
+    public function __construct(private string $filename)
+    {
+    }
 
     /**
      * enters a \PhpParser node and adds the content to the list if its a db->query()
@@ -40,14 +52,26 @@ class PhpNodeVisitor extends NodeVisitorAbstract
      */
     public function enterNode(Node $node) : int|Node|null
     {
-        if ($node instanceof MethodCall) {
-            if (($node->var->name->name ?? "") === "db" && ($node->name->name ?? "") === "query") {
-                $this->queries[] = [
-                    "line" => $node->name->getLine() ?? 0,
-                    "data" => explode("\n", (new Standard)->prettyPrint($node->args))
-                ];
-            }
+        if (!($node instanceof MethodCall)) {
+            return null;
         }
+
+        if (($node->var->name->name ?? "") !== "db" || ($node->name->name ?? "") !== "query") {
+            return null;
+        }
+
+        $queryPrettyPrint = (new Standard)->prettyPrint($node->args);
+        $queryContent = explode("\n", $queryPrettyPrint);
+        $query = $queryContent[0] ?? "";
+        unset($queryContent[0]);
+        $parameters = count($queryContent) > 0 ? $queryContent : [];
+
+        $this->queries[] = new Query(
+            $query,
+            $parameters,
+            $this->filename,
+            $node->name->getLine() ?? 0
+        );
 
         return null;
     }
@@ -57,6 +81,7 @@ class PhpNodeVisitor extends NodeVisitorAbstract
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
+     * @return          array<\DavidLienhard\Database\QueryValidator\Queries\QueryInterface>
      */
     public function getQueries() : array
     {

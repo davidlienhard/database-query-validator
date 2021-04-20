@@ -55,7 +55,7 @@ class TestFile implements TestFileInterface
         try {
             $parser = (new PhpParserFactory)->create(PhpParserFactory::PREFER_PHP7);
             $traverser = new PhpNodeTraverser;
-            $visitor = new PhpNodeVisitor;
+            $visitor = new PhpNodeVisitor($this->file);
             $traverser->addVisitor($visitor);
 
             $fileContent = \file_get_contents($this->file);
@@ -107,7 +107,7 @@ class TestFile implements TestFileInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           string              $file       the file containing the queries
-     * @param           array               $queries    the queries to validate
+     * @param           array<\DavidLienhard\Database\QueryValidator\Queries\QueryInterface>    $queries    the queries to validate
      * @throws          \Exception                      if the file does not exist
      * @uses            self::addError()
      * @uses            self::checkPreparedStatement()
@@ -116,36 +116,38 @@ class TestFile implements TestFileInterface
      */
     public function validateQueries(string $file, array $queries) : void
     {
-        $hasPrepared = false;
-
         foreach ($queries as $query) {
             $hasError = false;
-            $argumentCount = count($query['data'] ?? []);
-            $isPrepared = $argumentCount > 1;
+            $isPrepared = count($query->getParameters()) > 0;
 
             if ($isPrepared) {
-                $hasPrepared = true;
-            }
-
-            if ($isPrepared) {
-                $queryString = $query['data'][0];
-                unset($query['data'][0]);
-                $parameters = array_values($query['data']);
+                $queryString = $query->getQuery();
+                $parameters = $query->getParameters();
 
                 $hasError = $this->checkPreparedStatement(
-                    $file,
-                    $query['line'],
+                    $query->getFilename(),
+                    $query->getLinenumber(),
                     $queryString,
                     ...$parameters
                 ) ? $hasError : true;
             }
 
-            if (!$this->ignoresyntax && self::checkMysqlSyntax($query['data'][0] ?? "") !== true) {
-                $this->addError($file, $query['line'], "invalid sql syntax");
+            if (!$this->ignoresyntax && self::checkMysqlSyntax($query->getQuery()) !== true) {
+                $this->addError(
+                    $query->getFilename(),
+                    $query->getLinenumber(),
+                    "invalid sql syntax"
+                );
+
                 $hasError = true;
             }
 
-            $this->output->query($file, $query['line'], !$hasError);
+            $this->output->query(
+                $query->getFilename(),
+                $query->getLinenumber(),
+                !$hasError
+            );
+
             $this->queryCount++;
         }//end foreach
     }

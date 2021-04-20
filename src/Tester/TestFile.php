@@ -31,7 +31,7 @@ class TestFile implements TestFileInterface
     /**
      * sets dependencies
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $file           path to the file to validate
      * @param           OutputInterface $output         output object to use
@@ -47,7 +47,7 @@ class TestFile implements TestFileInterface
     /**
      * starts the validation
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function validate() : void
@@ -104,7 +104,7 @@ class TestFile implements TestFileInterface
     /**
      * validates a list of queries
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string              $file       the file containing the queries
      * @param           array<\DavidLienhard\Database\QueryValidator\Queries\QueryInterface>    $queries    the queries to validate
@@ -155,7 +155,7 @@ class TestFile implements TestFileInterface
     /**
      * checks if a prepared statement is valid
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string              $file       the file containing the query
      * @param           int                 $linenumber line where the query starts
@@ -254,7 +254,7 @@ class TestFile implements TestFileInterface
     /**
      * checks if the syntax of a query is valid
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $query      query to analyze
      * @return          bool|array                  true or a list of errors
@@ -286,7 +286,7 @@ class TestFile implements TestFileInterface
     /**
      * adds an error to the internal error list
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string              $file       file where the error occured
      * @param           int                 $line       linenumber of the beginning of the query
@@ -300,7 +300,7 @@ class TestFile implements TestFileInterface
     /**
      * returns the number of errors
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getErrorcount() : int
@@ -311,7 +311,7 @@ class TestFile implements TestFileInterface
     /**
      * returns the number of queries scanned
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getQuerycount() : int
@@ -322,7 +322,7 @@ class TestFile implements TestFileInterface
     /**
      * returns the list of errors
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getErrors() : array

@@ -3,7 +3,7 @@
  * containers Tester class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -19,7 +19,7 @@ use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
  * class to test files
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 class Tester implements TesterInterface
@@ -42,7 +42,7 @@ class Tester implements TesterInterface
     /**
      * sets dependencies
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           OutputInterface $output         output object to use
      * @param           DumpData        $dumpData       data from the database-dump
@@ -54,7 +54,7 @@ class Tester implements TesterInterface
     /**
      * tests one file
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $file           file to scan
      */
@@ -80,7 +80,7 @@ class Tester implements TesterInterface
     /**
      * adds an error to the internal error list
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string              $file       file where the error occured
      * @param           int                 $line       linenumber of the beginning of the query
@@ -94,7 +94,7 @@ class Tester implements TesterInterface
     /**
      * adds multiple errors to the liost
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array               $errors     errors to add
      */
@@ -106,7 +106,7 @@ class Tester implements TesterInterface
     /**
      * adds multiple scanned files to the liost
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array               $scannedFiles   files to add
      */
@@ -121,7 +121,7 @@ class Tester implements TesterInterface
     /**
      * adds querycount to current count
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int                 $queryCount     query count to add
      */
@@ -133,7 +133,7 @@ class Tester implements TesterInterface
     /**
      * returns the number of errors
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getErrorcount() : int
@@ -144,7 +144,7 @@ class Tester implements TesterInterface
     /**
      * returns the number of scanned files
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getFilecount() : int
@@ -155,7 +155,7 @@ class Tester implements TesterInterface
     /**
      * returns the list of scanned files
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getScannedFiles() : array
@@ -166,7 +166,7 @@ class Tester implements TesterInterface
     /**
      * returns the number of queries scanned
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getQuerycount() : int
@@ -177,7 +177,7 @@ class Tester implements TesterInterface
     /**
      * returns the list of errors
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getErrors() : array

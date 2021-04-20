@@ -3,7 +3,7 @@
  * contains the PhpNodeVisitor class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -20,7 +20,7 @@ use PhpParser\PrettyPrinter\Standard;
 /**
  * inspects a node from \PhpParser
  *
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 class PhpNodeVisitor extends NodeVisitorAbstract
@@ -34,7 +34,7 @@ class PhpNodeVisitor extends NodeVisitorAbstract
     /**
      * initializes the object & saves the current filename
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string              $filename   name of the file currently beeing parsed
      */
@@ -45,7 +45,7 @@ class PhpNodeVisitor extends NodeVisitorAbstract
     /**
      * enters a \PhpParser node and adds the content to the list if its a db->query()
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           Node                $node       the node to inspect
      * @return          null|int|Node                   Replacement node (or special return value)
@@ -82,7 +82,7 @@ class PhpNodeVisitor extends NodeVisitorAbstract
     /**
      * returns the queries found in the file
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          array<\DavidLienhard\Database\QueryValidator\Queries\QueryInterface>
      */

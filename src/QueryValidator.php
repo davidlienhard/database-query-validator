@@ -3,7 +3,7 @@
  * main entrypoint to validate queries
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -23,7 +23,7 @@ use DavidLienhard\Database\QueryValidator\Tester\Tester;
  * main entrypoint to validate queries
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 class QueryValidator
@@ -31,7 +31,7 @@ class QueryValidator
     /**
      * main method to call
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public static function main() : void
@@ -70,7 +70,7 @@ class QueryValidator
     /**
      * fetchs config
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     private static function getConfig() : ConfigInterface
@@ -107,7 +107,7 @@ class QueryValidator
     /**
      * fetches paths to scan from configuration-data
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ConfigInterface $config         configuration object to use
      */
@@ -130,7 +130,7 @@ class QueryValidator
     /**
      * fetches exclusions from configuration-data
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ConfigInterface $config         configuration object to use
      */
@@ -152,7 +152,7 @@ class QueryValidator
     /**
      * fetches dump data from database dump
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ConfigInterface $config         configuration object to use
      */

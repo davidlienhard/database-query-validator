@@ -3,7 +3,7 @@
  * interface for tester class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -18,7 +18,7 @@ use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
  * interface for tester class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 interface TesterInterface
@@ -26,7 +26,7 @@ interface TesterInterface
     /**
      * sets dependencies
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           OutputInterface $output         output object to use
      * @param           DumpData        $dumpData       data from the database-dump
@@ -36,7 +36,7 @@ interface TesterInterface
     /**
      * tests one file
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $file           file to scan
      */
@@ -45,7 +45,7 @@ interface TesterInterface
     /**
      * returns the number of errors
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getErrorcount() : int;
@@ -53,7 +53,7 @@ interface TesterInterface
     /**
      * returns the number of scanned files
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getFilecount() : int;
@@ -61,7 +61,7 @@ interface TesterInterface
     /**
      * returns the list of scanned files
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getScannedFiles() : array;
@@ -69,7 +69,7 @@ interface TesterInterface
     /**
      * returns the number of queries scanned
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getQuerycount() : int;
@@ -77,7 +77,7 @@ interface TesterInterface
     /**
      * returns the list of errors
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getErrors() : array;

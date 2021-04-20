@@ -3,7 +3,7 @@
  * contains Standard Output class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -22,7 +22,7 @@ class Standard implements OutputInterface
     /**
      * outputs the result of a single query
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $filename       name if the file containing the query
      * @param           int             $line           number of the line
@@ -39,7 +39,7 @@ class Standard implements OutputInterface
     /**
      * outputs an error
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $error          error to output
      * @param           int             $errorCode      code of the error
@@ -53,7 +53,7 @@ class Standard implements OutputInterface
     /**
      * outputs the summary at the end of the validation
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           TesterInterface $tester         tester object containing all the results
      */

@@ -3,7 +3,7 @@
  * contains DumpData class
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -15,7 +15,7 @@ namespace DavidLienhard\Database\QueryValidator\DumpData;
  * contains data from the databasedump in structured form
  *
  * @category        Database Query Validator
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 class DumpData
@@ -37,7 +37,7 @@ class DumpData
      * expects the dump-data as an associative array with the keys
      * `tableName`, `columnName` & `dataType`
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array           $dumpData       data from the dump
      */
@@ -56,7 +56,7 @@ class DumpData
     /**
      * returns the data-type of a column with a specific table
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $tableName      name of the table
      * @param           string          $columnName     name of the column
@@ -69,7 +69,7 @@ class DumpData
     /**
      * returns the data-type of a column without a known table
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $columnName     name of the column
      */

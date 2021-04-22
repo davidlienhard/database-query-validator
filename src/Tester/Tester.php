@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Tester;
 
+use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
 use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
@@ -44,11 +45,15 @@ class Tester implements TesterInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
+     * @param           ConfigInterface $config         config object to use
      * @param           OutputInterface $output         output object to use
      * @param           DumpData        $dumpData       data from the database-dump
      */
-    public function __construct(private OutputInterface $output, private DumpData $dumpData)
-    {
+    public function __construct(
+        private ConfigInterface $config,
+        private OutputInterface $output,
+        private DumpData $dumpData
+    ) {
     }
 
     /**
@@ -61,7 +66,13 @@ class Tester implements TesterInterface
     public function test(string $file) : void
     {
         try {
-            $testFile = new TestFile($file, $this->output, $this->dumpData);
+            $testFile = new TestFile(
+                $file,
+                $this->config,
+                $this->output,
+                $this->dumpData
+            );
+
             $testFile->validate();
 
             $this->addErrors($testFile->getErrors());
@@ -74,7 +85,7 @@ class Tester implements TesterInterface
                 $e->getCode(),
                 $e
             );
-        }
+        }//end try
     }
 
     /**

@@ -54,7 +54,7 @@ class QueryValidator
 
         ini_set("xdebug.max_nesting_level", "1000");
 
-        $tester = new Tester($output, $dumpData);
+        $tester = new Tester($config, $output, $dumpData);
 
         $scanner = new Scanner($tester);
 

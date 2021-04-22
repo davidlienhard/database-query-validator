@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Tester;
 
+use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
 
@@ -28,10 +29,15 @@ interface TesterInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
+     * @param           ConfigInterface $config         config object to use
      * @param           OutputInterface $output         output object to use
      * @param           DumpData        $dumpData       data from the database-dump
      */
-    public function __construct(OutputInterface $output, DumpData $dumpData);
+    public function __construct(
+        ConfigInterface $config,
+        OutputInterface $output,
+        DumpData $dumpData
+    );
 
     /**
      * tests one file

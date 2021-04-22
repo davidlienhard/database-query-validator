@@ -69,6 +69,11 @@ class PhpNodeVisitor extends NodeVisitorAbstract
         unset($queryContent[0]);
         $parameters = count($queryContent) > 0 ? $queryContent : [];
 
+        // format query (string slashes & convert newlines)
+        $query = trim($query, "\"'");
+        $query = str_replace("\\n", "\n", $query);
+
+        // add new query
         $this->queries[] = new Query(
             $query,
             $parameters,

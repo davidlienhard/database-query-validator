@@ -9,6 +9,7 @@ use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
 use DavidLienhard\Database\QueryValidator\Queries\QueryInterface;
 use DavidLienhard\Database\QueryValidator\Tester\PhpNodeVisitor;
 use DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
+use DavidLienhard\Database\QueryValidator\Tester\Tests\Parameters as ParametersTest;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\Syntax as SyntaxTest;
 use PhpParser\Error as PhpParserError;
 use PhpParser\NodeTraverser as PhpNodeTraverser;
@@ -118,15 +119,8 @@ class TestFile implements TestFileInterface
             $hasError = false;
 
             if ($query->isPrepared()) {
-                $queryString = $query->getQuery();
-                $parameters = $query->getParameters();
-
-                $hasError = $this->checkPreparedStatement(
-                    $query->getFilename(),
-                    $query->getLinenumber(),
-                    $queryString,
-                    ...$parameters
-                ) ? $hasError : true;
+                $testResult = $this->runTest(ParametersTest::class, $query);
+                $hasError = $testResult === false ? true : $hasError;
             }
 
             if (!$this->ignoresyntax) {
@@ -142,105 +136,6 @@ class TestFile implements TestFileInterface
 
             $this->queryCount++;
         }//end foreach
-    }
-
-    /**
-     * checks if a prepared statement is valid
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     * @param           string              $file       the file containing the query
-     * @param           int                 $linenumber line where the query starts
-     * @param           string              $query      query to analyze
-     * @param           string              $parameters data paramaters
-     */
-    private function checkPreparedStatement(string $file, int $linenumber, string $query, string ...$parameters) : bool
-    {
-        $isValid = true;
-        $allowedTypes = [ "s", "i", "d", "b" ];
-
-        // filter splat operators
-        $parameters = array_filter(
-            $parameters,
-            fn ($p) => substr($p, 0, 3) !== "..."
-        );
-
-        $numberOfQuestionmarks = substr_count($query, "?");
-        $numberOfDataParameters = count($parameters);
-
-        // validate parameters and get types
-        $types = "";
-        $parameterCount = 0;
-
-        foreach ($parameters as $parameter) {
-            $parameterCount++;
-            $regex = "/^new DBParam\(\"(".implode("|", $allowedTypes).")\", (.*)\)$/";
-            if (preg_match($regex, trim($parameter), $matches)) {
-                $types .= $matches[1];
-            } else {
-                $types .= "-";
-                $this->addError(
-                    $file,
-                    $linenumber,
-                    "parameter '".$parameterCount."' is invalid"
-                );
-            }
-        }
-
-        if ($numberOfQuestionmarks !== $numberOfDataParameters) {
-            $this->addError(
-                $file,
-                $linenumber,
-                "number of question marks in query (".$numberOfQuestionmarks.") ".
-                "or number of data parameters (".$numberOfDataParameters.") "
-            );
-            $isValid = false;
-        }
-
-        // fetch columns from query
-        if (preg_match_all('/(?:(`([A-z0-9\-\_]+)`\.))?`([A-z0-9\-\_\$"\.\ "]+)`( |)(=|>=|<=|LIKE|!=|<=>)( |)\?/', $query, $matches)) {
-            for ($columnNumber = 0; $columnNumber < count($matches[0] ?? []); $columnNumber++) {
-                $tableName = $matches[2][$columnNumber] ?? "";
-                $columnName = $matches[3][$columnNumber] ?? "";
-
-                if ($tableName !== "" && $this->dumpData->getWithTable($tableName, $columnName) !== null) {
-                    if ($this->dumpData->getWithTable($tableName, $columnName) !== ($types[$columnNumber] ?? "")) {
-                        $this->addError(
-                            $file,
-                            $linenumber,
-                            "given type '".($types[$columnNumber] ?? "")."' ".
-                            "does not match dump type '".$this->dumpData->getWithTable($tableName, $columnName)."' ".
-                            "in column `".$tableName."`.`".$columnName."`"
-                        );
-                        $isValid = false;
-                    }
-                } elseif ($this->dumpData->getWithoutTable($columnName) !== null) {
-                    if ($this->dumpData->getWithoutTable($columnName) !== ($types[$columnNumber] ?? "")) {
-                        $this->addError(
-                            $file,
-                            $linenumber,
-                            "given type '".($types[$columnNumber] ?? "")."' ".
-                            "does not match dump type '".$this->dumpData->getWithoutTable($columnName)."' ".
-                            "in column `".$columnName."`"
-                        );
-                        $isValid = false;
-                    }
-                }//end if
-            }//end for
-        }//end if
-
-        for ($i = 0; $i < strlen($types); $i++) {
-            if (!in_array($types[$i], $allowedTypes, true)) {
-                $this->addError(
-                    $file,
-                    $linenumber,
-                    "invalid type supplied. '".$types[$i]."' given. must be '".implode(", ", $allowedTypes)."'"
-                );
-                $isValid = false;
-            }
-        }
-
-        return $isValid;
     }
 
     /**

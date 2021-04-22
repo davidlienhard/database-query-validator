@@ -68,4 +68,12 @@ interface QueryInterface
      * @copyright       David Lienhard
      */
     public function getLinenumber() : int;
+
+    /**
+     * returns whether this query is prepared or not
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function isPrepared() : bool;
 }

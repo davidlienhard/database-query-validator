@@ -83,4 +83,15 @@ class Query implements QueryInterface
     {
         return $this->linenumber;
     }
+
+    /**
+     * returns whether this query is prepared or not
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function isPrepared() : bool
+    {
+        return count($this->parameters) > 0;
+    }
 }

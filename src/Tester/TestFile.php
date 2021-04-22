@@ -116,9 +116,8 @@ class TestFile implements TestFileInterface
     {
         foreach ($queries as $query) {
             $hasError = false;
-            $isPrepared = count($query->getParameters()) > 0;
 
-            if ($isPrepared) {
+            if ($query->isPrepared()) {
                 $queryString = $query->getQuery();
                 $parameters = $query->getParameters();
 

@@ -40,6 +40,7 @@ class Parameters extends TestAbstract
             } else {
                 $types .= "-";
                 $this->errors[] = "parameter '".$parameterCount."' is invalid";
+                $isValid = false;
             }
         }
 

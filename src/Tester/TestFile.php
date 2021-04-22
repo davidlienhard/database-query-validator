@@ -201,7 +201,7 @@ class TestFile implements TestFileInterface
     private function runTest(string $className, QueryInterface $query, string $errorPrefix = "") : bool
     {
         $tester = new $className($query, $this->dumpData);
-        $tester->validate();
+        $result = $tester->validate();
         $errors = $tester->getErrors();
         $errorCount = $tester->getErrorcount();
         unset($tester);
@@ -214,6 +214,6 @@ class TestFile implements TestFileInterface
             );
         }
 
-        return $errorCount > 0;
+        return $result;
     }
 }

@@ -7,6 +7,8 @@ The following configuration options are possible:
  - **`paths`** (`array`): list of paths (folders or files) to scan.
  - **`exclusions`** (`array`): list of paths to exclude from the scans
  - **`dumpfile`** (`string`): path to a mysql dump file to use for type-checks
+ - **`parameters`** (`object`):
+   - `ignoresyntax` (`bool`): whether or not to ignore syntax-errors in the queries
 
 All paths are relative to the path of the configuration file. If no configuration file can be found all the files in your currect folder will be scanned.
 
@@ -19,7 +21,10 @@ All paths are relative to the path of the configuration file. If no configuratio
     "exclusions": [
         "**/exclude.php"
     ],
-    "dumpfile": "dump.sql"
+    "dumpfile": "dump.sql",
+    "parameters": {
+        "ignoresyntax": false
+    }
 }
 ```
 

@@ -129,7 +129,14 @@ class TestFile implements TestFileInterface
                 $hasError = $testResult === false ? true : $hasError;
             }
 
-            if (!$this->ignoresyntax) {
+
+            try {
+                $ignoresyntax = (bool) $this->config->get("parameters", "ignoresyntax");
+            } catch (\Exception $e) {
+                $ignoresyntax = false;
+            }
+
+            if (!$ignoresyntax) {
                 $testResult = $this->runTest(SyntaxTest::class, $query, "invalid syntax");
                 $hasError = $testResult === false ? true : $hasError;
             }

@@ -6,11 +6,10 @@ namespace DavidLienhard\Database\QueryValidator\Tester;
 
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
+use DavidLienhard\Database\QueryValidator\Queries\QueryInterface;
 use DavidLienhard\Database\QueryValidator\Tester\PhpNodeVisitor;
 use DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
-use PhpMyAdmin\SqlParser\Lexer as SqlLexer;
-use PhpMyAdmin\SqlParser\Parser as SqlParser;
-use PhpMyAdmin\SqlParser\Utils\Error as SqlParserError;
+use DavidLienhard\Database\QueryValidator\Tester\Tests\Syntax as SyntaxTest;
 use PhpParser\Error as PhpParserError;
 use PhpParser\NodeTraverser as PhpNodeTraverser;
 use PhpParser\ParserFactory as PhpParserFactory;
@@ -111,7 +110,6 @@ class TestFile implements TestFileInterface
      * @throws          \Exception                      if the file does not exist
      * @uses            self::addError()
      * @uses            self::checkPreparedStatement()
-     * @uses            self::checkMysqlSyntax()
      * @uses            self::$queryCount
      */
     public function validateQueries(string $file, array $queries) : void
@@ -132,14 +130,9 @@ class TestFile implements TestFileInterface
                 ) ? $hasError : true;
             }
 
-            if (!$this->ignoresyntax && self::checkMysqlSyntax($query->getQuery()) !== true) {
-                $this->addError(
-                    $query->getFilename(),
-                    $query->getLinenumber(),
-                    "invalid sql syntax"
-                );
-
-                $hasError = true;
+            if (!$this->ignoresyntax) {
+                $testResult = $this->runTest(SyntaxTest::class, $query, "invalid syntax");
+                $hasError = $testResult === false ? true : $hasError;
             }
 
             $this->output->query(
@@ -252,38 +245,6 @@ class TestFile implements TestFileInterface
     }
 
     /**
-     * checks if the syntax of a query is valid
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     * @param           string          $query      query to analyze
-     * @return          bool|array                  true or a list of errors
-     * @uses            \PhpMyAdmin\SqlParser\Lexer
-     * @uses            \PhpMyAdmin\SqlParser\Parser
-     * @uses            \PhpMyAdmin\SqlParser\Utils\Error
-     */
-    public static function checkMysqlSyntax(string $query) : bool|array
-    {
-        $query = trim($query, " \t\n\r\0\x0B\"");
-
-        $from = [ "/\\\\n/", "/\?/" ];  // replace \n (as string) with newlines and questionmarks with 1 for validation
-        $to = [ "\n", 1 ];
-        $query = \preg_replace($from, $to, $query);
-
-        if ($query === null) {
-            throw new \Exception("unable to read query");
-        }
-
-        $lexer = new SqlLexer($query, false);
-        $parser = new SqlParser($lexer->list);
-        $errors = SqlParserError::get([$lexer, $parser]);
-        if (count($errors) === 0) {
-            return true;
-        }
-        return SqlParserError::format($errors);
-    }
-
-    /**
      * adds an error to the internal error list
      *
      * @author          David Lienhard <github@lienhard.win>
@@ -328,5 +289,24 @@ class TestFile implements TestFileInterface
     public function getErrors() : array
     {
         return $this->errors;
+    }
+
+    private function runTest(string $className, QueryInterface $query, string $errorPrefix = "") : bool
+    {
+        $tester = new $className($query, $this->dumpData);
+        $tester->validate();
+        $errors = $tester->getErrors();
+        $errorCount = $tester->getErrorcount();
+        unset($tester);
+
+        foreach ($errors as $error) {
+            $this->addError(
+                $query->getFilename(),
+                $query->getLinenumber(),
+                $errorPrefix." '".$error."'"
+            );
+        }
+
+        return $errorCount > 0;
     }
 }

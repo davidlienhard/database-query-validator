@@ -38,7 +38,8 @@ class Syntax extends TestAbstract
             return true;
         }
 
-        $this->errors [] = SqlParserError::format($errors);
+        $errors = SqlParserError::format($errors);
+        $this->errors = array_merge($this->errors, $errors);
 
         return false;
     }

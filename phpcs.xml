@@ -8,4 +8,5 @@
     <!-- Paths to check -->
     <file>query-validator</file>
     <file>src</file>
+    <file>tests</file>
 </ruleset>

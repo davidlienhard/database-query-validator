@@ -63,7 +63,7 @@ class DumpData
      */
     public function getWithTable(string $tableName, string $columnName) : string|null
     {
-        return $withTable[$tableName][$columnName] ?? null;
+        return $this->withTable[$tableName][$columnName] ?? null;
     }
 
     /**
@@ -75,6 +75,6 @@ class DumpData
      */
     public function getWithoutTable(string $columnName) : string|null
     {
-        return $withTable[$columnName] ?? null;
+        return $this->withoutTable[$columnName] ?? null;
     }
 }

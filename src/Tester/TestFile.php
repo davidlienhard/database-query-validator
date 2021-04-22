@@ -132,9 +132,7 @@ class TestFile implements TestFileInterface
 
             if (!$this->ignoresyntax) {
                 $testResult = $this->runTest(SyntaxTest::class, $query, "invalid syntax");
-                if ($testResult === false) {
-                    $hasError = true;
-                }
+                $hasError = $testResult === false ? true : $hasError;
             }
 
             $this->output->query(

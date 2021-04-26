@@ -10,7 +10,7 @@ use DavidLienhard\Database\QueryValidator\Tester\Tests\Syntax as SyntaxTest;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\TestInterface;
 use PHPUnit\Framework\TestCase;
 
-class SyntayTest extends TestCase
+class SyntaxTestCase extends TestCase
 {
     /**
      * @covers DavidLienhard\Database\QueryValidator\Tester\Tests\Syntax

@@ -134,4 +134,26 @@ class QueryTest extends TestCase
 
         $this->assertEquals($this->linenumber, $query->getLinenumber());
     }
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Queries\Query
+     * @test
+     */
+    public function testQueryTypes(): void
+    {
+        $queries = [
+            "SELECT * FROM `user`"                => Query::TYPE_SELECT,
+            "INSERT INTO `user` SET `userID` = 1" => Query::TYPE_INSERT,
+            "UPDATE `user` SET `userID` = 1"      => Query::TYPE_UPDATE,
+            "DELETE FROM `user`"                  => Query::TYPE_DELETE,
+            "CREATE TABLE `user` ()"              => Query::TYPE_CREATE,
+            "OPTIMIZE TABLE `user`"               => Query::TYPE_OPTIMIZE,
+            "unknown query"                       => Query::TYPE_UNKNOWN
+        ];
+
+        foreach ($queries as $query => $type) {
+            $query = new Query($query, [], $this->filename, $this->linenumber);
+            $this->assertEquals($type, $query->getType());
+        }
+    }
 }

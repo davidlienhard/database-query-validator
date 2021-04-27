@@ -2,7 +2,6 @@
 /**
  * contains ColumnInterface
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -14,7 +13,6 @@ namespace DavidLienhard\Database\QueryValidator\DumpData;
 /**
  * interface for a column class
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

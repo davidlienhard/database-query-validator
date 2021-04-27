@@ -2,7 +2,6 @@
 /**
  * contains Query class
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -16,7 +15,6 @@ use DavidLienhard\Database\QueryValidator\Queries\QueryInterface;
 /**
  * object that will hold a database-query
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

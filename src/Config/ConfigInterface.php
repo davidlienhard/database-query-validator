@@ -2,7 +2,6 @@
 /**
  * contains Config Interface class
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -14,7 +13,6 @@ namespace DavidLienhard\Database\QueryValidator\Config;
 /**
  * object that contains configuration data for this validator
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

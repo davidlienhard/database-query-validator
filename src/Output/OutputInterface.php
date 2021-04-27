@@ -2,7 +2,6 @@
 /**
  * contains Outout interface
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -16,7 +15,6 @@ use \DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
 /**
  * interface to output results of the validation
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

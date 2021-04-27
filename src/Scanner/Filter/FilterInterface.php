@@ -2,7 +2,6 @@
 /**
  * contains Filter Interface
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -14,7 +13,6 @@ namespace DavidLienhard\Database\QueryValidator\Scanner\Filter;
 /**
  * contains Filter Interface
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

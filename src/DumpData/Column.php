@@ -2,7 +2,6 @@
 /**
  * contains Column class
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -16,7 +15,6 @@ use DavidLienhard\Database\QueryValidator\DumpData\ColumnInterface;
 /**
  * object that will hold a column
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

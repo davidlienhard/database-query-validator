@@ -2,7 +2,6 @@
 /**
  * containers Tester class
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -19,7 +18,6 @@ use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
 /**
  * class to test files
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

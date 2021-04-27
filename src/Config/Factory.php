@@ -2,7 +2,6 @@
 /**
  * contains Config Factory class
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -17,7 +16,6 @@ use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 /**
  * factory to create a config object
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

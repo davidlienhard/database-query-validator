@@ -48,7 +48,7 @@ class FromMysqlDump
                 $tableName = $matches[1];
             }
 
-            if (preg_match("/^  `([A-z0-9\-\_]+)` ([a-z]+)( |\()(NOT NULL|)/", $line, $matches)) {
+            if (preg_match("/^  `([A-z0-9\-\_]+)` ([A-z]+)( |\()(NOT NULL|)/", $line, $matches)) {
                 $dumpData[] = new Column(
                     table: $tableName,
                     name: $matches[1],

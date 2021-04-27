@@ -48,13 +48,13 @@ class FromMysqlDump
                 $tableName = $matches[1];
             }
 
-            if (preg_match("/^  `([A-z0-9\-\_]+)` ([A-z]+)( |\()(NOT NULL|)/", $line, $matches)) {
+            if (preg_match("/^  `([A-z0-9\-\_]+)` ([A-z]+)( |\()/", $line, $matches)) {
                 $dumpData[] = new Column(
                     table: $tableName,
                     name: $matches[1],
                     type: self::convertType($matches[2]),
-                    isNull: $matches[4] !== "NOT NULL",
-                    isText: $matches[2] === "text"
+                    isNull: !str_contains(strtoupper($line), "NOT NULL"),
+                    isText: strtolower($matches[2]) === "text"
                 );
             }
         }//end foreach

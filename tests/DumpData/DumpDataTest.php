@@ -47,4 +47,24 @@ class DumpDataTest extends TestCase
         $this->assertEquals("s", $dump->getWithoutTable("userDescription")->getType());
         $this->assertEquals("i", $dump->getWithoutTable("userPermissions")->getType());
     }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\DumpData\DumpData
+     * @test
+     */
+    public function testCanGetAlColumsForTable(): void
+    {
+        $dumpData = [
+            "userID"          => new Column("user", "userID", "i", false, false),
+            "userName"        => new Column("user", "userName", "s", false, false),
+            "userDescription" => new Column("user", "userDescription", "s", false, true),
+            "userPermissions" => new Column("user", "userPermissions", "i", false, false)
+        ];
+
+        $dump = new DumpData(array_values($dumpData));
+
+        $this->assertEquals($dumpData, $dump->getColumsForTable("user"));
+        $this->assertNull($dump->getColumsForTable("doesnotexist"));
+    }
 }

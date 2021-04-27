@@ -77,4 +77,17 @@ class DumpData
     {
         return $this->withoutTable[$columnName] ?? null;
     }
+
+    /**
+     * returns the data-type of a column without a known table
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           string          $tableName      name of the table
+     * @return          array<\DavidLienhard\Database\QueryValidator\DumpData\ColumnInterface>|null
+     */
+    public function getColumsForTable(string $tableName) : array|null
+    {
+        return $this->withTable[$tableName] ?? null;
+    }
 }

@@ -130,26 +130,12 @@ class TestFile implements TestFileInterface
                 $hasError = $testResult === false ? true : $hasError;
             }
 
-
-            try {
-                $ignoresyntax = (bool) $this->config->get("parameters", "ignoresyntax");
-            } catch (\Exception $e) {
-                $ignoresyntax = false;
-            }
-
-            if (!$ignoresyntax) {
+            if (!$this->getConfigParameter("ignoresyntax")) {
                 $testResult = $this->runTest(SyntaxTest::class, $query, "invalid syntax");
                 $hasError = $testResult === false ? true : $hasError;
             }
 
-
-            try {
-                $strictinserts = (bool) $this->config->get("parameters", "strictinserts");
-            } catch (\Exception $e) {
-                $strictinserts = false;
-            }
-
-            if (!$strictinserts) {
+            if ($this->getConfigParameter("strictinserts")) {
                 $testResult = $this->runTest(StrictInsertsTest::class, $query);
                 $hasError = $testResult === false ? true : $hasError;
             }
@@ -228,5 +214,23 @@ class TestFile implements TestFileInterface
         }
 
         return $result;
+    }
+
+
+    /**
+     * returns the value of a paramater from the config
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           string              $parameterName  name of the parameter to fetch
+     * @param           bool                $default        value to return if parameter is not found in config
+     */
+    private function getConfigParameter(string $parameterName, bool $default = false) : bool
+    {
+        try {
+            return (bool) $this->config->get("parameters", $parameterName);
+        } catch (\Exception $e) {
+            return $default;
+        }
     }
 }

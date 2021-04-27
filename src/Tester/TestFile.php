@@ -11,6 +11,7 @@ use DavidLienhard\Database\QueryValidator\Queries\QueryInterface;
 use DavidLienhard\Database\QueryValidator\Tester\PhpNodeVisitor;
 use DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\Parameters as ParametersTest;
+use DavidLienhard\Database\QueryValidator\Tester\Tests\StrictInserts as StrictInsertsTest;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\Syntax as SyntaxTest;
 use PhpParser\Error as PhpParserError;
 use PhpParser\NodeTraverser as PhpNodeTraverser;
@@ -138,6 +139,18 @@ class TestFile implements TestFileInterface
 
             if (!$ignoresyntax) {
                 $testResult = $this->runTest(SyntaxTest::class, $query, "invalid syntax");
+                $hasError = $testResult === false ? true : $hasError;
+            }
+
+
+            try {
+                $strictinserts = (bool) $this->config->get("parameters", "strictinserts");
+            } catch (\Exception $e) {
+                $strictinserts = false;
+            }
+
+            if (!$strictinserts) {
+                $testResult = $this->runTest(StrictInsertsTest::class, $query);
                 $hasError = $testResult === false ? true : $hasError;
             }
 

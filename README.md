@@ -9,6 +9,7 @@ The following configuration options are possible:
  - **`dumpfile`** (`string`): path to a mysql dump file to use for type-checks
  - **`parameters`** (`object`):
    - `ignoresyntax` (`bool`): whether or not to ignore syntax-errors in the queries
+   - `strictinserts` (`bool`): checks if inserts contains all text-colums of table that are set to not null
 
 All paths are relative to the path of the configuration file. If no configuration file can be found all the files in your currect folder will be scanned.
 
@@ -23,7 +24,8 @@ All paths are relative to the path of the configuration file. If no configuratio
     ],
     "dumpfile": "dump.sql",
     "parameters": {
-        "ignoresyntax": false
+        "ignoresyntax": false,
+        "strictinserts": false
     }
 }
 ```

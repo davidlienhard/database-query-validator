@@ -54,20 +54,24 @@ class FromMysqlDumpTest extends TestCase
      */
     public function testCanReadFile(): void
     {
-        $dumpFile = dirname(__DIR__)."/assets/DumpData/user.sql";
+        $files = [ "user.sql", "userUppercaseTypes.sql" ];
 
-        $dump = FromMysqlDump::getDumpData($dumpFile);
+        foreach ($files as $file) {
+            $dumpFile = dirname(__DIR__)."/assets/DumpData/".$file;
 
-        $this->assertInstanceOf(DumpData::class, $dump);
+            $dump = FromMysqlDump::getDumpData($dumpFile);
 
-        $this->assertEquals("i", $dump->getWithTable("user", "userID"));
-        $this->assertEquals("s", $dump->getWithTable("user", "userName"));
-        $this->assertEquals("s", $dump->getWithTable("user", "userDescription"));
-        $this->assertEquals("i", $dump->getWithTable("user", "userPermissions"));
+            $this->assertInstanceOf(DumpData::class, $dump);
 
-        $this->assertEquals("i", $dump->getWithoutTable("userID"));
-        $this->assertEquals("s", $dump->getWithoutTable("userName"));
-        $this->assertEquals("s", $dump->getWithoutTable("userDescription"));
-        $this->assertEquals("i", $dump->getWithoutTable("userPermissions"));
+            $this->assertEquals("i", $dump->getWithTable("user", "userID"));
+            $this->assertEquals("s", $dump->getWithTable("user", "userName"));
+            $this->assertEquals("s", $dump->getWithTable("user", "userDescription"));
+            $this->assertEquals("i", $dump->getWithTable("user", "userPermissions"));
+
+            $this->assertEquals("i", $dump->getWithoutTable("userID"));
+            $this->assertEquals("s", $dump->getWithoutTable("userName"));
+            $this->assertEquals("s", $dump->getWithoutTable("userDescription"));
+            $this->assertEquals("i", $dump->getWithoutTable("userPermissions"));
+        }
     }
 }

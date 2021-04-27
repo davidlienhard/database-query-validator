@@ -32,6 +32,10 @@ class StrictInserts extends TestAbstract
         $result = \preg_match("/^INSERT INTO([ ]+)`([A-z0-9\-\_]+)`/mi", trim($query), $matches);
 
         if ($result === false || $result === 0) {
+            if (($this->options['ignoreMissingTablenames'] ?? false) === true) {
+                return true;
+            }
+
             $this->errors[] = "tablename could not be found in query";
             return false;
         }

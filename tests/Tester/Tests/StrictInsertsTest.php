@@ -64,6 +64,20 @@ class StrictInsertsTestCase extends TestCase
      * @covers DavidLienhard\Database\QueryValidator\Tester\Tests\StrictInserts
      * @test
      */
+    public function testCanIgnoreInsertWithoutTablename(): void
+    {
+        $query = new Query("INSERT INTO SET `userName` = ''", [], "testfile.php", 1);
+        $dump = new DumpData;
+        $inserts = new StrictInsertsTest($query, $dump, [ "ignoreMissingTablenames" => true ]);
+
+        $this->assertTrue($inserts->validate());
+        $this->assertEquals(0, $inserts->getErrorcount());
+    }
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Tester\Tests\StrictInserts
+     * @test
+     */
     public function testReturnFalseForTableNotInDump(): void
     {
         $query = new Query("INSERT INTO `user` SET `userName` = ''", [], "testfile.php", 1);

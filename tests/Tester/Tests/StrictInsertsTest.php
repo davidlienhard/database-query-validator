@@ -68,7 +68,7 @@ class StrictInsertsTestCase extends TestCase
     {
         $query = new Query("INSERT INTO SET `userName` = ''", [], "testfile.php", 1);
         $dump = new DumpData;
-        $inserts = new StrictInsertsTest($query, $dump, [ "strictinsertsignoremissingtablenames" => true ]);
+        $inserts = new StrictInsertsTest($query, $dump, [ "ignoreMissingTablenames" => true ]);
 
         $this->assertTrue($inserts->validate());
         $this->assertEquals(0, $inserts->getErrorcount());

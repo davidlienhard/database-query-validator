@@ -32,7 +32,7 @@ class StrictInserts extends TestAbstract
         $result = \preg_match("/^INSERT INTO([ ]+)`([A-z0-9\-\_]+)`/mi", trim($query), $matches);
 
         if ($result === false || $result === 0) {
-            if (($this->options['strictinsertsignoremissingtablenames'] ?? false) === true) {
+            if (($this->options['ignoreMissingTablenames'] ?? false) === true) {
                 return true;
             }
 

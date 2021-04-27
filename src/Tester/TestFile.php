@@ -136,7 +136,10 @@ class TestFile implements TestFileInterface
             }
 
             if ($this->getConfigParameter("strictinserts")) {
-                $testResult = $this->runTest(StrictInsertsTest::class, $query);
+                $options = [
+                    "ignoreMissingTablenames" => $this->getConfigParameter("strictinsertsignoremissingtablenames")
+                ];
+                $testResult = $this->runTest(StrictInsertsTest::class, $query, "", $options);
                 $hasError = $testResult === false ? true : $hasError;
             }
 
@@ -197,9 +200,9 @@ class TestFile implements TestFileInterface
         return $this->errors;
     }
 
-    private function runTest(string $className, QueryInterface $query, string $errorPrefix = "") : bool
+    private function runTest(string $className, QueryInterface $query, string $errorPrefix = "", array $options = []) : bool
     {
-        $tester = new $className($query, $this->dumpData);
+        $tester = new $className($query, $this->dumpData, $options);
         $result = $tester->validate();
         $errors = $tester->getErrors();
         $errorCount = $tester->getErrorcount();

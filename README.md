@@ -10,6 +10,7 @@ The following configuration options are possible:
  - **`parameters`** (`object`):
    - `ignoresyntax` (`bool`): whether or not to ignore syntax-errors in the queries
    - `strictinserts` (`bool`): checks if inserts contains all text-colums of table that are set to not null
+   - `strictinsertsignoremissingtablenames` (`bool`): whether to ignore queries where the tablename could not be extracted on strict imports
 
 All paths are relative to the path of the configuration file. If no configuration file can be found all the files in your currect folder will be scanned.
 

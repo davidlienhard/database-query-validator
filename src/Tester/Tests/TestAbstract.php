@@ -25,7 +25,8 @@ abstract class TestAbstract implements TestInterface
      */
     public function __construct(
         protected QueryInterface $query,
-        protected DumpData $dumpData
+        protected DumpData $dumpData,
+        protected array $options = []
     ) {
     }
 

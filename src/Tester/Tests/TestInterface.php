@@ -19,7 +19,8 @@ interface TestInterface
      */
     public function __construct(
         QueryInterface $query,
-        DumpData $dumpData
+        DumpData $dumpData,
+        array $options = []
     );
 
     /**

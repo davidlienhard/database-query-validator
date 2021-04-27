@@ -57,16 +57,16 @@ class Parameters extends TestAbstract
                 $columnName = $matches[3][$columnNumber] ?? "";
 
                 if ($tableName !== "" && $this->dumpData->getWithTable($tableName, $columnName) !== null) {
-                    if ($this->dumpData->getWithTable($tableName, $columnName) !== ($types[$columnNumber] ?? "")) {
+                    if ($this->dumpData->getWithTable($tableName, $columnName)->getType() !== ($types[$columnNumber] ?? "")) {
                         $this->errors[] = "given type '".($types[$columnNumber] ?? "")."' ".
-                            "does not match dump type '".$this->dumpData->getWithTable($tableName, $columnName)."' ".
+                            "does not match dump type '".$this->dumpData->getWithTable($tableName, $columnName)->getType()."' ".
                             "in column `".$tableName."`.`".$columnName."`";
                         $isValid = false;
                     }
                 } elseif ($this->dumpData->getWithoutTable($columnName) !== null) {
-                    if ($this->dumpData->getWithoutTable($columnName) !== ($types[$columnNumber] ?? "")) {
+                    if ($this->dumpData->getWithoutTable($columnName)->getType() !== ($types[$columnNumber] ?? "")) {
                         $this->errors[] = "given type '".($types[$columnNumber] ?? "")."' ".
-                            "does not match dump type '".$this->dumpData->getWithoutTable($columnName)."' ".
+                            "does not match dump type '".$this->dumpData->getWithoutTable($columnName)->getType()."' ".
                             "in column `".$columnName."`";
                         $isValid = false;
                     }

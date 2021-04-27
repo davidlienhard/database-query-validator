@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\DumpData;
 
+use DavidLienhard\Database\QueryValidator\DumpData\ColumnInterface;
+
 /**
  * contains data from the databasedump in structured form
  *
@@ -34,22 +36,20 @@ class DumpData
 
     /**
      * creates a new Dump object
-     * expects the dump-data as an associative array with the keys
-     * `tableName`, `columnName` & `dataType`
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           array           $dumpData       data from the dump
+     * @param           array<\DavidLienhard\Database\QueryValidator\DumpData\ColumnInterface>   $columns    list of colums to add
      */
-    public function __construct(array $dumpData = [])
+    public function __construct(array $columns = [])
     {
-        foreach ($dumpData as $column) {
-            $tableName = $column['tableName'];
-            $columnName = $column['columnName'];
-            $dataType = $column['dataType'];
+        foreach ($columns as $column) {
+            if (!($column instanceof ColumnInterface)) {
+                throw new \InvalidArgumentException("colums must be type of ColumnInterface");
+            }
 
-            $this->withTable[$tableName][$columnName] = $dataType;
-            $this->withoutTable[$columnName] = $dataType;
+            $this->withTable[$column->getTable()][$column->getName()] = $column;
+            $this->withoutTable[$column->getName()] = $column;
         }
     }
 
@@ -61,7 +61,7 @@ class DumpData
      * @param           string          $tableName      name of the table
      * @param           string          $columnName     name of the column
      */
-    public function getWithTable(string $tableName, string $columnName) : string|null
+    public function getWithTable(string $tableName, string $columnName) : ColumnInterface|null
     {
         return $this->withTable[$tableName][$columnName] ?? null;
     }
@@ -73,7 +73,7 @@ class DumpData
      * @copyright       David Lienhard
      * @param           string          $columnName     name of the column
      */
-    public function getWithoutTable(string $columnName) : string|null
+    public function getWithoutTable(string $columnName) : ColumnInterface|null
     {
         return $this->withoutTable[$columnName] ?? null;
     }

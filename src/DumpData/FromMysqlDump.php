@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\DumpData;
 
+use \DavidLienhard\Database\QueryValidator\DumpData\Column;
 use \DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 
 /**
@@ -48,13 +49,15 @@ class FromMysqlDump
             }
 
             if (preg_match("/^  `([A-z0-9\-\_]+)` ([A-z]+)( |\()/", $line, $matches)) {
-                $dumpData[] = [
-                    "tableName"  => $tableName,
-                    "columnName" => $matches[1],
-                    "dataType"   => self::convertType($matches[2])
-                ];
+                $dumpData[] = new Column(
+                    table: $tableName,
+                    name: $matches[1],
+                    type: self::convertType($matches[2]),
+                    isNull: !str_contains(strtoupper($line), "NOT NULL"),
+                    isText: strtolower($matches[2]) === "text"
+                );
             }
-        }
+        }//end foreach
 
         return new DumpData($dumpData);
     }

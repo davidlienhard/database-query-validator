@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Tests\Tester\Tests;
 
+use DavidLienhard\Database\QueryValidator\DumpData\Column;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use PHPUnit\Framework\TestCase;
 
@@ -29,37 +30,21 @@ class DumpDataTest extends TestCase
     {
         $dump = new DumpData(
             [
-                [
-                    "tableName"  => "user",
-                    "columnName" => "userID",
-                    "dataType"   => "i"
-                ],
-                [
-                    "tableName"  => "user",
-                    "columnName" => "userName",
-                    "dataType"   => "s"
-                ],
-                [
-                    "tableName"  => "user",
-                    "columnName" => "userDescription",
-                    "dataType"   => "s"
-                ],
-                [
-                    "tableName"  => "user",
-                    "columnName" => "userPermissions",
-                    "dataType"   => "i"
-                ]
+                new Column("user", "userID", "i", false, false),
+                new Column("user", "userName", "s", false, false),
+                new Column("user", "userDescription", "s", false, true),
+                new Column("user", "userPermissions", "i", false, false)
             ]
         );
 
-        $this->assertEquals("i", $dump->getWithTable("user", "userID"));
-        $this->assertEquals("s", $dump->getWithTable("user", "userName"));
-        $this->assertEquals("s", $dump->getWithTable("user", "userDescription"));
-        $this->assertEquals("i", $dump->getWithTable("user", "userPermissions"));
+        $this->assertEquals("i", $dump->getWithTable("user", "userID")->getType());
+        $this->assertEquals("s", $dump->getWithTable("user", "userName")->getType());
+        $this->assertEquals("s", $dump->getWithTable("user", "userDescription")->getType());
+        $this->assertEquals("i", $dump->getWithTable("user", "userPermissions")->getType());
 
-        $this->assertEquals("i", $dump->getWithoutTable("userID"));
-        $this->assertEquals("s", $dump->getWithoutTable("userName"));
-        $this->assertEquals("s", $dump->getWithoutTable("userDescription"));
-        $this->assertEquals("i", $dump->getWithoutTable("userPermissions"));
+        $this->assertEquals("i", $dump->getWithoutTable("userID")->getType());
+        $this->assertEquals("s", $dump->getWithoutTable("userName")->getType());
+        $this->assertEquals("s", $dump->getWithoutTable("userDescription")->getType());
+        $this->assertEquals("i", $dump->getWithoutTable("userPermissions")->getType());
     }
 }

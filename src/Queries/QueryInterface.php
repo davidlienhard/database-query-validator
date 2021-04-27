@@ -2,7 +2,6 @@
 /**
  * containers Query interface
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -14,7 +13,6 @@ namespace DavidLienhard\Database\QueryValidator\Queries;
 /**
  * describes an object that will hold a database-query
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

@@ -2,7 +2,6 @@
 /**
  * main entrypoint to validate queries
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -22,7 +21,6 @@ use DavidLienhard\Database\QueryValidator\Tester\Tester;
 /**
  * main entrypoint to validate queries
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

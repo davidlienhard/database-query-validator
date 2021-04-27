@@ -2,7 +2,6 @@
 /**
  * contains Scanner Interface
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -16,7 +15,6 @@ use \DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
 /**
  * describes a scanner class
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

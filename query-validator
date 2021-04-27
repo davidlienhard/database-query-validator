@@ -3,7 +3,6 @@
 /**
  * main entrypoint to validate queries
  *
- * @package         Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

@@ -2,7 +2,6 @@
 /**
  * contains Filter class
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -17,7 +16,6 @@ use \Webmozart\PathUtil\Path;
 /**
  * class to filter while scanning folders
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

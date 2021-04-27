@@ -2,7 +2,6 @@
 /**
  * contains DumpData class
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -16,7 +15,6 @@ use DavidLienhard\Database\QueryValidator\DumpData\ColumnInterface;
 /**
  * contains data from the databasedump in structured form
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

@@ -2,7 +2,6 @@
 /**
  * contains Scanner class
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -18,7 +17,6 @@ use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
 /**
  * class to scan a folder a start the tests on the files
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

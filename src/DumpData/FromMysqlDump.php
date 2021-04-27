@@ -2,7 +2,6 @@
 /**
  * contains FromMysqlDump class
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -17,7 +16,6 @@ use \DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 /**
  * class to create a DumpData object from a mysql dump
  *
- * @category        Database Query Validator
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */

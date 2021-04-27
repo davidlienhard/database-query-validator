@@ -116,9 +116,6 @@ class TestFile implements TestFileInterface
      * @param           string              $file       the file containing the queries
      * @param           array<\DavidLienhard\Database\QueryValidator\Queries\QueryInterface>    $queries    the queries to validate
      * @throws          \Exception                      if the file does not exist
-     * @uses            self::addError()
-     * @uses            self::checkPreparedStatement()
-     * @uses            self::$queryCount
      */
     public function validateQueries(string $file, array $queries) : void
     {

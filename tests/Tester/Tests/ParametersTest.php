@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Tests\Tester\Tests;
 
+use DavidLienhard\Database\QueryValidator\DumpData\Column;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Queries\Query;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\Parameters as ParametersTest;
@@ -138,11 +139,7 @@ class ParametersTestTest extends TestCase
 
         $dump = new DumpData(
             [
-                [
-                    "tableName"  => "user",
-                    "columnName" => "userID",
-                    "dataType"   => "i"
-                ]
+                new Column("user", "userID", "i", false, false)
             ]
         );
 
@@ -174,11 +171,7 @@ class ParametersTestTest extends TestCase
 
         $dump = new DumpData(
             [
-                [
-                    "tableName"  => "user",
-                    "columnName" => "userID",
-                    "dataType"   => "i"
-                ]
+                new Column("user", "userID", "i", false, false)
             ]
         );
 
@@ -216,11 +209,7 @@ class ParametersTestTest extends TestCase
 
         $dump = new DumpData(
             [
-                [
-                    "tableName"  => "user",
-                    "columnName" => "userID",
-                    "dataType"   => "i"
-                ]
+                new Column("user", "userID", "i", false, false)
             ]
         );
 
@@ -252,11 +241,7 @@ class ParametersTestTest extends TestCase
 
         $dump = new DumpData(
             [
-                [
-                    "tableName"  => "user",
-                    "columnName" => "userID",
-                    "dataType"   => "i"
-                ]
+                new Column("user", "userID", "i", false, false)
             ]
         );
 

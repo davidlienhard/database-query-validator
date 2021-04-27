@@ -22,6 +22,7 @@ abstract class TestAbstract implements TestInterface
      * @copyright       David Lienhard
      * @param           QueryInterface  $query          query to validate
      * @param           DumpData        $dumpData       data from the database-dump
+     * @param           array           $options        optional options to pass to the test
      */
     public function __construct(
         protected QueryInterface $query,

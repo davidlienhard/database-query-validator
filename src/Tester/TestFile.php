@@ -149,7 +149,7 @@ class TestFile implements TestFileInterface
                 $strictinserts = false;
             }
 
-            if (!$strictinserts) {
+            if ($strictinserts) {
                 $testResult = $this->runTest(StrictInsertsTest::class, $query);
                 $hasError = $testResult === false ? true : $hasError;
             }

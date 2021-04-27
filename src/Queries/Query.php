@@ -22,6 +22,17 @@ use DavidLienhard\Database\QueryValidator\Queries\QueryInterface;
  */
 class Query implements QueryInterface
 {
+    public const TYPE_SELECT = 1;
+    public const TYPE_INSERT = 2;
+    public const TYPE_UPDATE = 4;
+    public const TYPE_DELETE = 8;
+    public const TYPE_CREATE = 16;
+    public const TYPE_OPTIMIZE = 32;
+    public const TYPE_UNKNOWN = 4096;
+
+    /** type of this query (on of the TYPE_ constants) */
+    private int $type = 0;
+
     /**
      * creates the query-object
      *
@@ -38,6 +49,20 @@ class Query implements QueryInterface
         private string $filename,
         private int $linenumber
     ) {
+        // set type
+        $arr = explode(" ", trim($query));
+        $type = strtolower($arr[0]);
+
+        $translation = [
+            "select"   => self::TYPE_SELECT,
+            "insert"   => self::TYPE_INSERT,
+            "update"   => self::TYPE_UPDATE,
+            "delete"   => self::TYPE_DELETE,
+            "create"   => self::TYPE_CREATE,
+            "optimize" => self::TYPE_OPTIMIZE
+        ];
+
+        $this->type = $translation[$type] ?? self::TYPE_UNKNOWN;
     }
 
     /**
@@ -93,5 +118,16 @@ class Query implements QueryInterface
     public function isPrepared() : bool
     {
         return count($this->parameters) > 0;
+    }
+
+    /**
+     * returns the type of this query
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function getType() : int
+    {
+        return $this->type;
     }
 }

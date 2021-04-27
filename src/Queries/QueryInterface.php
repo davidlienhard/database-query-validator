@@ -76,4 +76,12 @@ interface QueryInterface
      * @copyright       David Lienhard
      */
     public function isPrepared() : bool;
+
+    /**
+     * returns the type of this query
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function getType() : int;
 }

@@ -139,6 +139,19 @@ class QueryTest extends TestCase
      * @covers DavidLienhard\Database\QueryValidator\Queries\Query
      * @test
      */
+    public function testCanGetIsPrepared(): void
+    {
+        $query = new Query($this->query, [], $this->filename, $this->linenumber);
+        $this->assertFalse($query->isPrepared());
+
+        $query = new Query($this->query, $this->parameters, $this->filename, $this->linenumber);
+        $this->assertTrue($query->isPrepared());
+    }
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Queries\Query
+     * @test
+     */
     public function testQueryTypes(): void
     {
         $queries = [

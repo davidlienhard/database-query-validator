@@ -26,6 +26,61 @@ class DumpDataTest extends TestCase
      * @covers DavidLienhard\Database\QueryValidator\DumpData\DumpData
      * @test
      */
+    public function testCannotInstantiateStringAsParam(): void
+    {
+        $this->expectException(\TypeError::class);
+        $dump = new DumpData("string");
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\DumpData\DumpData
+     * @test
+     */
+    public function testCannotInstantiateColumnAsParam(): void
+    {
+        $this->expectException(\TypeError::class);
+        $dump = new DumpData(new Column("user", "userID", "i", false, false));
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\DumpData\DumpData
+     * @test
+     */
+    public function testCannotInstantiateArrayOfStringsAsParam(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $dump = new DumpData([ "string" ]);
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\DumpData\DumpData
+     * @test
+     */
+    public function testCannotInstantiateArrayOfIntsAsParam(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $dump = new DumpData([ 1 ]);
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\DumpData\DumpData
+     * @test
+     */
+    public function testCannotInstantiateArrayOfBoolsAsParam(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $dump = new DumpData([ true ]);
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\DumpData\DumpData
+     * @test
+     */
     public function testCanFetchData(): void
     {
         $dump = new DumpData(

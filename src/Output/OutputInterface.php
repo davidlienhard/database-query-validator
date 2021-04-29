@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Output;
 
-use \DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
+use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
 
 /**
  * interface to output results of the validation

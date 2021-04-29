@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Scanner;
 
-use \DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
+use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
 
 /**
  * describes a scanner class

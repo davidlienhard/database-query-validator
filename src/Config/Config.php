@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Config;
 
-use \DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
+use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 
 /**
  * object that contains configuration data for this validator

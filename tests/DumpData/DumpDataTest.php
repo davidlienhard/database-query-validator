@@ -29,7 +29,7 @@ class DumpDataTest extends TestCase
     public function testCannotInstantiateStringAsParam(): void
     {
         $this->expectException(\TypeError::class);
-        $dump = new DumpData("string");
+        new DumpData("string");
     }
 
 
@@ -40,7 +40,7 @@ class DumpDataTest extends TestCase
     public function testCannotInstantiateColumnAsParam(): void
     {
         $this->expectException(\TypeError::class);
-        $dump = new DumpData(new Column("user", "userID", "i", false, false));
+        new DumpData(new Column("user", "userID", "i", false, false));
     }
 
 
@@ -51,7 +51,7 @@ class DumpDataTest extends TestCase
     public function testCannotInstantiateArrayOfStringsAsParam(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $dump = new DumpData([ "string" ]);
+        new DumpData([ "string" ]);
     }
 
 
@@ -62,7 +62,7 @@ class DumpDataTest extends TestCase
     public function testCannotInstantiateArrayOfIntsAsParam(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $dump = new DumpData([ 1 ]);
+        new DumpData([ 1 ]);
     }
 
 
@@ -73,7 +73,7 @@ class DumpDataTest extends TestCase
     public function testCannotInstantiateArrayOfBoolsAsParam(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $dump = new DumpData([ true ]);
+        new DumpData([ true ]);
     }
 
 

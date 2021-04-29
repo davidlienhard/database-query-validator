@@ -202,7 +202,6 @@ class TestFile implements TestFileInterface
         $tester = new $className($query, $this->dumpData, $options);
         $result = $tester->validate();
         $errors = $tester->getErrors();
-        $errorCount = $tester->getErrorcount();
         unset($tester);
 
         foreach ($errors as $error) {

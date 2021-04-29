@@ -17,7 +17,7 @@ class FromMysqlDumpTest extends TestCase
     public function testThrowsWithoutFile(): void
     {
         $this->expectException(\ArgumentCountError::class);
-        $dump = FromMysqlDump::getDumpData();
+        FromMysqlDump::getDumpData();
     }
 
     /**
@@ -30,7 +30,7 @@ class FromMysqlDumpTest extends TestCase
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("dumpfile '".$dumpFile."' does not exist");
-        $dump = FromMysqlDump::getDumpData($dumpFile);
+        FromMysqlDump::getDumpData($dumpFile);
     }
 
     /**
@@ -43,7 +43,7 @@ class FromMysqlDumpTest extends TestCase
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("dumpfile '".$dumpFile."' does not exist");
-        $dump = FromMysqlDump::getDumpData($dumpFile);
+        FromMysqlDump::getDumpData($dumpFile);
     } */
 
 

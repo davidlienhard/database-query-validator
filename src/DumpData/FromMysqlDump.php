@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\DumpData;
 
-use \DavidLienhard\Database\QueryValidator\DumpData\Column;
-use \DavidLienhard\Database\QueryValidator\DumpData\DumpData;
+use DavidLienhard\Database\QueryValidator\DumpData\Column;
+use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 
 /**
  * class to create a DumpData object from a mysql dump

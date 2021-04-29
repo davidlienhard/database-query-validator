@@ -59,16 +59,16 @@ class QueryTest extends TestCase
     public function testCannotBeCreatedWithMissingData(): void
     {
         $this->expectException(\ArgumentCountError::class);
-        $query = new Query;
+        new Query;
 
         $this->expectException(\ArgumentCountError::class);
-        $query = new Query($this->query);
+        new Query($this->query);
 
         $this->expectException(\ArgumentCountError::class);
-        $query = new Query($this->query, $this->parameters);
+        new Query($this->query, $this->parameters);
 
         $this->expectException(\ArgumentCountError::class);
-        $query = new Query($this->query, $this->parameters, $this->filename);
+        new Query($this->query, $this->parameters, $this->filename);
     }
 
     /**

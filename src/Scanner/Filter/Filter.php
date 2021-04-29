@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Scanner\Filter;
 
-use \Webmozart\Glob\Glob;
-use \Webmozart\PathUtil\Path;
+use Webmozart\Glob\Glob;
+use Webmozart\PathUtil\Path;
 
 /**
  * class to filter while scanning folders

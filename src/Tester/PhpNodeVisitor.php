@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Tester;
 
-use \DavidLienhard\Database\QueryValidator\Queries\Query;
+use DavidLienhard\Database\QueryValidator\Queries\Query;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\NodeVisitorAbstract;

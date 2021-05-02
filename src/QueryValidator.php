@@ -15,7 +15,8 @@ use DavidLienhard\Database\QueryValidator\Config\Factory as ConfigFactory;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\DumpData\FromMysqlDump;
 use DavidLienhard\Database\QueryValidator\Output\Standard as StandardOutput;
-use DavidLienhard\Database\QueryValidator\Scanner\Scanner;
+use DavidLienhard\Database\QueryValidator\Scanner\FilesystemScanner;
+use DavidLienhard\Database\QueryValidator\Scanner\StdinScanner;
 use DavidLienhard\Database\QueryValidator\Tester\Tester;
 
 /**
@@ -54,7 +55,9 @@ class QueryValidator
 
         $tester = new Tester($config, $output, $dumpData);
 
-        $scanner = new Scanner($tester);
+        $scanner = !$config->get("fromStdin")
+            ? new FilesystemScanner($tester)
+            : new StdinScanner($tester);
 
         $scanner->scan(
             $paths,

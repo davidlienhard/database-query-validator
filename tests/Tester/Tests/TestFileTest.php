@@ -287,4 +287,61 @@ class TestFileTestCase extends TestCase
         $this->assertEquals([], $testFile->getErrors());
         $this->assertEquals(1, $testFile->getQueryCount());
     }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Tester\TestFile
+     * @test
+     */
+    public function testChecksMissingTableInDump(): void
+    {
+        $config = new Config(
+            [ "parameters" => [ "strictinserts" => true ]],
+            $this->getAssetsFolder()."dummyconfig.json"
+        );
+        $output = new StandardOutput;
+        $dumpData = new DumpData(
+            [
+                new Column("userTable", "userName", "s", false, false),
+                new Column("userTable", "userMail", "s", false, false)
+            ]
+        );
+
+        $testFile = new TestFile($this->getAssetsFolder()."singleValidInsertQuery.php", $config, $output, $dumpData);
+        $testFile->validate();
+
+        $this->assertEquals(1, $testFile->getErrorCount());
+        $this->assertEquals(1, $testFile->getQueryCount());
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Tester\TestFile
+     * @test
+     */
+    public function testCanIgnoreMissingTableInDump(): void
+    {
+        $config = new Config(
+            [
+                "parameters" => [
+                    "strictinserts"                        => true,
+                    "strictinsertsignoremissingtablenames" => true
+                ]
+            ],
+            $this->getAssetsFolder()."dummyconfig.json"
+        );
+        $output = new StandardOutput;
+        $dumpData = new DumpData(
+            [
+                new Column("userTable", "userName", "s", false, false),
+                new Column("userTable", "userMail", "s", false, false)
+            ]
+        );
+
+        $testFile = new TestFile($this->getAssetsFolder()."singleValidInsertQuery.php", $config, $output, $dumpData);
+        $testFile->validate();
+
+        $this->assertEquals(1, $testFile->getErrorCount());
+        $this->assertEquals(1, $testFile->getQueryCount());
+    }
 }

@@ -200,6 +200,16 @@ class TestFile implements TestFileInterface
         return $this->errors;
     }
 
+    /**
+     * runs a test and returns its result
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           string              $className      name of the test-class to run
+     * @param           \DavidLienhard\Database\QueryValidator\Queries\QueryInterface   $query      the query to test
+     * @param           string              $errorPrefix    and optional prefix to add to the error(s)
+     * @param           array               $options        optional options to pass to the test
+     */
     private function runTest(string $className, QueryInterface $query, string $errorPrefix = "", array $options = []) : bool
     {
         $tester = new $className($query, $this->dumpData, $options);

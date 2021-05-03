@@ -116,9 +116,9 @@ class QueryValidator
      */
     private static function getPaths(ConfigInterface $config) : array
     {
-        try {
-            $paths = $config->get("paths");
-        } catch (\Exception $e) {
+        $paths = $config->get("paths");
+
+        if ($paths === null) {
             $baseDirecory = dirname(__DIR__, 4);
             $paths = [ $baseDirecory ];
         }
@@ -139,11 +139,7 @@ class QueryValidator
      */
     private static function getExclusions(ConfigInterface $config) : array
     {
-        try {
-            $exclusions = $config->get("exclusions");
-        } catch (\Exception $e) {
-            $exclusions = [];
-        }
+        $exclusions = $config->get("exclusions") ?? [];
 
         if (!is_array($exclusions)) {
             $exclusions = [ $exclusions ];
@@ -161,9 +157,9 @@ class QueryValidator
      */
     private static function getDumpData(ConfigInterface $config) : DumpData
     {
-        try {
-            $dumpFile = $config->get("dumpfile");
-        } catch (\Exception $e) {
+        $dumpFile = $config->get("dumpfile");
+
+        if ($dumpFile === null) {
             return new DumpData;
         }
 

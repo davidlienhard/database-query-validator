@@ -52,6 +52,22 @@ class Factory
             );
         }
 
+        $config = self::addFromArguments($data, $file);
+
+        return $config;
+    }
+
+
+    /**
+     * adds data from cli-arguments to config data and creates data object
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           array           $data           data to create the Config instance with
+     * @param           string          $file           name of the configuration file
+     */
+    private static function addFromArguments(array $data, string $file) : ConfigInterface
+    {
         return new Config($data, $file);
     }
 

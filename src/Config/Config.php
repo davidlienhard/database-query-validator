@@ -44,7 +44,7 @@ class Config implements ConfigInterface
         $data = $this->config;
         foreach ($keys as $key) {
             if (!isset($data[$key])) {
-                throw new \Exception("unable to read given config value");
+                return null;
             }
 
             $data = $data[$key];

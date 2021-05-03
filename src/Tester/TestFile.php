@@ -127,14 +127,17 @@ class TestFile implements TestFileInterface
                 $hasError = $testResult === false ? true : $hasError;
             }
 
-            if (!$this->getConfigParameter("ignoresyntax")) {
+            $ignoresyntax = boolval($this->config->get("parameters", "ignoresyntax") ?? false);
+            if (!$ignoresyntax) {
                 $testResult = $this->runTest(SyntaxTest::class, $query, "invalid syntax");
                 $hasError = $testResult === false ? true : $hasError;
             }
 
-            if ($this->getConfigParameter("strictinserts")) {
+            $strictinserts = boolval($this->config->get("parameters", "strictinserts") ?? false);
+            if (!$strictinserts) {
+                $strictinsertsignoremissingtablenames = boolval($this->config->get("parameters", "strictinsertsignoremissingtablenames") ?? false);
                 $options = [
-                    "ignoreMissingTablenames" => $this->getConfigParameter("strictinsertsignoremissingtablenames")
+                    "ignoreMissingTablenames" => $strictinsertsignoremissingtablenames
                 ];
                 $testResult = $this->runTest(StrictInsertsTest::class, $query, "", $options);
                 $hasError = $testResult === false ? true : $hasError;
@@ -213,23 +216,5 @@ class TestFile implements TestFileInterface
         }
 
         return $result;
-    }
-
-
-    /**
-     * returns the value of a paramater from the config
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     * @param           string              $parameterName  name of the parameter to fetch
-     * @param           bool                $default        value to return if parameter is not found in config
-     */
-    private function getConfigParameter(string $parameterName, bool $default = false) : bool
-    {
-        try {
-            return (bool) $this->config->get("parameters", $parameterName);
-        } catch (\Exception $e) {
-            return $default;
-        }
     }
 }

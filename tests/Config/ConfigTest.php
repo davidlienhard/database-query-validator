@@ -1,0 +1,110 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DavidLienhard\Database\QueryValidator\Tests\DumpData;
+
+use DavidLienhard\Database\QueryValidator\Config\Config;
+use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
+use PHPUnit\Framework\TestCase;
+
+class ConfigTestCase extends TestCase
+{
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Config\Config
+     * @test
+     */
+    public function testCanBeCreated(): void
+    {
+        $config = new Config([], dirname(__DIR__)."assets/Config/dummy.json");
+
+        $this->assertInstanceOf(Config::class, $config);
+        $this->assertInstanceOf(ConfigInterface::class, $config);
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Config\Config
+     * @test
+     */
+    public function testCannotBeCreatedWithoutFile(): void
+    {
+        $this->expectException(\ArgumentCountError::class);
+        new Config([]);
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Config\Config
+     * @test
+     */
+    public function testCannotBeCreatedWithoutDataAndFile(): void
+    {
+        $this->expectException(\ArgumentCountError::class);
+        new Config([]);
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Config\Config
+     * @test
+     */
+    public function testCanGetData(): void
+    {
+        $config = new Config([
+            "file" => "testfile",
+            "list" => [
+                "item1",
+                "item2",
+                "item3",
+                "item4",
+                "item5"
+            ],
+            "bool" => true,
+            "null" => null
+        ], dirname(__DIR__)."assets/Config/dummy.json");
+
+        $this->assertEquals("testfile", $config->get("file"));
+
+        $this->assertEquals("item1", $config->get("list")[0]);
+        $this->assertEquals("item2", $config->get("list")[1]);
+        $this->assertEquals(
+            [
+                "item1",
+                "item2",
+                "item3",
+                "item4",
+                "item5"
+            ],
+            $config->get("list")
+        );
+
+        $this->assertEquals(true, $config->get("bool"));
+        $this->assertEquals(null, $config->get("null"));
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Config\Config
+     * @test
+     */
+    public function testInexistentKeyReturnsNull(): void
+    {
+        $config = new Config([], dirname(__DIR__)."assets/Config/dummy.json");
+
+        $this->assertEquals(null, $config->get("file"));
+        $this->assertEquals(null, $config->get("parameters", "file"));
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Config\Config
+     * @test
+     */
+    public function testCanGetConfigFolder(): void
+    {
+        $config = new Config([], dirname(__DIR__)."assets/Config/dummy.json");
+
+        $this->assertEquals(dirname(__DIR__)."assets/Config", $config->getConfigFolder());
+    }
+}

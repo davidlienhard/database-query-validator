@@ -68,6 +68,12 @@ class Factory
      */
     private static function addFromArguments(array $data, string $file) : ConfigInterface
     {
+        $arguments = $_SERVER['argv'] ?? [];
+
+        if (in_array("--from-stdin", $arguments, true)) {
+            $data['parameters']['fromstdin'] = true;
+        }
+
         return new Config($data, $file);
     }
 

@@ -134,7 +134,7 @@ class TestFile implements TestFileInterface
             }
 
             $strictinserts = boolval($this->config->get("parameters", "strictinserts") ?? false);
-            if (!$strictinserts) {
+            if ($strictinserts) {
                 $strictinsertsignoremissingtablenames = boolval($this->config->get("parameters", "strictinsertsignoremissingtablenames") ?? false);
                 $options = [
                     "ignoreMissingTablenames" => $strictinsertsignoremissingtablenames

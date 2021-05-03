@@ -55,7 +55,9 @@ class QueryValidator
 
         $tester = new Tester($config, $output, $dumpData);
 
-        $scanner = !$config->get("fromStdin")
+        $fromStdin = boolval($config->get("parameters", "fromstdin") ?? false);
+
+        $scanner = !$fromStdin
             ? new FilesystemScanner($tester)
             : new StdinScanner($tester);
 

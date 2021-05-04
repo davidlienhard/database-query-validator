@@ -54,9 +54,9 @@ class FromMysqlDump
 
             if (preg_match("/^  `([A-z0-9\-\_]+)` ([A-z]+)( |\()/", $line, $matches)) {
                 $dumpData[] = new Column(
-                    table: $tableName,
-                    name: $matches[1],
-                    type: self::convertType($matches[2]),
+                    table:  $tableName,
+                    name:   $matches[1],
+                    type:   self::convertType($matches[2]),
                     isNull: !str_contains(strtoupper($line), "NOT NULL"),
                     isText: strtolower($matches[2]) === "text"
                 );

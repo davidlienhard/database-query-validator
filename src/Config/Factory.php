@@ -37,9 +37,9 @@ class Factory
      * @copyright       David Lienhard
      * @param           string          $file           file to read the data from
      */
-    public static function fromJson(string $file) : ConfigInterface
+    public static function fromJson(Filesystem $filesystem, string $file) : ConfigInterface
     {
-        $fileContent = self::getDataFromFile($file);
+        $fileContent = self::getDataFromFile($filesystem, $file);
 
         try {
             $data = json_decode(

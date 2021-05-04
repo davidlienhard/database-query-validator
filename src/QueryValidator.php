@@ -37,10 +37,11 @@ class QueryValidator
      */
     public static function main() : void
     {
+        $filesystem = self::getFilesystem();
         $output = new StandardOutput;
 
         try {
-            $config = self::getConfig();
+            $config = self::getConfig($filesystem);
         } catch (\Exception $e) {
             $output->error(
                 "error fetching configuration-data".PHP_EOL.
@@ -55,7 +56,6 @@ class QueryValidator
 
         ini_set("xdebug.max_nesting_level", "1000");
 
-        $filesystem = self::getFilesystem();
         $tester = new Tester($filesystem, $config, $output, $dumpData);
 
         $fromStdin = boolval($config->get("parameters", "fromstdin") ?? false);
@@ -79,7 +79,7 @@ class QueryValidator
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
-    private static function getConfig() : ConfigInterface
+    private static function getConfig(Filesystem $filesystem) : ConfigInterface
     {
         $configCandidates = [
             [
@@ -101,7 +101,7 @@ class QueryValidator
 
         switch ($configFile['type']) {
             case "json":
-                $config = ConfigFactory::fromJson($configFile['filename']);
+                $config = ConfigFactory::fromJson($filesystem, $configFile['filename']);
                 break;
             default:
                 throw new \Exception("unsupported configuration type '".$configFile['type']."'");

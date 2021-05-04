@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace DavidLienhard\Database\QueryValidator\Tests\Queries;
 
 use DavidLienhard\Database\QueryValidator\Config\Config;
-use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 use DavidLienhard\Database\QueryValidator\DumpData\Column;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Output\Standard as StandardOutput;
@@ -23,16 +22,6 @@ class TestFileTestCase extends TestCase
     {
         $adapter = new InMemoryFilesystemAdapter;
         return new Filesystem($adapter);
-    }
-
-    private function getDummyConfig() : ConfigInterface
-    {
-        return new Config([], dirname(__DIR__, 2)."/assets/Tester/TestFile/dummyconfig.json");
-    }
-
-    private function getAssetsFolder() : string
-    {
-        return dirname(__DIR__, 2)."/assets/Tester/TestFile/";
     }
 
     public static function setUpBeforeClass() : void
@@ -98,7 +87,7 @@ class TestFileTestCase extends TestCase
         $filesystem = $this->getFilesystem();
         $filesystem->write("empty.php", "");
 
-        $config = $this->getDummyConfig();
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
@@ -117,7 +106,7 @@ class TestFileTestCase extends TestCase
     {
         $filesystem = $this->getFilesystem();
 
-        $config = $this->getDummyConfig();
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
@@ -135,7 +124,7 @@ class TestFileTestCase extends TestCase
         $filesystem = $this->getFilesystem();
         $filesystem->write("empty.php", "");
 
-        $config = $this->getDummyConfig();
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
@@ -158,7 +147,7 @@ class TestFileTestCase extends TestCase
         $filesystem->write("singleValidQuery.php", self::$queries['singleValidQuery']);
 
 
-        $config = $this->getDummyConfig();
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
@@ -180,7 +169,7 @@ class TestFileTestCase extends TestCase
         $filesystem = $this->getFilesystem();
         $filesystem->write("singleInvalidQuery.php", self::$queries['singleInvalidQuery']);
 
-        $config = $this->getDummyConfig();
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
@@ -202,8 +191,7 @@ class TestFileTestCase extends TestCase
         $filesystem->write("singleInvalidQuery.php", self::$queries['singleInvalidQuery']);
 
         $config = new Config(
-            [ "parameters" => [ "ignoresyntax" => true ]],
-            $this->getAssetsFolder()."dummyconfig.json"
+            [ "parameters" => [ "ignoresyntax" => true ]]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData;
@@ -226,7 +214,7 @@ class TestFileTestCase extends TestCase
         $filesystem = $this->getFilesystem();
         $filesystem->write("singleValidQuery.php", self::$queries['singleValidQuery']);
 
-        $config = $this->getDummyConfig();
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData(
             [ new Column("user", "userLevel", "i", false, false) ]
@@ -250,7 +238,7 @@ class TestFileTestCase extends TestCase
         $filesystem = $this->getFilesystem();
         $filesystem->write("singleValidQuery.php", self::$queries['singleValidQuery']);
 
-        $config = $this->getDummyConfig();
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData(
             [ new Column("user", "userLevel", "s", false, false) ]
@@ -273,7 +261,7 @@ class TestFileTestCase extends TestCase
         $filesystem = $this->getFilesystem();
         $filesystem->write("singleValidInsertQuery.php", self::$queries['singleValidInsertQuery']);
 
-        $config = $this->getDummyConfig();
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData(
             [
@@ -302,8 +290,7 @@ class TestFileTestCase extends TestCase
         $filesystem->write("singleValidInsertQuery.php", self::$queries['singleValidInsertQuery']);
 
         $config = new Config(
-            [ "parameters" => [ "strictinserts" => true ]],
-            $this->getAssetsFolder()."dummyconfig.json"
+            [ "parameters" => [ "strictinserts" => true ]]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData(
@@ -332,8 +319,7 @@ class TestFileTestCase extends TestCase
         $filesystem->write("singleValidInsertQuery.php", self::$queries['singleValidInsertQuery']);
 
         $config = new Config(
-            [ "parameters" => [ "strictinserts" => true ]],
-            $this->getAssetsFolder()."dummyconfig.json"
+            [ "parameters" => [ "strictinserts" => true ]]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData(
@@ -363,8 +349,7 @@ class TestFileTestCase extends TestCase
         $filesystem->write("singleValidInsertQuery.php", self::$queries['singleValidInsertQuery']);
 
         $config = new Config(
-            [ "parameters" => [ "strictinserts" => true ]],
-            $this->getAssetsFolder()."dummyconfig.json"
+            [ "parameters" => [ "strictinserts" => true ]]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData(
@@ -393,8 +378,7 @@ class TestFileTestCase extends TestCase
         $filesystem->write("singleValidInsertQuery.php", self::$queries['singleValidInsertQuery']);
 
         $config = new Config(
-            [ "parameters" => [ "strictinserts" => true ]],
-            $this->getAssetsFolder()."dummyconfig.json"
+            [ "parameters" => [ "strictinserts" => true ]]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData(
@@ -427,8 +411,7 @@ class TestFileTestCase extends TestCase
                     "strictinserts"                        => true,
                     "strictinsertsignoremissingtablenames" => true
                 ]
-            ],
-            $this->getAssetsFolder()."dummyconfig.json"
+            ]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData(

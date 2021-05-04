@@ -16,7 +16,7 @@ class ConfigTestCase extends TestCase
      */
     public function testCanBeCreated(): void
     {
-        $config = new Config([], dirname(__DIR__)."assets/Config/dummy.json");
+        $config = new Config([]);
 
         $this->assertInstanceOf(Config::class, $config);
         $this->assertInstanceOf(ConfigInterface::class, $config);
@@ -27,21 +27,10 @@ class ConfigTestCase extends TestCase
      * @covers DavidLienhard\Database\QueryValidator\Config\Config
      * @test
      */
-    public function testCannotBeCreatedWithoutFile(): void
+    public function testCannotBeCreatedWithoutData(): void
     {
         $this->expectException(\ArgumentCountError::class);
-        new Config([]);
-    }
-
-
-    /**
-     * @covers DavidLienhard\Database\QueryValidator\Config\Config
-     * @test
-     */
-    public function testCannotBeCreatedWithoutDataAndFile(): void
-    {
-        $this->expectException(\ArgumentCountError::class);
-        new Config([]);
+        new Config;
     }
 
 
@@ -62,7 +51,7 @@ class ConfigTestCase extends TestCase
             ],
             "bool" => true,
             "null" => null
-        ], dirname(__DIR__)."assets/Config/dummy.json");
+        ]);
 
         $this->assertEquals("testfile", $config->get("file"));
 
@@ -90,21 +79,9 @@ class ConfigTestCase extends TestCase
      */
     public function testInexistentKeyReturnsNull(): void
     {
-        $config = new Config([], dirname(__DIR__)."assets/Config/dummy.json");
+        $config = new Config([]);
 
         $this->assertEquals(null, $config->get("file"));
         $this->assertEquals(null, $config->get("parameters", "file"));
-    }
-
-
-    /**
-     * @covers DavidLienhard\Database\QueryValidator\Config\Config
-     * @test
-     */
-    public function testCanGetConfigFolder(): void
-    {
-        $config = new Config([], dirname(__DIR__)."assets/Config/dummy.json");
-
-        $this->assertEquals(dirname(__DIR__)."assets/Config", $config->getConfigFolder());
     }
 }

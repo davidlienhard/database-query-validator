@@ -18,6 +18,8 @@ use DavidLienhard\Database\QueryValidator\Output\Standard as StandardOutput;
 use DavidLienhard\Database\QueryValidator\Scanner\FilesystemScanner;
 use DavidLienhard\Database\QueryValidator\Scanner\StdinScanner;
 use DavidLienhard\Database\QueryValidator\Tester\Tester;
+use League\Flysystem\Filesystem;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 
 /**
  * main entrypoint to validate queries
@@ -53,7 +55,8 @@ class QueryValidator
 
         ini_set("xdebug.max_nesting_level", "1000");
 
-        $tester = new Tester($config, $output, $dumpData);
+        $filesystem = self::getFilesystem();
+        $tester = new Tester($filesystem, $config, $output, $dumpData);
 
         $fromStdin = boolval($config->get("parameters", "fromstdin") ?? false);
 
@@ -167,6 +170,13 @@ class QueryValidator
             throw new \Exception("given dump file '".$dumpFile."' does not exist");
         }
 
-        return FromMysqlDump::getDumpData($dumpFile);
+        $filesystem = self::getFilesystem();
+        return FromMysqlDump::getDumpData($filesystem, $dumpFile);
+    }
+
+    private static function getFilesystem() : Filesystem
+    {
+        $adapter = new LocalFilesystemAdapter("/");
+        return new Filesystem($adapter);
     }
 }

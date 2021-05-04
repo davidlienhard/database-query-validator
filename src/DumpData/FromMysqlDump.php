@@ -12,6 +12,9 @@ namespace DavidLienhard\Database\QueryValidator\DumpData;
 
 use DavidLienhard\Database\QueryValidator\DumpData\Column;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
+use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemException;
+use League\Flysystem\UnableToReadFile;
 
 /**
  * class to create a DumpData object from a mysql dump
@@ -28,16 +31,19 @@ class FromMysqlDump
      * @copyright       David Lienhard
      * @param           string          $dumpFile       path to the dump-file
      */
-    public static function getDumpData(string $dumpFile) : DumpData
+    public static function getDumpData(Filesystem $filesystem, string $dumpFile) : DumpData
     {
-        if (!file_exists($dumpFile)) {
+        if (!$filesystem->fileExists($dumpFile)) {
             throw new \Exception("dumpfile '".$dumpFile."' does not exist");
         }
 
-        $fileContent = \file($dumpFile);
-        if ($fileContent === false) {
-            throw new \Exception("dumpfile '".$dumpFile."' does not exist");
+        try {
+            $fileContent = $filesystem->read($dumpFile);
+        } catch (FilesystemException | UnableToReadFile $e) {
+            throw new \Exception("unable to read contents of file '".$dumpFile."'", $e->getCode(), $e);
         }
+
+        $fileContent = explode("\n", $fileContent);
 
         $tableName = "";
         $dumpData = [];

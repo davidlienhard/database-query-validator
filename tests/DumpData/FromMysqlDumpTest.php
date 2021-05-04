@@ -6,6 +6,8 @@ namespace DavidLienhard\Database\QueryValidator\Tests\Tester\Tests;
 
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\DumpData\FromMysqlDump;
+use League\Flysystem\Filesystem;
+use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use PHPUnit\Framework\TestCase;
 
 class FromMysqlDumpTest extends TestCase
@@ -28,9 +30,12 @@ class FromMysqlDumpTest extends TestCase
     {
         $dumpFile = "doesnotexist.sql";
 
+        $adapter = new InMemoryFilesystemAdapter;
+        $filesystem = new Filesystem($adapter);
+
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("dumpfile '".$dumpFile."' does not exist");
-        FromMysqlDump::getDumpData($dumpFile);
+        FromMysqlDump::getDumpData($filesystem, $dumpFile);
     }
 
     /**
@@ -56,10 +61,37 @@ class FromMysqlDumpTest extends TestCase
     {
         $files = [ "user.sql", "userUppercaseTypes.sql" ];
 
-        foreach ($files as $file) {
-            $dumpFile = dirname(__DIR__)."/assets/DumpData/".$file;
+        $folder = dirname(__DIR__)."/assets/DumpData/";
 
-            $dump = FromMysqlDump::getDumpData($dumpFile);
+        $adapter = new InMemoryFilesystemAdapter("/");
+        $filesystem = new Filesystem($adapter);
+
+        $filesystem->write(
+            $folder."user.sql",
+            "CREATE TABLE `user` (
+  `userID` int NOT NULL AUTO_INCREMENT,
+  `userName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `userDescription` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userPermissions` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`userID`)
+);"
+        );
+
+        $filesystem->write(
+            $folder."userUppercaseTypes.sql",
+            "CREATE TABLE `user` (
+  `userID` INT NOT NULL AUTO_INCREMENT,
+  `userName` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `userDescription` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userPermissions` INT NOT NULL DEFAULT '0',
+  PRIMARY KEY (`userID`)
+);"
+        );
+
+        foreach ($files as $file) {
+            $dumpFile = $folder.$file;
+
+            $dump = FromMysqlDump::getDumpData($filesystem, $dumpFile);
 
             $this->assertInstanceOf(DumpData::class, $dump);
 

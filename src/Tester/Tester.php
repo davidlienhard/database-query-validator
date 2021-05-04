@@ -14,6 +14,7 @@ use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
 use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
+use League\Flysystem\Filesystem;
 
 /**
  * class to test files
@@ -48,6 +49,7 @@ class Tester implements TesterInterface
      * @param           DumpData        $dumpData       data from the database-dump
      */
     public function __construct(
+        private Filesystem $filesystem,
         private ConfigInterface $config,
         private OutputInterface $output,
         private DumpData $dumpData
@@ -66,6 +68,7 @@ class Tester implements TesterInterface
         try {
             $testFile = new TestFile(
                 $file,
+                $this->filesystem,
                 $this->config,
                 $this->output,
                 $this->dumpData

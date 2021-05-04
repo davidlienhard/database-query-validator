@@ -12,6 +12,9 @@ namespace DavidLienhard\Database\QueryValidator\Config;
 
 use DavidLienhard\Database\QueryValidator\Config\Config;
 use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
+use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemException;
+use League\Flysystem\UnableToReadFile;
 
 /**
  * factory to create a config object
@@ -85,16 +88,16 @@ class Factory
      * @copyright       David Lienhard
      * @param           string          $file           file to fetch data from
      */
-    private static function getDataFromFile(string $file) : string
+    private static function getDataFromFile(Filesystem $filesystem, string $file) : string
     {
-        if (!file_exists($file)) {
+        if (!$filesystem->fileExists($file)) {
             throw new \Exception("configuration file '".$file."' does not exist");
         }
 
-        $fileContent = file_get_contents($file);
-
-        if ($fileContent === false) {
-            throw new \Exception("unable to read data from configuration file '".$file."'");
+        try {
+            $fileContent = $filesystem->read($file);
+        } catch (FilesystemException | UnableToReadFile $e) {
+            throw new \Exception("unable to read data from configuration file '".$file."'", $e->getCode(), $e);
         }
 
         return $fileContent;

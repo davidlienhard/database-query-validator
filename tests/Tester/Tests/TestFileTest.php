@@ -5,29 +5,76 @@ declare(strict_types=1);
 namespace DavidLienhard\Database\QueryValidator\Tests\Queries;
 
 use DavidLienhard\Database\QueryValidator\Config\Config;
-use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 use DavidLienhard\Database\QueryValidator\DumpData\Column;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Output\Standard as StandardOutput;
 use DavidLienhard\Database\QueryValidator\Tester\TestFile;
 use DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
+use League\Flysystem\Filesystem;
+use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use PHPUnit\Framework\TestCase;
 
 class TestFileTestCase extends TestCase
 {
-    private function getDummyConfig() : ConfigInterface
+    protected static array $queries = [];
+
+    private function getFilesystem() : Filesystem
     {
-        return new Config([], dirname(__DIR__, 2)."/assets/Tester/TestFile/dummyconfig.json");
+        $adapter = new InMemoryFilesystemAdapter;
+        return new Filesystem($adapter);
     }
 
-    private function getEmptyPhpFile() : string
+    public static function setUpBeforeClass() : void
     {
-        return dirname(__DIR__, 2)."/assets/Tester/TestFile/empty.php";
-    }
+        self::$queries['singleValidQuery'] = <<<CODE
+        <?php
+        declare(strict_types=1);
 
-    private function getAssetsFolder() : string
-    {
-        return dirname(__DIR__, 2)."/assets/Tester/TestFile/";
+        use DavidLienhard\Database\Parameter as DBParam;
+
+        \$db->query(
+        "SELECT
+            `userID`,
+            `userName`,
+            `userMail`
+        FROM
+            `user`
+        WHERE
+            `userLevel` = ?",
+        new DBParam("i", \$userLevel)
+        );
+        CODE;
+
+        self::$queries['singleInvalidQuery'] = <<<CODE
+        <?php
+        declare(strict_types=1);
+
+        \$db->query(
+            "SELECT
+                `userID`,
+                `userName`,
+                `userMai
+            WHERE
+                `userLevel` = ?"
+        );
+        CODE;
+
+        self::$queries['singleValidInsertQuery'] = <<<CODE
+        <?php
+        declare(strict_types=1);
+
+        use DavidLienhard\Database\Parameter as DBParam;
+
+        \$db->query(
+            "INSERT INTO
+                `user`
+            SET
+                `userName` = ?,
+                `userMail` = ?",
+            new DBParam("s", \$userName),
+            new DBParam("s", \$userMail)
+        );
+        CODE;
     }
 
 
@@ -37,11 +84,14 @@ class TestFileTestCase extends TestCase
      */
     public function testCanBeCreated(): void
     {
-        $config = $this->getDummyConfig();
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("empty.php", "");
+
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
-        $testFile = new TestFile($this->getEmptyPhpFile(), $config, $output, $dumpData);
+        $testFile = new TestFile("empty.php", $filesystem, $config, $output, $dumpData);
 
         $this->assertInstanceOf(TestFile::class, $testFile);
         $this->assertInstanceOf(TestFileInterface::class, $testFile);
@@ -54,12 +104,14 @@ class TestFileTestCase extends TestCase
      */
     public function testCannotBeCreatedWithInexistentFile(): void
     {
-        $config = $this->getDummyConfig();
+        $filesystem = $this->getFilesystem();
+
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
         $this->expectException(\Exception::class);
-        new TestFile("doesnotexist", $config, $output, $dumpData);
+        new TestFile("doesnotexist", $filesystem, $config, $output, $dumpData);
     }
 
 
@@ -69,11 +121,14 @@ class TestFileTestCase extends TestCase
      */
     public function testCanValidateEmptyFileWithoutErrors(): void
     {
-        $config = $this->getDummyConfig();
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("empty.php", "");
+
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
-        $testFile = new TestFile($this->getEmptyPhpFile(), $config, $output, $dumpData);
+        $testFile = new TestFile("empty.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertEquals(0, $testFile->getErrorCount());
@@ -88,11 +143,15 @@ class TestFileTestCase extends TestCase
      */
     public function testCanValidateFileWithSingleQueryWithoutErrors(): void
     {
-        $config = $this->getDummyConfig();
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("singleValidQuery.php", self::$queries['singleValidQuery']);
+
+
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
-        $testFile = new TestFile($this->getAssetsFolder()."singleValidQuery.php", $config, $output, $dumpData);
+        $testFile = new TestFile("singleValidQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertEquals(0, $testFile->getErrorCount());
@@ -107,11 +166,14 @@ class TestFileTestCase extends TestCase
      */
     public function testDoesValidateSyntax(): void
     {
-        $config = $this->getDummyConfig();
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("singleInvalidQuery.php", self::$queries['singleInvalidQuery']);
+
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
-        $testFile = new TestFile($this->getAssetsFolder()."singleInvalidQuery.php", $config, $output, $dumpData);
+        $testFile = new TestFile("singleInvalidQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertGreaterThan(0, $testFile->getErrorCount());
@@ -125,14 +187,16 @@ class TestFileTestCase extends TestCase
      */
     public function testCanIgnoreSyntaxValidation(): void
     {
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("singleInvalidQuery.php", self::$queries['singleInvalidQuery']);
+
         $config = new Config(
-            [ "parameters" => [ "ignoresyntax" => true ]],
-            $this->getAssetsFolder()."dummyconfig.json"
+            [ "parameters" => [ "ignoresyntax" => true ]]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
-        $testFile = new TestFile($this->getAssetsFolder()."singleInvalidQuery.php", $config, $output, $dumpData);
+        $testFile = new TestFile("singleInvalidQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertEquals(0, $testFile->getErrorCount());
@@ -147,13 +211,16 @@ class TestFileTestCase extends TestCase
      */
     public function testDoesValidateValidDumpData(): void
     {
-        $config = $this->getDummyConfig();
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("singleValidQuery.php", self::$queries['singleValidQuery']);
+
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData(
             [ new Column("user", "userLevel", "i", false, false) ]
         );
 
-        $testFile = new TestFile($this->getAssetsFolder()."singleValidQuery.php", $config, $output, $dumpData);
+        $testFile = new TestFile("singleValidQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertEquals(0, $testFile->getErrorCount());
@@ -168,13 +235,16 @@ class TestFileTestCase extends TestCase
      */
     public function testDoesValidateInvalidDumpData(): void
     {
-        $config = $this->getDummyConfig();
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("singleValidQuery.php", self::$queries['singleValidQuery']);
+
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData(
             [ new Column("user", "userLevel", "s", false, false) ]
         );
 
-        $testFile = new TestFile($this->getAssetsFolder()."singleValidQuery.php", $config, $output, $dumpData);
+        $testFile = new TestFile("singleValidQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertEquals(1, $testFile->getErrorCount());
@@ -188,7 +258,10 @@ class TestFileTestCase extends TestCase
      */
     public function testDoesNotValidateMissingTextColumnOnStrictInsert(): void
     {
-        $config = $this->getDummyConfig();
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("singleValidInsertQuery.php", self::$queries['singleValidInsertQuery']);
+
+        $config = new Config([]);
         $output = new StandardOutput;
         $dumpData = new DumpData(
             [
@@ -198,7 +271,7 @@ class TestFileTestCase extends TestCase
             ]
         );
 
-        $testFile = new TestFile($this->getAssetsFolder()."singleValidInsertQuery.php", $config, $output, $dumpData);
+        $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertEquals(0, $testFile->getErrorCount());
@@ -213,9 +286,11 @@ class TestFileTestCase extends TestCase
      */
     public function testCanEnableStrictInsert(): void
     {
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("singleValidInsertQuery.php", self::$queries['singleValidInsertQuery']);
+
         $config = new Config(
-            [ "parameters" => [ "strictinserts" => true ]],
-            $this->getAssetsFolder()."dummyconfig.json"
+            [ "parameters" => [ "strictinserts" => true ]]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData(
@@ -226,7 +301,7 @@ class TestFileTestCase extends TestCase
             ]
         );
 
-        $testFile = new TestFile($this->getAssetsFolder()."singleValidInsertQuery.php", $config, $output, $dumpData);
+        $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertEquals(1, $testFile->getErrorCount());
@@ -240,9 +315,11 @@ class TestFileTestCase extends TestCase
      */
     public function testStrictInsertDoesNotReportNullableTextColums(): void
     {
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("singleValidInsertQuery.php", self::$queries['singleValidInsertQuery']);
+
         $config = new Config(
-            [ "parameters" => [ "strictinserts" => true ]],
-            $this->getAssetsFolder()."dummyconfig.json"
+            [ "parameters" => [ "strictinserts" => true ]]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData(
@@ -253,7 +330,7 @@ class TestFileTestCase extends TestCase
             ]
         );
 
-        $testFile = new TestFile($this->getAssetsFolder()."singleValidInsertQuery.php", $config, $output, $dumpData);
+        $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertEquals(0, $testFile->getErrorCount());
@@ -268,9 +345,11 @@ class TestFileTestCase extends TestCase
      */
     public function testDoesValidateValidDumpDataOnStrictInsert(): void
     {
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("singleValidInsertQuery.php", self::$queries['singleValidInsertQuery']);
+
         $config = new Config(
-            [ "parameters" => [ "strictinserts" => true ]],
-            $this->getAssetsFolder()."dummyconfig.json"
+            [ "parameters" => [ "strictinserts" => true ]]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData(
@@ -280,7 +359,7 @@ class TestFileTestCase extends TestCase
             ]
         );
 
-        $testFile = new TestFile($this->getAssetsFolder()."singleValidInsertQuery.php", $config, $output, $dumpData);
+        $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertEquals(0, $testFile->getErrorCount());
@@ -295,9 +374,11 @@ class TestFileTestCase extends TestCase
      */
     public function testChecksMissingTableInDump(): void
     {
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("singleValidInsertQuery.php", self::$queries['singleValidInsertQuery']);
+
         $config = new Config(
-            [ "parameters" => [ "strictinserts" => true ]],
-            $this->getAssetsFolder()."dummyconfig.json"
+            [ "parameters" => [ "strictinserts" => true ]]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData(
@@ -307,7 +388,7 @@ class TestFileTestCase extends TestCase
             ]
         );
 
-        $testFile = new TestFile($this->getAssetsFolder()."singleValidInsertQuery.php", $config, $output, $dumpData);
+        $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertEquals(1, $testFile->getErrorCount());
@@ -321,14 +402,16 @@ class TestFileTestCase extends TestCase
      */
     public function testCanIgnoreMissingTableInDump(): void
     {
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("singleValidInsertQuery.php", self::$queries['singleValidInsertQuery']);
+
         $config = new Config(
             [
                 "parameters" => [
                     "strictinserts"                        => true,
                     "strictinsertsignoremissingtablenames" => true
                 ]
-            ],
-            $this->getAssetsFolder()."dummyconfig.json"
+            ]
         );
         $output = new StandardOutput;
         $dumpData = new DumpData(
@@ -338,7 +421,7 @@ class TestFileTestCase extends TestCase
             ]
         );
 
-        $testFile = new TestFile($this->getAssetsFolder()."singleValidInsertQuery.php", $config, $output, $dumpData);
+        $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
 
         $this->assertEquals(1, $testFile->getErrorCount());

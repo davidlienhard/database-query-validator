@@ -7,6 +7,7 @@ namespace DavidLienhard\Database\QueryValidator\Tester;
 use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
+use League\Flysystem\Filesystem;
 
 interface TestFileInterface
 {
@@ -22,6 +23,7 @@ interface TestFileInterface
      */
     public function __construct(
         string $file,
+        Filesystem $filesystem,
         ConfigInterface $config,
         OutputInterface $output,
         DumpData $dumpData

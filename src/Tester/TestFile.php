@@ -13,6 +13,9 @@ use DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\Parameters as ParametersTest;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\StrictInserts as StrictInsertsTest;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\Syntax as SyntaxTest;
+use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemException;
+use League\Flysystem\UnableToReadFile;
 use PhpParser\Error as PhpParserError;
 use PhpParser\NodeTraverser as PhpNodeTraverser;
 use PhpParser\ParserFactory as PhpParserFactory;
@@ -42,11 +45,12 @@ class TestFile implements TestFileInterface
      */
     public function __construct(
         private string $file,
+        private Filesystem $filesystem,
         private ConfigInterface $config,
         private OutputInterface $output,
         private DumpData $dumpData
     ) {
-        if (!file_exists($file)) {
+        if (!$filesystem->fileExists($file)) {
             throw new \Exception("file '".$file."' does not exist");
         }
     }
@@ -65,10 +69,10 @@ class TestFile implements TestFileInterface
             $visitor = new PhpNodeVisitor($this->file);
             $traverser->addVisitor($visitor);
 
-            $fileContent = \file_get_contents($this->file);
-
-            if ($fileContent === false) {
-                throw new \Exception("unable to read contents of file '".$this->file."'");
+            try {
+                $fileContent = $this->filesystem->read($this->file);
+            } catch (FilesystemException | UnableToReadFile $e) {
+                throw new \Exception("unable to read contents of file '".$this->file."'", $e->getCode(), $e);
             }
 
             $ast = $parser->parse($fileContent);

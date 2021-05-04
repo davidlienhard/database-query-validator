@@ -18,6 +18,8 @@ use DavidLienhard\Database\QueryValidator\Output\Standard as StandardOutput;
 use DavidLienhard\Database\QueryValidator\Scanner\FilesystemScanner;
 use DavidLienhard\Database\QueryValidator\Scanner\StdinScanner;
 use DavidLienhard\Database\QueryValidator\Tester\Tester;
+use League\Flysystem\Filesystem;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 
 /**
  * main entrypoint to validate queries
@@ -35,10 +37,11 @@ class QueryValidator
      */
     public static function main() : void
     {
+        $filesystem = self::getFilesystem();
         $output = new StandardOutput;
 
         try {
-            $config = self::getConfig();
+            $config = self::getConfig($filesystem);
         } catch (\Exception $e) {
             $output->error(
                 "error fetching configuration-data".PHP_EOL.
@@ -53,7 +56,7 @@ class QueryValidator
 
         ini_set("xdebug.max_nesting_level", "1000");
 
-        $tester = new Tester($config, $output, $dumpData);
+        $tester = new Tester($filesystem, $config, $output, $dumpData);
 
         $fromStdin = boolval($config->get("parameters", "fromstdin") ?? false);
 
@@ -76,7 +79,7 @@ class QueryValidator
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
-    private static function getConfig() : ConfigInterface
+    private static function getConfig(Filesystem $filesystem) : ConfigInterface
     {
         $configCandidates = [
             [
@@ -98,7 +101,7 @@ class QueryValidator
 
         switch ($configFile['type']) {
             case "json":
-                $config = ConfigFactory::fromJson($configFile['filename']);
+                $config = ConfigFactory::fromJson($filesystem, $configFile['filename']);
                 break;
             default:
                 throw new \Exception("unsupported configuration type '".$configFile['type']."'");
@@ -167,6 +170,13 @@ class QueryValidator
             throw new \Exception("given dump file '".$dumpFile."' does not exist");
         }
 
-        return FromMysqlDump::getDumpData($dumpFile);
+        $filesystem = self::getFilesystem();
+        return FromMysqlDump::getDumpData($filesystem, $dumpFile);
+    }
+
+    private static function getFilesystem() : Filesystem
+    {
+        $adapter = new LocalFilesystemAdapter("/");
+        return new Filesystem($adapter);
     }
 }

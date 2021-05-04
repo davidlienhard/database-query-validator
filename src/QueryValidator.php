@@ -66,7 +66,7 @@ class QueryValidator
 
         $scanner->scan(
             $paths,
-            $config->getConfigFolder(),
+            dirname(__DIR__, 4),
             $exclusions
         );
 

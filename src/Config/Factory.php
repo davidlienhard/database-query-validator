@@ -55,7 +55,7 @@ class Factory
             );
         }
 
-        $config = self::addFromArguments($data, $file);
+        $config = self::addFromArguments($data);
 
         return $config;
     }
@@ -67,9 +67,8 @@ class Factory
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array           $data           data to create the Config instance with
-     * @param           string          $file           name of the configuration file
      */
-    private static function addFromArguments(array $data, string $file) : ConfigInterface
+    private static function addFromArguments(array $data) : ConfigInterface
     {
         $arguments = $_SERVER['argv'] ?? [];
 
@@ -77,7 +76,7 @@ class Factory
             $data['parameters']['fromstdin'] = true;
         }
 
-        return new Config($data, $file);
+        return new Config($data);
     }
 
 

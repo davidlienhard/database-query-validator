@@ -24,9 +24,8 @@ interface ConfigInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array           $config         configuration data to add
-     * @param           string          $configFile     path to the configuration file
      */
-    public function __construct(array $config, string $configFile);
+    public function __construct(array $config);
 
     /**
      * gets a configuration entry from the object
@@ -36,12 +35,4 @@ interface ConfigInterface
      * @param           string          $keys           keys to find the config entry
      */
     public function get(string ...$keys) : mixed;
-
-    /**
-     * returns the path to the folder containing the config file
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     */
-    public function getConfigFolder() : string;
 }

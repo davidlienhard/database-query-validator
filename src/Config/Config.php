@@ -26,9 +26,8 @@ class Config implements ConfigInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array           $config         configuration data to add
-     * @param           string          $configFile     path to the configuration file
      */
-    public function __construct(private array $config, private string $configFile)
+    public function __construct(private array $config)
     {
     }
 
@@ -51,16 +50,5 @@ class Config implements ConfigInterface
         }
 
         return $data;
-    }
-
-    /**
-     * returns the path to the folder containing the config file
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     */
-    public function getConfigFolder() : string
-    {
-        return dirname($this->configFile);
     }
 }

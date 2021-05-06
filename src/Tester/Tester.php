@@ -90,20 +90,6 @@ class Tester implements TesterInterface
     }
 
     /**
-     * adds an error to the internal error list
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     * @param           string              $file       file where the error occured
-     * @param           int                 $line       linenumber of the beginning of the query
-     * @param           string              $error      error description
-     */
-    private function addError(string $file, int $line, string $error): void
-    {
-        $this->errors[] = "error in file '".$file.":".$line."' ".$error;
-    }
-
-    /**
      * adds multiple errors to the liost
      *
      * @author          David Lienhard <github@lienhard.win>
@@ -113,21 +99,6 @@ class Tester implements TesterInterface
     private function addErrors(array $errors) : void
     {
         $this->errors = array_merge($this->errors, $errors);
-    }
-
-    /**
-     * adds multiple scanned files to the liost
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     * @param           array               $scannedFiles   files to add
-     */
-    private function addScannedFiles(array $scannedFiles) : void
-    {
-        $this->scannedFiles = array_merge(
-            $this->scannedFiles,
-            $scannedFiles
-        );
     }
 
     /**

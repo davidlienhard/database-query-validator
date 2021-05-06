@@ -7,6 +7,7 @@ namespace DavidLienhard\Database\QueryValidator\Tests\DumpData;
 use DavidLienhard\Database\QueryValidator\Config\Config;
 use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 use DavidLienhard\Database\QueryValidator\Config\Factory as ConfigFactory;
+use DavidLienhard\Database\QueryValidator\Exceptions\Config as ConfigException;
 use League\Flysystem\Filesystem;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use PHPUnit\Framework\TestCase;
@@ -42,7 +43,7 @@ class ConfigFactoryTestCase extends TestCase
     {
         $filesystem = $this->getFilesystem();
 
-        $this->expectException(\Exception::class);
+        $this->expectException(ConfigException::class);
         $this->expectExceptionMessage("configuration file 'config.json' does not exist");
         ConfigFactory::fromJson($filesystem, "config.json");
     }
@@ -56,7 +57,7 @@ class ConfigFactoryTestCase extends TestCase
         $filesystem = $this->getFilesystem();
         $filesystem->write("config.json", "{");
 
-        $this->expectException(\Exception::class);
+        $this->expectException(ConfigException::class);
         $this->expectExceptionMessage("unable to decode json data");
         ConfigFactory::fromJson($filesystem, "config.json");
     }

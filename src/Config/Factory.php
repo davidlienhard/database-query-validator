@@ -12,6 +12,7 @@ namespace DavidLienhard\Database\QueryValidator\Config;
 
 use DavidLienhard\Database\QueryValidator\Config\Config;
 use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
+use DavidLienhard\Database\QueryValidator\Exceptions\Config as ConfigException;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\UnableToReadFile;
@@ -48,7 +49,7 @@ class Factory
                 flags:       JSON_THROW_ON_ERROR
             );
         } catch (\Exception $e) {
-            throw new \Exception(
+            throw new ConfigException(
                 "unable to decode json data",
                 $e->getCode(),
                 $e
@@ -90,13 +91,13 @@ class Factory
     private static function getDataFromFile(Filesystem $filesystem, string $file) : string
     {
         if (!$filesystem->fileExists($file)) {
-            throw new \Exception("configuration file '".$file."' does not exist");
+            throw new ConfigException("configuration file '".$file."' does not exist");
         }
 
         try {
             $fileContent = $filesystem->read($file);
         } catch (FilesystemException | UnableToReadFile $e) {
-            throw new \Exception("unable to read data from configuration file '".$file."'", $e->getCode(), $e);
+            throw new ConfigException("unable to read data from configuration file '".$file."'", $e->getCode(), $e);
         }
 
         return $fileContent;

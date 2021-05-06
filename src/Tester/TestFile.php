@@ -6,6 +6,8 @@ namespace DavidLienhard\Database\QueryValidator\Tester;
 
 use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
+use DavidLienhard\Database\QueryValidator\Exceptions\QueryValidator as QueryValidatorException;
+use DavidLienhard\Database\QueryValidator\Exceptions\TestFile as TestFileException;
 use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
 use DavidLienhard\Database\QueryValidator\Queries\QueryInterface;
 use DavidLienhard\Database\QueryValidator\Tester\PhpNodeVisitor;
@@ -51,7 +53,7 @@ class TestFile implements TestFileInterface
         private DumpData $dumpData
     ) {
         if (!$filesystem->fileExists($file)) {
-            throw new \Exception("file '".$file."' does not exist");
+            throw new TestFileException("file '".$file."' does not exist");
         }
     }
 
@@ -72,24 +74,24 @@ class TestFile implements TestFileInterface
             try {
                 $fileContent = $this->filesystem->read($this->file);
             } catch (FilesystemException | UnableToReadFile $e) {
-                throw new \Exception("unable to read contents of file '".$this->file."'", $e->getCode(), $e);
+                throw new TestFileException("unable to read contents of file '".$this->file."'", $e->getCode(), $e);
             }
 
             $ast = $parser->parse($fileContent);
 
             if ($ast === null) {
-                throw new \Exception("unable to parse file '".$this->file."'");
+                throw new TestFileException("unable to parse file '".$this->file."'");
             }
 
             $stmts = $traverser->traverse($ast);
         } catch (PhpParserError $error) {
-            throw new \Exception(
+            throw new TestFileException(
                 "Parse error: ".$error->getMessage()." (".$this->file.")",
                 $error->getCode(),
                 $error
             );
         } catch (\Throwable $t) {
-            throw new \Exception(
+            throw new QueryValidatorException(
                 "unknown error: ".$t->getMessage()." (".$this->file.")",
                 $t->getCode(),
                 $t
@@ -102,7 +104,7 @@ class TestFile implements TestFileInterface
                 $visitor->getQueries()
             );
         } catch (\Throwable $t) {
-            throw new \Exception(
+            throw new QueryValidatorException(
                 "error: ".$t->getMessage()." (".$this->file.")",
                 $t->getCode(),
                 $t
@@ -119,7 +121,6 @@ class TestFile implements TestFileInterface
      * @copyright       David Lienhard
      * @param           string              $file       the file containing the queries
      * @param           array<\DavidLienhard\Database\QueryValidator\Queries\QueryInterface>    $queries    the queries to validate
-     * @throws          \Exception                      if the file does not exist
      */
     public function validateQueries(string $file, array $queries) : void
     {

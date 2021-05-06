@@ -14,6 +14,8 @@ use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 use DavidLienhard\Database\QueryValidator\Config\Factory as ConfigFactory;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\DumpData\FromMysqlDump;
+use DavidLienhard\Database\QueryValidator\Exceptions\Config as ConfigException;
+use DavidLienhard\Database\QueryValidator\Exceptions\DumpData as DumpDataException;
 use DavidLienhard\Database\QueryValidator\Output\Standard as StandardOutput;
 use DavidLienhard\Database\QueryValidator\Scanner\FilesystemScanner;
 use DavidLienhard\Database\QueryValidator\Scanner\StdinScanner;
@@ -61,19 +63,25 @@ final class QueryValidator
 
         try {
             $config = $this->getConfig($filesystem);
-        } catch (\Exception $e) {
+
+            $paths = $this->getPaths($config);
+            $exclusions = $this->getExclusions($config);
+            $dumpData = $this->getDumpData($config);
+
+            ini_set("xdebug.max_nesting_level", "1000");
+        } catch (ConfigException $e) {
             $output->error(
                 "error fetching configuration-data".PHP_EOL.
                 "    ".$e->getMessage().PHP_EOL
             );
             exit(1);
-        }
-
-        $paths = $this->getPaths($config);
-        $exclusions = $this->getExclusions($config);
-        $dumpData = $this->getDumpData($config);
-
-        ini_set("xdebug.max_nesting_level", "1000");
+        } catch (DumpDataException $e) {
+            $output->error(
+                "error fetching dump-data".PHP_EOL.
+                "    ".$e->getMessage().PHP_EOL
+            );
+            exit(1);
+        }//end try
 
         $tester = new Tester($filesystem, $config, $output, $dumpData);
 
@@ -115,7 +123,7 @@ final class QueryValidator
         }
 
         if ($configFile === null) {
-            throw new \Exception("no configuration file found");
+            throw new ConfigException("no configuration file found");
         }
 
         switch ($configFile['type']) {
@@ -123,7 +131,7 @@ final class QueryValidator
                 $config = ConfigFactory::fromJson($filesystem, $configFile['filename']);
                 break;
             default:
-                throw new \Exception("unsupported configuration type '".$configFile['type']."'");
+                throw new ConfigException("unsupported configuration type '".$configFile['type']."'");
         }
 
         return $config;
@@ -186,7 +194,7 @@ final class QueryValidator
         }
 
         if (!file_exists($dumpFile)) {
-            throw new \Exception("given dump file '".$dumpFile."' does not exist");
+            throw new DumpDataException("given dump file '".$dumpFile."' does not exist");
         }
 
         $filesystem = self::getFilesystem();

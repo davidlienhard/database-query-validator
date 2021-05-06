@@ -37,9 +37,8 @@ interface OutputInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $error          error to output
-     * @param           int             $errorCode      code of the error
      */
-    public function error(string $error, int $errorCode = 1) : void;
+    public function error(string $error) : void;
 
     /**
      * outputs the summary at the end of the validation
@@ -48,5 +47,5 @@ interface OutputInterface
      * @copyright       David Lienhard
      * @param           TesterInterface $tester         tester object containing all the results
      */
-    public function summary(TesterInterface $tester) : void;
+    public function summary(TesterInterface $tester) : bool;
 }

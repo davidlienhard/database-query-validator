@@ -26,6 +26,13 @@ class TestFileTestCase extends TestCase
 
     public static function setUpBeforeClass() : void
     {
+        self::$queries['invalidFile'] = <<<CODE
+        <?php
+        declare(strict_types=1);
+
+        has parse error
+        CODE;
+
         self::$queries['singleValidQuery'] = <<<CODE
         <?php
         declare(strict_types=1);
@@ -136,6 +143,28 @@ class TestFileTestCase extends TestCase
         $this->assertEquals(0, $testFile->getErrorCount());
         $this->assertEquals(0, $testFile->getQueryCount());
         $this->assertEquals([], $testFile->getErrors());
+    }
+
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Tester\TestFile
+     * @test
+     */
+    public function testGetParseErrorOnInvalidFile(): void
+    {
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("invalidFile.php", self::$queries['invalidFile']);
+
+
+        $config = new Config([]);
+        $output = new StandardOutput;
+        $dumpData = new DumpData;
+
+        $testFile = new TestFile("invalidFile.php", $filesystem, $config, $output, $dumpData);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches("/^Parse error: (.*) \(invalidFile.php\)$/");
+        $testFile->validate();
     }
 
 

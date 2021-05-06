@@ -111,7 +111,7 @@ final class QueryValidator
         $configCandidates = [
             [
                 "type"     => "json",
-                "filename" => dirname(__DIR__, 4).DIRECTORY_SEPARATOR."query-validator.json"
+                "filename" => "query-validator.json"
             ]
         ];
         $configFile = null;
@@ -203,7 +203,7 @@ final class QueryValidator
 
     private function getFilesystem() : Filesystem
     {
-        $adapter = new LocalFilesystemAdapter("/");
+        $adapter = new LocalFilesystemAdapter(dirname(__DIR__, 4));
         return new Filesystem($adapter);
     }
 }

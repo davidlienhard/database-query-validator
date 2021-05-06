@@ -27,7 +27,7 @@ use League\Flysystem\Local\LocalFilesystemAdapter;
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
-class QueryValidator
+final class QueryValidator
 {
     /**
      * main method to call
@@ -37,11 +37,30 @@ class QueryValidator
      */
     public static function main() : void
     {
-        $filesystem = self::getFilesystem();
+        try {
+            (new static)->run();
+        } catch (\Throwable $t) {
+            throw new \RuntimeException(
+                $t->getMessage(),
+                (int) $t->getCode(),
+                $t
+            );
+        }
+    }
+
+    /**
+     * runs the program
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function run() : void
+    {
+        $filesystem = $this->getFilesystem();
         $output = new StandardOutput;
 
         try {
-            $config = self::getConfig($filesystem);
+            $config = $this->getConfig($filesystem);
         } catch (\Exception $e) {
             $output->error(
                 "error fetching configuration-data".PHP_EOL.
@@ -50,9 +69,9 @@ class QueryValidator
             exit(1);
         }
 
-        $paths = self::getPaths($config);
-        $exclusions = self::getExclusions($config);
-        $dumpData = self::getDumpData($config);
+        $paths = $this->getPaths($config);
+        $exclusions = $this->getExclusions($config);
+        $dumpData = $this->getDumpData($config);
 
         ini_set("xdebug.max_nesting_level", "1000");
 
@@ -117,7 +136,7 @@ class QueryValidator
      * @copyright       David Lienhard
      * @param           ConfigInterface $config         configuration object to use
      */
-    private static function getPaths(ConfigInterface $config) : array
+    private function getPaths(ConfigInterface $config) : array
     {
         $paths = $config->get("paths");
 
@@ -140,7 +159,7 @@ class QueryValidator
      * @copyright       David Lienhard
      * @param           ConfigInterface $config         configuration object to use
      */
-    private static function getExclusions(ConfigInterface $config) : array
+    private function getExclusions(ConfigInterface $config) : array
     {
         $exclusions = $config->get("exclusions") ?? [];
 
@@ -158,7 +177,7 @@ class QueryValidator
      * @copyright       David Lienhard
      * @param           ConfigInterface $config         configuration object to use
      */
-    private static function getDumpData(ConfigInterface $config) : DumpData
+    private function getDumpData(ConfigInterface $config) : DumpData
     {
         $dumpFile = $config->get("dumpfile");
 
@@ -174,7 +193,7 @@ class QueryValidator
         return FromMysqlDump::getDumpData($filesystem, $dumpFile);
     }
 
-    private static function getFilesystem() : Filesystem
+    private function getFilesystem() : Filesystem
     {
         $adapter = new LocalFilesystemAdapter("/");
         return new Filesystem($adapter);

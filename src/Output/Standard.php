@@ -29,7 +29,7 @@ class Standard implements OutputInterface
      */
     public function query(string $filename, int $line, bool $result) : void
     {
-        echo $this->queryCount % 80 === 0 ? PHP_EOL : "";
+        echo $this->queryCount % 80 === 0 && $this->queryCount !== 0 ? PHP_EOL : "";
         $this->queryCount++;
 
         echo $result ? "." : "x";

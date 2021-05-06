@@ -47,7 +47,7 @@ class QueryValidator
                 "error fetching configuration-data".PHP_EOL.
                 "    ".$e->getMessage().PHP_EOL
             );
-            exit;
+            exit(1);
         }
 
         $paths = self::getPaths($config);
@@ -70,7 +70,7 @@ class QueryValidator
             $exclusions
         );
 
-        $output->summary($tester);
+        exit((int) $output->summary($tester));
     }
 
     /**

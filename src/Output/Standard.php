@@ -29,7 +29,7 @@ class Standard implements OutputInterface
      */
     public function query(string $filename, int $line, bool $result) : void
     {
-        echo $this->queryCount % 80 === 0 ? PHP_EOL : "";
+        echo $this->queryCount % 80 === 0 && $this->queryCount !== 0 ? PHP_EOL : "";
         $this->queryCount++;
 
         echo $result ? "." : "x";
@@ -41,12 +41,10 @@ class Standard implements OutputInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $error          error to output
-     * @param           int             $errorCode      code of the error
      */
-    public function error(string $error, int $errorCode = 1) : void
+    public function error(string $error) : void
     {
         fwrite(STDERR, $error);
-        exit($errorCode);
     }
 
     /**
@@ -56,7 +54,7 @@ class Standard implements OutputInterface
      * @copyright       David Lienhard
      * @param           TesterInterface $tester         tester object containing all the results
      */
-    public function summary(TesterInterface $tester) : void
+    public function summary(TesterInterface $tester) : bool
     {
         echo PHP_EOL."found ".$tester->getErrorcount()." errors ".
             "in ".$tester->getFilecount()." files ".
@@ -66,6 +64,6 @@ class Standard implements OutputInterface
             echo "- ".$error.PHP_EOL;
         }
 
-        exit($tester->getErrorcount() === 0 ? 0 : 1);            // exit with code 0 (no errors) or 1 (errors)
+        return $tester->getErrorcount() === 0;
     }
 }

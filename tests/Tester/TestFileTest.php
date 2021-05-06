@@ -128,8 +128,10 @@ class TestFileTestCase extends TestCase
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
+        ob_start();
         $testFile = new TestFile("empty.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertEquals(0, $testFile->getErrorCount());
         $this->assertEquals(0, $testFile->getQueryCount());
@@ -151,8 +153,10 @@ class TestFileTestCase extends TestCase
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
+        ob_start();
         $testFile = new TestFile("singleValidQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertEquals(0, $testFile->getErrorCount());
         $this->assertEquals(1, $testFile->getQueryCount());
@@ -173,8 +177,10 @@ class TestFileTestCase extends TestCase
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
+        ob_start();
         $testFile = new TestFile("singleInvalidQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertGreaterThan(0, $testFile->getErrorCount());
         $this->assertEquals(1, $testFile->getQueryCount());
@@ -196,8 +202,10 @@ class TestFileTestCase extends TestCase
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
+        ob_start();
         $testFile = new TestFile("singleInvalidQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertEquals(0, $testFile->getErrorCount());
         $this->assertEquals([], $testFile->getErrors());
@@ -220,8 +228,10 @@ class TestFileTestCase extends TestCase
             [ new Column("user", "userLevel", "i", false, false) ]
         );
 
+        ob_start();
         $testFile = new TestFile("singleValidQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertEquals(0, $testFile->getErrorCount());
         $this->assertEquals([], $testFile->getErrors());
@@ -244,8 +254,10 @@ class TestFileTestCase extends TestCase
             [ new Column("user", "userLevel", "s", false, false) ]
         );
 
+        ob_start();
         $testFile = new TestFile("singleValidQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertEquals(1, $testFile->getErrorCount());
         $this->assertEquals(1, $testFile->getQueryCount());
@@ -271,8 +283,10 @@ class TestFileTestCase extends TestCase
             ]
         );
 
+        ob_start();
         $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertEquals(0, $testFile->getErrorCount());
         $this->assertEquals([], $testFile->getErrors());
@@ -301,8 +315,10 @@ class TestFileTestCase extends TestCase
             ]
         );
 
+        ob_start();
         $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertEquals(1, $testFile->getErrorCount());
         $this->assertEquals(1, $testFile->getQueryCount());
@@ -330,8 +346,10 @@ class TestFileTestCase extends TestCase
             ]
         );
 
+        ob_start();
         $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertEquals(0, $testFile->getErrorCount());
         $this->assertEquals([], $testFile->getErrors());
@@ -359,8 +377,10 @@ class TestFileTestCase extends TestCase
             ]
         );
 
+        ob_start();
         $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertEquals(0, $testFile->getErrorCount());
         $this->assertEquals([], $testFile->getErrors());
@@ -388,8 +408,10 @@ class TestFileTestCase extends TestCase
             ]
         );
 
+        ob_start();
         $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertEquals(1, $testFile->getErrorCount());
         $this->assertEquals(1, $testFile->getQueryCount());
@@ -421,8 +443,10 @@ class TestFileTestCase extends TestCase
             ]
         );
 
+        ob_start();
         $testFile = new TestFile("singleValidInsertQuery.php", $filesystem, $config, $output, $dumpData);
         $testFile->validate();
+        ob_end_clean();
 
         $this->assertEquals(1, $testFile->getErrorCount());
         $this->assertEquals(1, $testFile->getQueryCount());

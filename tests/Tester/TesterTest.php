@@ -117,6 +117,7 @@ class TesterTestCase extends TestCase
         $this->assertEquals(0, $tester->getQuerycount());
         $this->assertEquals([ $filename ], $tester->getScannedFiles());
         $this->assertEquals([], $tester->getErrors());
+        $this->assertEquals(0, $tester->getExitCode());
     }
 
     /**
@@ -144,6 +145,7 @@ class TesterTestCase extends TestCase
         $this->assertEquals(1, $tester->getQuerycount());
         $this->assertEquals([ $filename ], $tester->getScannedFiles());
         $this->assertEquals([], $tester->getErrors());
+        $this->assertEquals(0, $tester->getExitCode());
     }
 
     /**
@@ -171,5 +173,6 @@ class TesterTestCase extends TestCase
         $this->assertEquals(1, $tester->getQuerycount());
         $this->assertEquals([ $filename ], $tester->getScannedFiles());
         $this->assertGreaterThan(1, count($tester->getErrors()));
+        $this->assertEquals(1, $tester->getExitCode());
     }
 }

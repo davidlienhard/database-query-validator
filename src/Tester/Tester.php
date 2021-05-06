@@ -168,4 +168,15 @@ class Tester implements TesterInterface
     {
         return $this->errors;
     }
+
+    /**
+     * returns the exit-code for the program
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function getExitCode() : int
+    {
+        return count($this->errors) === 0 ? 0 : 1;
+    }
 }

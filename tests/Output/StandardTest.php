@@ -28,7 +28,7 @@ class StandardOutputTestCase extends TestCase
      * @covers DavidLienhard\Database\QueryValidator\Output\Standard
      * @test
      */
-    public function testValidResultRetunsDot(): void
+    public function testValidResultReturnsDot(): void
     {
         $output = new Standard;
 
@@ -45,7 +45,7 @@ class StandardOutputTestCase extends TestCase
      * @covers DavidLienhard\Database\QueryValidator\Output\Standard
      * @test
      */
-    public function testInvalidResultRetunsX(): void
+    public function testInvalidResultReturnsX(): void
     {
         $output = new Standard;
 
@@ -110,28 +110,6 @@ class StandardOutputTestCase extends TestCase
      * @covers DavidLienhard\Database\QueryValidator\Output\Standard
      * @test
      */
-    public function testReturnOfEmptySummary(): void
-    {
-        $output = new Standard;
-
-        $tester = $this->createMock(Tester::class);
-        $tester->method('getErrorcount')->willReturn(0);
-        $tester->method('getFilecount')->willReturn(0);
-        $tester->method('getQuerycount')->willReturn(0);
-        $tester->method('getErrors')->willReturn([]);
-
-        ob_start();
-        $summaryResult = $output->summary($tester);
-        ob_end_clean();
-
-        $this->assertEquals(true, $summaryResult);
-    }
-
-
-    /**
-     * @covers DavidLienhard\Database\QueryValidator\Output\Standard
-     * @test
-     */
     public function testOutputOfSummaryWithValidQueries(): void
     {
         $output = new Standard;
@@ -152,28 +130,6 @@ class StandardOutputTestCase extends TestCase
             "and 5 queries".PHP_EOL.PHP_EOL;
 
         $this->assertEquals($summary, $outputResult);
-    }
-
-
-    /**
-     * @covers DavidLienhard\Database\QueryValidator\Output\Standard
-     * @test
-     */
-    public function testReturnOfSummaryWithValidQueries(): void
-    {
-        $output = new Standard;
-
-        $tester = $this->createMock(Tester::class);
-        $tester->method('getErrorcount')->willReturn(0);
-        $tester->method('getFilecount')->willReturn(2);
-        $tester->method('getQuerycount')->willReturn(5);
-        $tester->method('getErrors')->willReturn([]);
-
-        ob_start();
-        $summaryResult = $output->summary($tester);
-        ob_end_clean();
-
-        $this->assertEquals(true, $summaryResult);
     }
 
 
@@ -203,27 +159,5 @@ class StandardOutputTestCase extends TestCase
             "- error 2".PHP_EOL;
 
         $this->assertEquals($summary, $outputResult);
-    }
-
-
-    /**
-     * @covers DavidLienhard\Database\QueryValidator\Output\Standard
-     * @test
-     */
-    public function testReturnOfSummaryWithInvalidQueries(): void
-    {
-        $output = new Standard;
-
-        $tester = $this->createMock(Tester::class);
-        $tester->method('getErrorcount')->willReturn(2);
-        $tester->method('getFilecount')->willReturn(2);
-        $tester->method('getQuerycount')->willReturn(5);
-        $tester->method('getErrors')->willReturn([ "error 1", "error 2" ]);
-
-        ob_start();
-        $summaryResult = $output->summary($tester);
-        ob_end_clean();
-
-        $this->assertEquals(false, $summaryResult);
     }
 }

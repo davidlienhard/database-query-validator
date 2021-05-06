@@ -97,7 +97,9 @@ final class QueryValidator
             $exclusions
         );
 
-        exit(intval(!$output->summary($tester)));
+        $output->summary($tester);
+
+        exit($tester->getExitCode());
     }
 
     /**

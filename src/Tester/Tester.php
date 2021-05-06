@@ -12,6 +12,7 @@ namespace DavidLienhard\Database\QueryValidator\Tester;
 
 use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
+use DavidLienhard\Database\QueryValidator\Exceptions\TestFile as TestFileException;
 use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
 use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
 use League\Flysystem\Filesystem;
@@ -80,8 +81,8 @@ class Tester implements TesterInterface
             $this->addQueryCount($testFile->getQueryCount());
 
             $this->scannedFiles[] = $file;
-        } catch (\Exception $e) {
-            throw new \Exception(
+        } catch (TestFileException $e) {
+            throw new TestFileException(
                 "unable to validate file '".$file."'",
                 $e->getCode(),
                 $e

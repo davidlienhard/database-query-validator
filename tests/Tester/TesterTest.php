@@ -6,6 +6,7 @@ namespace DavidLienhard\Database\QueryValidator\Tests\Queries;
 
 use DavidLienhard\Database\QueryValidator\Config\Config;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
+use DavidLienhard\Database\QueryValidator\Exceptions\TestFile as TestFileException;
 use DavidLienhard\Database\QueryValidator\Output\Standard as StandardOutput;
 use DavidLienhard\Database\QueryValidator\Tester\Tester;
 use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
@@ -91,7 +92,7 @@ class TesterTestCase extends TestCase
 
         $tester = new Tester($filesystem, $config, $output, $dumpData);
 
-        $this->expectException(\Exception::class);
+        $this->expectException(TestFileException::class);
         $tester->test("empty.php");
     }
 

@@ -44,7 +44,6 @@ interface TestFileInterface
      * @copyright       David Lienhard
      * @param           string              $file       the file containing the queries
      * @param           array               $queries    the queries to validate
-     * @throws          \Exception                      if the file does not exist
      */
     public function validateQueries(string $file, array $queries) : void;
 

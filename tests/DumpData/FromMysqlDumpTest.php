@@ -6,6 +6,7 @@ namespace DavidLienhard\Database\QueryValidator\Tests\Tester\Tests;
 
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\DumpData\FromMysqlDump;
+use DavidLienhard\Database\QueryValidator\Exceptions\DumpData as DumpDataException;
 use League\Flysystem\Filesystem;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use PHPUnit\Framework\TestCase;
@@ -33,7 +34,7 @@ class FromMysqlDumpTest extends TestCase
         $adapter = new InMemoryFilesystemAdapter;
         $filesystem = new Filesystem($adapter);
 
-        $this->expectException(\Exception::class);
+        $this->expectException(DumpDataException::class);
         $this->expectExceptionMessage("dumpfile '".$dumpFile."' does not exist");
         FromMysqlDump::getDumpData($filesystem, $dumpFile);
     }
@@ -46,7 +47,7 @@ class FromMysqlDumpTest extends TestCase
     {
         $dumpFile = __DIR__;
 
-        $this->expectException(\Exception::class);
+        $this->expectException(DumpDataException::class);
         $this->expectExceptionMessage("dumpfile '".$dumpFile."' does not exist");
         FromMysqlDump::getDumpData($dumpFile);
     } */

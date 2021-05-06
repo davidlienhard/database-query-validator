@@ -1,6 +1,6 @@
 <?php
 /**
- * contains Outout interface
+ * contains Output interface
  *
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard

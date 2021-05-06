@@ -7,6 +7,7 @@ namespace DavidLienhard\Database\QueryValidator\Tests\Queries;
 use DavidLienhard\Database\QueryValidator\Config\Config;
 use DavidLienhard\Database\QueryValidator\DumpData\Column;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
+use DavidLienhard\Database\QueryValidator\Exceptions\TestFile as TestFileException;
 use DavidLienhard\Database\QueryValidator\Output\Standard as StandardOutput;
 use DavidLienhard\Database\QueryValidator\Tester\TestFile;
 use DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
@@ -117,7 +118,7 @@ class TestFileTestCase extends TestCase
         $output = new StandardOutput;
         $dumpData = new DumpData;
 
-        $this->expectException(\Exception::class);
+        $this->expectException(TestFileException::class);
         new TestFile("doesnotexist", $filesystem, $config, $output, $dumpData);
     }
 
@@ -162,7 +163,7 @@ class TestFileTestCase extends TestCase
 
         $testFile = new TestFile("invalidFile.php", $filesystem, $config, $output, $dumpData);
 
-        $this->expectException(\Exception::class);
+        $this->expectException(TestFileException::class);
         $this->expectExceptionMessageMatches("/^Parse error: (.*) \(invalidFile.php\)$/");
         $testFile->validate();
     }

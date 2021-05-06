@@ -47,5 +47,5 @@ interface OutputInterface
      * @copyright       David Lienhard
      * @param           TesterInterface $tester         tester object containing all the results
      */
-    public function summary(TesterInterface $tester) : bool;
+    public function summary(TesterInterface $tester) : void;
 }

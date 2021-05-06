@@ -54,7 +54,7 @@ class Standard implements OutputInterface
      * @copyright       David Lienhard
      * @param           TesterInterface $tester         tester object containing all the results
      */
-    public function summary(TesterInterface $tester) : bool
+    public function summary(TesterInterface $tester) : void
     {
         echo PHP_EOL."found ".$tester->getErrorcount()." errors ".
             "in ".$tester->getFilecount()." files ".
@@ -63,7 +63,5 @@ class Standard implements OutputInterface
         foreach ($tester->getErrors() as $error) {
             echo "- ".$error.PHP_EOL;
         }
-
-        return $tester->getErrorcount() === 0;
     }
 }

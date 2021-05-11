@@ -69,7 +69,7 @@ class StdinScanner implements ScannerInterface
                 $absolutePath = Path::makeAbsolute($filename, $absoluteFolder);
                 $absoluteExclusion = Path::makeAbsolute($exclusion, $absoluteFolder);
                 if (Glob::match($absolutePath, $absoluteExclusion)) {
-                    continue;
+                    continue(2);
                 }
             }
 

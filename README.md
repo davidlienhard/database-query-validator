@@ -1,6 +1,12 @@
 # davidlienhard/database-query-validator
 🐘 php tool to validate database queries written using [`davidlienhard/database`](https://github.com/davidlienhard/database)
 
+[![Latest Stable Version](https://img.shields.io/packagist/v/davidlienhard/database-query-validator.svg?style=flat-square)](https://packagist.org/packages/davidlienhard/database-query-validator)
+[![Source Code](https://img.shields.io/badge/source-davidlienhard/database--query--validator-blue.svg?style=flat-square)](https://github.com/davidlienhard/database-query-validator)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/davidlienhard/database-query-validator/blob/master/LICENSE)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.0-8892BF.svg?style=flat-square)](https://php.net/)
+[![CI Status](https://github.com/davidlienhard/database-query-validator/actions/workflows/check.yml/badge.svg)](https://github.com/davidlienhard/database-query-validator/actions/workflows/check.yml)
+
 ## Configuration
 This tool requires a file named `query-validator.json` in your main project directory. CLI arguments are not supported at the moment.
 The following configuration options are possible:

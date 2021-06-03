@@ -114,6 +114,10 @@ final class QueryValidator
             [
                 "type"     => "json",
                 "filename" => "query-validator.json"
+            ],
+            [
+                "type"     => "yaml",
+                "filename" => "query-validator.yml"
             ]
         ];
         $configFile = null;
@@ -131,6 +135,9 @@ final class QueryValidator
         switch ($configFile['type']) {
             case "json":
                 $config = ConfigFactory::fromJson($filesystem, $configFile['filename']);
+                break;
+            case "yaml":
+                $config = ConfigFactory::fromYaml($filesystem, $configFile['filename']);
                 break;
             default:
                 throw new ConfigException("unsupported configuration type '".$configFile['type']."'");

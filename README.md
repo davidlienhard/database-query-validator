@@ -45,3 +45,7 @@ This project is still work in progress and there is a lot of work todo.
  - improve recognition of database-queries
  - improve config
    - add support of CLI arguments
+
+## License
+
+The MIT License (MIT). Please see [LICENSE](https://github.com/davidlienhard/httpclient/blob/master/LICENSE) for more information.

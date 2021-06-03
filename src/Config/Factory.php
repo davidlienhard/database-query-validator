@@ -16,6 +16,8 @@ use DavidLienhard\Database\QueryValidator\Exceptions\Config as ConfigException;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\UnableToReadFile;
+use Symfony\Component\Yaml\Exception\ParseException as YamlParseException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * factory to create a config object
@@ -51,6 +53,25 @@ class Factory
         } catch (\Exception $e) {
             throw new ConfigException(
                 "unable to decode json data",
+                $e->getCode(),
+                $e
+            );
+        }
+
+        $config = self::addFromArguments($data);
+
+        return $config;
+    }
+
+    public static function fromYaml(Filesystem $filesystem, string $file) : ConfigInterface
+    {
+        $fileContent = self::getDataFromFile($filesystem, $file);
+
+        try {
+            $data = Yaml::parse($fileContent) ?? [];
+        } catch (YamlParseException $e) {
+            throw new ConfigException(
+                "unable to decode yaml data",
                 $e->getCode(),
                 $e
             );

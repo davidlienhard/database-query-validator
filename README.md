@@ -21,6 +21,8 @@ The following configuration options are possible:
 All paths are relative to the path of the configuration file. If no configuration file can be found all the files in your currect folder will be scanned.
 
 ### Example Configuration-File
+
+#### JSON
 ```json
 {
     "paths": [
@@ -35,6 +37,18 @@ All paths are relative to the path of the configuration file. If no configuratio
         "strictinserts": false
     }
 }
+```
+
+#### YAML
+```yml
+paths:
+  - src
+exclusions:
+  - "**/exclude.php"
+dumpfile: dump.sql
+parameters:
+  ignoresyntax: false
+  strictinserts: false
 ```
 
 ## Todo

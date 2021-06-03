@@ -79,6 +79,42 @@ class ConfigFactoryJsonTestCase extends TestCase
      * @covers DavidLienhard\Database\QueryValidator\Config\Factory
      * @test
      */
+    public function testCanReadListFromJsonFile(): void
+    {
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("config.json", "{ \"list\": [ \"value 1\", \"value 2\" ]}");
+
+        $result = [
+            "value 1",
+            "value 2"
+        ];
+
+        $config = ConfigFactory::fromJson($filesystem, "config.json");
+        $this->assertEquals($result, $config->get("list"));
+    }
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Config\Factory
+     * @test
+     */
+    public function testCanReadArrayFromJsonFile(): void
+    {
+        $filesystem = $this->getFilesystem();
+        $filesystem->write("config.json", "{ \"array\": { \"key1\": \"value 1\", \"key2\": \"value 2\" }}");
+
+        $result = [
+            "key1" => "value 1",
+            "key2" => "value 2"
+        ];
+
+        $config = ConfigFactory::fromJson($filesystem, "config.json");
+        $this->assertEquals($result, $config->get("array"));
+    }
+
+    /**
+     * @covers DavidLienhard\Database\QueryValidator\Config\Factory
+     * @test
+     */
     public function testCanAddFromstdinKeyFromArgument(): void
     {
         $filesystem = $this->getFilesystem();

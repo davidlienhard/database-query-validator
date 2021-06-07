@@ -1,12 +1,11 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * interface for tester class
  *
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
-
-declare(strict_types=1);
 
 namespace DavidLienhard\Database\QueryValidator\Tester;
 

@@ -1,13 +1,12 @@
 #!/usr/bin/env php
-<?php
+<?php declare(strict_types=1);
+
 /**
  * main entrypoint to validate queries
  *
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
-
-declare(strict_types=1);
 
 use \DavidLienhard\Database\QueryValidator\QueryValidator;
 

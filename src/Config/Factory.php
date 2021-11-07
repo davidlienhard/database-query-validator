@@ -52,7 +52,7 @@ class Factory
         } catch (\Exception $e) {
             throw new ConfigException(
                 "unable to decode json data",
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -71,7 +71,7 @@ class Factory
         } catch (YamlParseException $e) {
             throw new ConfigException(
                 "unable to decode yaml data",
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -117,7 +117,7 @@ class Factory
         try {
             $fileContent = $filesystem->read($file);
         } catch (FilesystemException | UnableToReadFile $e) {
-            throw new ConfigException("unable to read data from configuration file '".$file."'", $e->getCode(), $e);
+            throw new ConfigException("unable to read data from configuration file '".$file."'", intval($e->getCode()), $e);
         }
 
         return $fileContent;

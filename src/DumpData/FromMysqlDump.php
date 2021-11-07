@@ -40,7 +40,11 @@ class FromMysqlDump
         try {
             $fileContent = $filesystem->read($dumpFile);
         } catch (FilesystemException | UnableToReadFile $e) {
-            throw new DumpDataException("unable to read contents of file '".$dumpFile."'", $e->getCode(), $e);
+            throw new DumpDataException(
+                "unable to read contents of file '".$dumpFile."'",
+                intval($e->getCode()),
+                $e
+            );
         }
 
         $fileContent = explode("\n", $fileContent);

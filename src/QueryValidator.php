@@ -43,7 +43,7 @@ final class QueryValidator
         } catch (\Throwable $t) {
             throw new \RuntimeException(
                 $t->getMessage(),
-                (int) $t->getCode(),
+                intval($t->getCode()),
                 $t
             );
         }

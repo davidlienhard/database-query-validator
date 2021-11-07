@@ -22,8 +22,6 @@ use PhpParser\ParserFactory as PhpParserFactory;
 
 class TestFile implements TestFileInterface
 {
-    private bool $ignoresyntax = false;
-
     /**
      * list of errors that occurred
      * @var     string[]

@@ -72,7 +72,11 @@ class TestFile implements TestFileInterface
             try {
                 $fileContent = $this->filesystem->read($this->file);
             } catch (FilesystemException | UnableToReadFile $e) {
-                throw new TestFileException("unable to read contents of file '".$this->file."'", $e->getCode(), $e);
+                throw new TestFileException(
+                    "unable to read contents of file '".$this->file."'",
+                    intval($e->getCode()),
+                    $e
+                );
             }
 
             $ast = $parser->parse($fileContent);
@@ -85,13 +89,13 @@ class TestFile implements TestFileInterface
         } catch (PhpParserError $error) {
             throw new TestFileException(
                 "Parse error: ".$error->getMessage()." (".$this->file.")",
-                $error->getCode(),
+                intval($error->getCode()),
                 $error
             );
         } catch (\Throwable $t) {
             throw new QueryValidatorException(
                 "unknown error: ".$t->getMessage()." (".$this->file.")",
-                $t->getCode(),
+                intval($t->getCode()),
                 $t
             );
         }//end try
@@ -104,7 +108,7 @@ class TestFile implements TestFileInterface
         } catch (\Throwable $t) {
             throw new QueryValidatorException(
                 "error: ".$t->getMessage()." (".$this->file.")",
-                $t->getCode(),
+                intval($t->getCode()),
                 $t
             );
         }

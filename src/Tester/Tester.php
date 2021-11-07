@@ -83,7 +83,7 @@ class Tester implements TesterInterface
         } catch (TestFileException $e) {
             throw new TestFileException(
                 "unable to validate file '".$file."'",
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }//end try

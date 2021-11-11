@@ -13,6 +13,7 @@ use DavidLienhard\Database\QueryValidator\Tester\TestFileInterface;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\Parameters as ParametersTest;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\StrictInserts as StrictInsertsTest;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\Syntax as SyntaxTest;
+use DavidLienhard\Database\QueryValidator\Tester\Tests\TestInterface;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\UnableToReadFile;
@@ -218,6 +219,13 @@ class TestFile implements TestFileInterface
     private function runTest(string $className, QueryInterface $query, string $errorPrefix = "", array $options = []) : bool
     {
         $tester = new $className($query, $this->dumpData, $options);
+
+        if (!($tester instanceof TestInterface)) {
+            throw new QueryValidatorException(
+                "instantiated class is not instance of TestInterface"
+            );
+        }
+        
         $result = $tester->validate();
         $errors = $tester->getErrors();
         unset($tester);

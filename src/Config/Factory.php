@@ -27,12 +27,6 @@ use Symfony\Component\Yaml\Yaml;
 class Factory
 {
     /**
-     * configuration data
-     * @var     mixed[]
-     */
-    private array $config = [];
-
-    /**
      * creates a configuration object from a json file
      *
      * @author          David Lienhard <github@lienhard.win>

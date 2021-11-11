@@ -52,9 +52,7 @@ class Factory
         }
 
         if (!is_array($data)) {
-            throw new ConfigException(
-                "unable to decode json data"
-            );
+            throw new ConfigException("unable to decode json data");
         }
 
         $config = self::addFromArguments($data);
@@ -77,9 +75,7 @@ class Factory
         }
 
         if (!is_array($data)) {
-            throw new ConfigException(
-                "unable to decode yaml data"
-            );
+            throw new ConfigException("unable to decode yaml data");
         }
 
         $config = self::addFromArguments($data);

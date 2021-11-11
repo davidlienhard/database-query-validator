@@ -25,7 +25,7 @@ class Filter extends \RecursiveFilterIterator implements FilterInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           \RecursiveIterator  $iterator       iterator to use
+     * @param           \RecursiveIterator<int, \RecursiveDirectoryIterator>    $iterator       iterator to use
      * @param           string              $absoluteFolder absolute folder of the root directory of the project to scan
      * @param           array               $exclusions     list of exclusions
      */

@@ -200,6 +200,8 @@ final class QueryValidator
         if ($dumpFile === null) {
             return new DumpData;
         }
+        
+        $dumpFile = strval($dumpFile);
 
         if (!file_exists($dumpFile)) {
             throw new DumpDataException("given dump file '".$dumpFile."' does not exist");

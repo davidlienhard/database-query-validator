@@ -76,7 +76,7 @@ class PhpNodeVisitor extends NodeVisitorAbstract
             $query,
             $parameters,
             $this->filename,
-            $node->name->getLine() ?? 0
+            $node->name->getLine()
         );
 
         return null;

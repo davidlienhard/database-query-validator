@@ -9,6 +9,7 @@
 
 namespace DavidLienhard\Database\QueryValidator\Scanner\Filter;
 
+use DavidLienhard\Database\QueryValidator\Exceptions\QueryValidator as QueryValidatorException;
 use Webmozart\Glob\Glob;
 use Webmozart\PathUtil\Path;
 
@@ -42,14 +43,27 @@ class Filter extends \RecursiveFilterIterator implements FilterInterface
      */
     public function accept() : bool
     {
-        $filename = $this->current()->getFilename();
-        $pathname = $this->current()->getPathname();
+        $current = $this->current();
+        if (! $current instanceof \SplFileInfo) {
+            throw new QueryValidatorException(
+                "current element is of wrong type '".(gettype($current) ?: "unknown")."'"
+            );
+        }
+
+        if (! $current instanceof \FilesystemIterator) {
+            throw new QueryValidatorException(
+                "current element is of wrong type '".(gettype($current) ?: "unknown")."'"
+            );
+        }
+
+        $filename = $current->getFilename();
+        $pathname = $current->getPathname();
 
         if ($filename[0] === '.') {
             return false;
         }
 
-        if ($this->current()->isDir()) {
+        if ($current->isDir()) {
             return true;
         }
 

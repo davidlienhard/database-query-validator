@@ -92,8 +92,10 @@ class Filter extends \RecursiveFilterIterator implements FilterInterface
     {
         $inner = $this->getInnerIterator();
 
-        if (! $inner instanceof \RecursiveArrayIterator) {
-            throw new QueryValidatorException("inner iterator must be instance of 'RecursiveArrayIterator'");
+        if (! $inner instanceof \RecursiveIterator) {
+            throw new QueryValidatorException(
+                "inner iterator must be instance of 'RecursiveIterator' but is '".get_class($inner)."'"
+            );
         }
 
         return new self(

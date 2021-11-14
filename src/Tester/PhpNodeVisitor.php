@@ -12,6 +12,9 @@ namespace DavidLienhard\Database\QueryValidator\Tester;
 use DavidLienhard\Database\QueryValidator\Queries\Query;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Identifier;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\PrettyPrinter\Standard;
 
@@ -54,8 +57,19 @@ class PhpNodeVisitor extends NodeVisitorAbstract
             return null;
         }
 
-        $isDbVar = ($node->var->name ?? "") === "db" || ($node->var->name->name ?? "") === "db";
-        $isQueryNode = ($node->name->name ?? "") === "query";
+        $nodeVar = $node->var;
+
+        $isDbVar = false;
+
+        if ($nodeVar instanceof Variable && $nodeVar->name === "db") {
+            $isDbVar = true;
+        }
+
+        if ($nodeVar instanceof PropertyFetch && $nodeVar->name instanceof Variable && $nodeVar->name->name === "db") {
+            $isDbVar = true;
+        }
+
+        $isQueryNode = $node->name instanceof Identifier && $node->name->name === "query";
 
         if (!$isDbVar || !$isQueryNode) {
             return null;

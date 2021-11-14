@@ -65,7 +65,7 @@ class PhpNodeVisitor extends NodeVisitorAbstract
             $isDbVar = true;
         }
 
-        if ($nodeVar instanceof PropertyFetch && $nodeVar->name instanceof Variable && $nodeVar->name->name === "db") {
+        if ($nodeVar instanceof PropertyFetch && $nodeVar->name instanceof Identifier && $nodeVar->name->name === "db") {
             $isDbVar = true;
         }
 

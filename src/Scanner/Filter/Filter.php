@@ -44,15 +44,10 @@ class Filter extends \RecursiveFilterIterator implements FilterInterface
     public function accept() : bool
     {
         $current = $this->current();
-        if (! $current instanceof \SplFileInfo) {
+        if ((! $current instanceof \SplFileInfo) && (! $current instanceof \FilesystemIterator)) {
+            $type = gettype($current) === "object" ? get_class($current) : gettype($current);
             throw new QueryValidatorException(
-                "current element is of wrong type '".(gettype($current) ?: "unknown")."'"
-            );
-        }
-
-        if (! $current instanceof \FilesystemIterator) {
-            throw new QueryValidatorException(
-                "current element is of wrong type '".(gettype($current) ?: "unknown")."'"
+                "current element is of wrong type '".$type."'"
             );
         }
 

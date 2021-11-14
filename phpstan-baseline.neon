@@ -1,2 +1,7 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Dead catch \\- Exception is never thrown in the try block\\.$#"
+			count: 1
+			path: src/Config/Factory.php
+

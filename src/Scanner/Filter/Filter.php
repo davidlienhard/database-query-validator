@@ -90,8 +90,14 @@ class Filter extends \RecursiveFilterIterator implements FilterInterface
      */
     public function getChildren() : self
     {
+        $inner = $this->getInnerIterator();
+
+        if (! $inner instanceof \RecursiveArrayIterator) {
+            throw new QueryValidatorException("inner iterator must be instance of 'RecursiveArrayIterator'");
+        }
+
         return new self(
-            $this->getInnerIterator()->getChildren(),
+            $inner->getChildren(),
             $this->absoluteFolder,
             $this->exclusions
         );

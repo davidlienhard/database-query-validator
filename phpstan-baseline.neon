@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Iterator\\:\\:getChildren\\(\\)\\.$#"
-			count: 1
-			path: src/Scanner/Filter/Filter.php
-
-		-
 			message: "#^Access to an undefined property PhpParser\\\\Node\\\\Expr\\:\\:\\$name\\.$#"
 			count: 2
 			path: src/Tester/PhpNodeVisitor.php

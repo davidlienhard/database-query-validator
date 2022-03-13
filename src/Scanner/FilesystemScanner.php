@@ -55,6 +55,10 @@ class FilesystemScanner implements ScannerInterface
             $iterator = new \RecursiveIteratorIterator($filter);
 
             foreach ($iterator as $info) {
+                if (!($info instanceof \SplFileInfo)) {
+                    continue;
+                }
+
                 $this->tester->test($info->getPathname());
             }
         }

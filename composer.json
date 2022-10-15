@@ -21,9 +21,9 @@
         "league/flysystem": "^2",
         "nikic/php-parser": "^4",
         "phpmyadmin/sql-parser": "^5",
+        "symfony/filesystem": "~6.0.0",
         "symfony/yaml": "^5",
-        "webmozart/glob": "^4",
-        "webmozart/path-util": "^2"
+        "webmozart/glob": "^4"
     },
     "require-dev": {
         "phpunit/phpunit": "^9",

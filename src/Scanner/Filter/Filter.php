@@ -10,8 +10,8 @@
 namespace DavidLienhard\Database\QueryValidator\Scanner\Filter;
 
 use DavidLienhard\Database\QueryValidator\Exceptions\QueryValidator as QueryValidatorException;
+use Symfony\Component\Filesystem\Path;
 use Webmozart\Glob\Glob;
-use Webmozart\PathUtil\Path;
 
 /**
  * class to filter while scanning folders

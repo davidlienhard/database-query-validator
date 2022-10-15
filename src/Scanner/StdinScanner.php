@@ -11,8 +11,8 @@ namespace DavidLienhard\Database\QueryValidator\Scanner;
 
 use DavidLienhard\Database\QueryValidator\Scanner\ScannerInterface;
 use DavidLienhard\Database\QueryValidator\Tester\TesterInterface;
+use Symfony\Component\Filesystem\Path;
 use Webmozart\Glob\Glob;
-use Webmozart\PathUtil\Path;
 
 /**
  * class to scan a folder a start the tests on the files

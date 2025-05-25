@@ -200,7 +200,11 @@ final class QueryValidator
         if ($dumpFile === null) {
             return new DumpData;
         }
-        
+
+        if (\is_array($dumpFile)) {
+            throw new DumpDataException("cannot convert array to string");
+        }
+
         $dumpFile = strval($dumpFile);
 
         if (!file_exists($dumpFile)) {

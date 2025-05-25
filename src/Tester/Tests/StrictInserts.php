@@ -63,7 +63,7 @@ class StrictInserts extends TestAbstract
             return false;
         }
 
-        $columnsInQuery = $matches[1] ?? [];
+        $columnsInQuery = $matches[1];
 
         $isValid = true;
         foreach ($requiredColumns as $requiredColumn) {

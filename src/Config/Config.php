@@ -37,7 +37,7 @@ class Config implements ConfigInterface
      * @copyright       David Lienhard
      * @param           string          $keys           keys to find the config entry
      */
-    public function get(string ...$keys) : mixed
+    public function get(string ...$keys) : string|int|float|bool|array|null
     {
         $data = $this->config;
         foreach ($keys as $key) {

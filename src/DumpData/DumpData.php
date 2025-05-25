@@ -19,16 +19,10 @@ use DavidLienhard\Database\QueryValidator\DumpData\ColumnInterface;
  */
 class DumpData
 {
-    /**
-     * list of columns with tablename
-     * @var     array
-     */
+    /** list of columns with tablename */
     private array $withTable = [];
 
-    /**
-     * list of columns without tablename
-     * @var     array
-     */
+    /** list of columns without tablename */
     private array $withoutTable = [];
 
     /**

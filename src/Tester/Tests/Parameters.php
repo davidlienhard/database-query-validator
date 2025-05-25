@@ -50,7 +50,7 @@ class Parameters extends TestAbstract
 
         // fetch columns from query
         if (preg_match_all('/(?:(`([A-z0-9\-\_]+)`\.))?`([A-z0-9\-\_\$"\.\ "]+)`( |)(=|>=|<=|LIKE|!=|<=>)( |)\?/', $query, $matches)) {
-            for ($columnNumber = 0; $columnNumber < count($matches[0] ?? []); $columnNumber++) {
+            for ($columnNumber = 0; $columnNumber < count($matches[0]); $columnNumber++) {
                 $tableName = $matches[2][$columnNumber] ?? "";
                 $columnName = $matches[3][$columnNumber] ?? "";
 

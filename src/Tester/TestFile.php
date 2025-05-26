@@ -63,7 +63,7 @@ class TestFile implements TestFileInterface
     public function validate() : void
     {
         try {
-            $parser = (new PhpParserFactory)->create(PhpParserFactory::PREFER_PHP7);
+            $parser = (new PhpParserFactory())->createForNewestSupportedVersion();
             $traverser = new PhpNodeTraverser;
             $visitor = new PhpNodeVisitor($this->file);
             $traverser->addVisitor($visitor);
@@ -225,7 +225,7 @@ class TestFile implements TestFileInterface
                 "instantiated class is not instance of TestInterface"
             );
         }
-        
+
         $result = $tester->validate();
         $errors = $tester->getErrors();
         unset($tester);

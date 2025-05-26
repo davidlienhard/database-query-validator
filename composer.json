@@ -19,7 +19,7 @@
     "require": {
         "php": "^8.0",
         "league/flysystem": "^3",
-        "nikic/php-parser": "^4",
+        "nikic/php-parser": "^5",
         "phpmyadmin/sql-parser": "^5",
         "symfony/filesystem": "^6 || ^7",
         "symfony/yaml": "^7",

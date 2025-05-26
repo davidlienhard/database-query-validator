@@ -21,7 +21,7 @@
         "league/flysystem": "^3",
         "nikic/php-parser": "^4",
         "phpmyadmin/sql-parser": "^5",
-        "symfony/filesystem": "^6",
+        "symfony/filesystem": "^6 || ^7",
         "symfony/yaml": "^7",
         "webmozart/glob": "^4"
     },

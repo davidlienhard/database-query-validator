@@ -17,7 +17,7 @@
         "issues": "https://github.com/davidlienhard/database-query-validator/issues/"
     },
     "require": {
-        "php": "^8.0",
+        "php": "^8.4",
         "league/flysystem": "^3",
         "nikic/php-parser": "^5",
         "phpmyadmin/sql-parser": "^5 || ^6",

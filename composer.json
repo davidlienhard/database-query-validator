@@ -22,7 +22,7 @@
         "nikic/php-parser": "^5",
         "phpmyadmin/sql-parser": "^5 || ^6",
         "symfony/filesystem": "^8",
-        "symfony/yaml": "^7",
+        "symfony/yaml": "^8",
         "webmozart/glob": "^4"
     },
     "require-dev": {

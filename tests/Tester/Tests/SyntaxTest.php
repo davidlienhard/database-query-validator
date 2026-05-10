@@ -4,11 +4,11 @@ namespace DavidLienhard\Database\QueryValidator\Tests\Queries;
 
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Queries\Query;
-use DavidLienhard\Database\QueryValidator\Tester\Tests\Syntax as SyntaxTest;
+use DavidLienhard\Database\QueryValidator\Tester\Tests\Syntax;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\TestInterface;
 use PHPUnit\Framework\TestCase;
 
-class SyntaxTestCase extends TestCase
+class SyntaxTest extends TestCase
 {
     /**
      * @covers DavidLienhard\Database\QueryValidator\Tester\Tests\Syntax
@@ -18,9 +18,9 @@ class SyntaxTestCase extends TestCase
     {
         $query = new Query("SELECT * FROM `table`", [], "testfile.php", 1);
         $dump = new DumpData;
-        $syntax = new SyntaxTest($query, $dump);
+        $syntax = new Syntax($query, $dump);
 
-        $this->assertInstanceOf(SyntaxTest::class, $syntax);
+        $this->assertInstanceOf(Syntax::class, $syntax);
         $this->assertInstanceOf(TestInterface::class, $syntax);
     }
 
@@ -33,7 +33,7 @@ class SyntaxTestCase extends TestCase
     {
         $query = new Query("SELECT * FROM `table`", [], "testfile.php", 1);
         $dump = new DumpData;
-        $syntax = new SyntaxTest($query, $dump);
+        $syntax = new Syntax($query, $dump);
 
         $this->assertTrue($syntax->validate());
         $this->assertEquals(0, $syntax->getErrorcount());
@@ -48,7 +48,7 @@ class SyntaxTestCase extends TestCase
     {
         $query = new Query("invalidquery", [], "testfile.php", 1);
         $dump = new DumpData;
-        $syntax = new SyntaxTest($query, $dump);
+        $syntax = new Syntax($query, $dump);
 
         $this->assertFalse($syntax->validate());
         $this->assertEquals(1, $syntax->getErrorcount());

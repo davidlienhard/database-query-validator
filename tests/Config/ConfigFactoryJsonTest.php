@@ -10,7 +10,7 @@ use League\Flysystem\Filesystem;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use PHPUnit\Framework\TestCase;
 
-class ConfigFactoryJsonTestCase extends TestCase
+class ConfigFactoryJsonTest extends TestCase
 {
     private function getFilesystem() : Filesystem
     {

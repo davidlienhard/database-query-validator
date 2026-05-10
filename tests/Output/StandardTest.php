@@ -7,7 +7,7 @@ use DavidLienhard\Database\QueryValidator\Output\Standard;
 use DavidLienhard\Database\QueryValidator\Tester\Tester;
 use PHPUnit\Framework\TestCase;
 
-class StandardOutputTestCase extends TestCase
+class StandardTest extends TestCase
 {
     /**
      * @covers DavidLienhard\Database\QueryValidator\Output\Standard

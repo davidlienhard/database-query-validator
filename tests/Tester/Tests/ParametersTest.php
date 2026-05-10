@@ -5,11 +5,11 @@ namespace DavidLienhard\Database\QueryValidator\Tests\Tester\Tests;
 use DavidLienhard\Database\QueryValidator\DumpData\Column;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Queries\Query;
-use DavidLienhard\Database\QueryValidator\Tester\Tests\Parameters as ParametersTest;
+use DavidLienhard\Database\QueryValidator\Tester\Tests\Parameters;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\TestInterface;
 use PHPUnit\Framework\TestCase;
 
-class ParametersTestTest extends TestCase
+class ParametersTest extends TestCase
 {
     /**
      * @covers DavidLienhard\Database\QueryValidator\Tester\Tests\Parameters
@@ -19,9 +19,9 @@ class ParametersTestTest extends TestCase
     {
         $query = new Query("SELECT * FROM `table`", [], "testfile.php", 1);
         $dump = new DumpData;
-        $parameters = new ParametersTest($query, $dump);
+        $parameters = new Parameters($query, $dump);
 
-        $this->assertInstanceOf(ParametersTest::class, $parameters);
+        $this->assertInstanceOf(Parameters::class, $parameters);
         $this->assertInstanceOf(TestInterface::class, $parameters);
     }
 
@@ -34,7 +34,7 @@ class ParametersTestTest extends TestCase
     {
         $query = new Query("SELECT * FROM `table`", [], "testfile.php", 1);
         $dump = new DumpData;
-        $parameters = new ParametersTest($query, $dump);
+        $parameters = new Parameters($query, $dump);
 
         $this->assertTrue($parameters->validate());
         $this->assertEquals(0, $parameters->getErrorcount());
@@ -56,7 +56,7 @@ class ParametersTestTest extends TestCase
             1
         );
         $dump = new DumpData;
-        $parameters = new ParametersTest($query, $dump);
+        $parameters = new Parameters($query, $dump);
 
         $this->assertTrue($parameters->validate());
         $this->assertEquals(0, $parameters->getErrorcount());
@@ -78,7 +78,7 @@ class ParametersTestTest extends TestCase
             1
         );
         $dump = new DumpData;
-        $parameters = new ParametersTest($query, $dump);
+        $parameters = new Parameters($query, $dump);
 
         $this->assertFalse($parameters->validate());
         $this->assertEquals(1, $parameters->getErrorcount());
@@ -104,7 +104,7 @@ class ParametersTestTest extends TestCase
             1
         );
         $dump = new DumpData;
-        $parameters = new ParametersTest($query, $dump);
+        $parameters = new Parameters($query, $dump);
         $this->assertFalse($parameters->validate());
 
         $this->assertEquals(2, $parameters->getErrorcount());
@@ -141,7 +141,7 @@ class ParametersTestTest extends TestCase
             ]
         );
 
-        $parameters = new ParametersTest($query, $dump);
+        $parameters = new Parameters($query, $dump);
         $this->assertTrue($parameters->validate());
         $this->assertEquals(0, $parameters->getErrorcount());
     }
@@ -173,7 +173,7 @@ class ParametersTestTest extends TestCase
             ]
         );
 
-        $parameters = new ParametersTest($query, $dump);
+        $parameters = new Parameters($query, $dump);
         $this->assertFalse($parameters->validate());
         $this->assertEquals(1, $parameters->getErrorcount());
         $this->assertStringContainsString(
@@ -211,7 +211,7 @@ class ParametersTestTest extends TestCase
             ]
         );
 
-        $parameters = new ParametersTest($query, $dump);
+        $parameters = new Parameters($query, $dump);
         $this->assertTrue($parameters->validate());
         $this->assertEquals(0, $parameters->getErrorcount());
     }
@@ -243,7 +243,7 @@ class ParametersTestTest extends TestCase
             ]
         );
 
-        $parameters = new ParametersTest($query, $dump);
+        $parameters = new Parameters($query, $dump);
         $this->assertFalse($parameters->validate());
         $this->assertEquals(1, $parameters->getErrorcount());
         $this->assertStringContainsString(

@@ -5,7 +5,7 @@ namespace DavidLienhard\Database\QueryValidator\Tests\Filelist;
 use DavidLienhard\Database\QueryValidator\Filelist\Filelist;
 use PHPUnit\Framework\TestCase;
 
-class FilelistTestCase extends TestCase
+class FilelistTest extends TestCase
 {
     /**
      * @covers DavidLienhard\Database\QueryValidator\Filelist\Filelist

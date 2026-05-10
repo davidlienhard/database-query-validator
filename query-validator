@@ -8,7 +8,7 @@
  * @copyright       David Lienhard
  */
 
-use \DavidLienhard\Database\QueryValidator\QueryValidator;
+use DavidLienhard\Database\QueryValidator\QueryValidator;
 
 if (version_compare("8.0.0", PHP_VERSION, ">")) {
     fwrite(

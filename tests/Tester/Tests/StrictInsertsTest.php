@@ -5,11 +5,11 @@ namespace DavidLienhard\Database\QueryValidator\Tests\Queries;
 use DavidLienhard\Database\QueryValidator\DumpData\Column;
 use DavidLienhard\Database\QueryValidator\DumpData\DumpData;
 use DavidLienhard\Database\QueryValidator\Queries\Query;
-use DavidLienhard\Database\QueryValidator\Tester\Tests\StrictInserts as StrictInsertsTest;
+use DavidLienhard\Database\QueryValidator\Tester\Tests\StrictInserts as StrictInserts;
 use DavidLienhard\Database\QueryValidator\Tester\Tests\TestInterface;
 use PHPUnit\Framework\TestCase;
 
-class StrictInsertsTestCase extends TestCase
+class StrictInsertsTest extends TestCase
 {
     /**
      * @covers DavidLienhard\Database\QueryValidator\Tester\Tests\StrictInserts
@@ -19,9 +19,9 @@ class StrictInsertsTestCase extends TestCase
     {
         $query = new Query("SELECT * FROM `table`", [], "testfile.php", 1);
         $dump = new DumpData;
-        $inserts = new StrictInsertsTest($query, $dump);
+        $inserts = new StrictInserts($query, $dump);
 
-        $this->assertInstanceOf(StrictInsertsTest::class, $inserts);
+        $this->assertInstanceOf(StrictInserts::class, $inserts);
         $this->assertInstanceOf(TestInterface::class, $inserts);
     }
 
@@ -33,7 +33,7 @@ class StrictInsertsTestCase extends TestCase
     {
         $query = new Query("SELECT * FROM `table`", [], "testfile.php", 1);
         $dump = new DumpData;
-        $inserts = new StrictInsertsTest($query, $dump);
+        $inserts = new StrictInserts($query, $dump);
 
         $this->assertTrue($inserts->validate());
         $this->assertEquals(0, $inserts->getErrorcount());
@@ -47,7 +47,7 @@ class StrictInsertsTestCase extends TestCase
     {
         $query = new Query("INSERT INTO SET `userName` = ''", [], "testfile.php", 1);
         $dump = new DumpData;
-        $inserts = new StrictInsertsTest($query, $dump);
+        $inserts = new StrictInserts($query, $dump);
 
         $this->assertFalse($inserts->validate());
         $this->assertEquals(1, $inserts->getErrorcount());
@@ -66,7 +66,7 @@ class StrictInsertsTestCase extends TestCase
     {
         $query = new Query("INSERT INTO SET `userName` = ''", [], "testfile.php", 1);
         $dump = new DumpData;
-        $inserts = new StrictInsertsTest($query, $dump, [ "ignoreMissingTablenames" => true ]);
+        $inserts = new StrictInserts($query, $dump, [ "ignoreMissingTablenames" => true ]);
 
         $this->assertTrue($inserts->validate());
         $this->assertEquals(0, $inserts->getErrorcount());
@@ -80,7 +80,7 @@ class StrictInsertsTestCase extends TestCase
     {
         $query = new Query("INSERT INTO `user` SET `userName` = ''", [], "testfile.php", 1);
         $dump = new DumpData;
-        $inserts = new StrictInsertsTest($query, $dump);
+        $inserts = new StrictInserts($query, $dump);
 
         $this->assertFalse($inserts->validate());
         $this->assertEquals(1, $inserts->getErrorcount());
@@ -103,7 +103,7 @@ class StrictInsertsTestCase extends TestCase
                 new Column("user", "userName", "s", false, false)
             ]
         );
-        $inserts = new StrictInsertsTest($query, $dump);
+        $inserts = new StrictInserts($query, $dump);
 
         $this->assertFalse($inserts->validate());
         $this->assertEquals(1, $inserts->getErrorcount());
@@ -139,7 +139,7 @@ class StrictInsertsTestCase extends TestCase
             ]
         );
 
-        $inserts = new StrictInsertsTest($query, $dump);
+        $inserts = new StrictInserts($query, $dump);
 
         $this->assertTrue($inserts->validate());
         $this->assertEquals(0, $inserts->getErrorcount());
@@ -172,7 +172,7 @@ class StrictInsertsTestCase extends TestCase
             ]
         );
 
-        $inserts = new StrictInsertsTest($query, $dump);
+        $inserts = new StrictInserts($query, $dump);
 
         $this->assertFalse($inserts->validate());
         $this->assertEquals(1, $inserts->getErrorcount());

@@ -10,7 +10,7 @@ use League\Flysystem\Filesystem;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use PHPUnit\Framework\TestCase;
 
-class ConfigFactoryYamlTestCase extends TestCase
+class ConfigFactoryYamlTest extends TestCase
 {
     private function getFilesystem() : Filesystem
     {

@@ -6,7 +6,7 @@ use DavidLienhard\Database\QueryValidator\Config\Config;
 use DavidLienhard\Database\QueryValidator\Config\ConfigInterface;
 use PHPUnit\Framework\TestCase;
 
-class ConfigTestCase extends TestCase
+class ConfigTest extends TestCase
 {
     /**
      * @covers DavidLienhard\Database\QueryValidator\Config\Config

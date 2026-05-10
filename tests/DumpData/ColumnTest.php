@@ -6,7 +6,7 @@ use DavidLienhard\Database\QueryValidator\DumpData\Column;
 use DavidLienhard\Database\QueryValidator\DumpData\ColumnInterface;
 use PHPUnit\Framework\TestCase;
 
-class SyntaxTestCase extends TestCase
+class ColumnTest extends TestCase
 {
     /**
      * @covers DavidLienhard\Database\QueryValidator\DumpData\Column

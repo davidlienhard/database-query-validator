@@ -13,7 +13,7 @@ use League\Flysystem\Filesystem;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use PHPUnit\Framework\TestCase;
 
-class TestFileTestCase extends TestCase
+class TestFileTest extends TestCase
 {
     protected static array $queries = [];
 

@@ -5,6 +5,7 @@ namespace DavidLienhard\Database\QueryValidator\Tests\Output;
 use DavidLienhard\Database\QueryValidator\Output\OutputInterface;
 use DavidLienhard\Database\QueryValidator\Output\Standard;
 use DavidLienhard\Database\QueryValidator\Tester\Tester;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 
 class StandardTest extends TestCase
@@ -81,6 +82,7 @@ class StandardTest extends TestCase
      * @covers DavidLienhard\Database\QueryValidator\Output\Standard
      * @test
      */
+    #[AllowMockObjectsWithoutExpectations]
     public function testOutputOfEmptySummary(): void
     {
         $output = new Standard;
@@ -108,6 +110,7 @@ class StandardTest extends TestCase
      * @covers DavidLienhard\Database\QueryValidator\Output\Standard
      * @test
      */
+    #[AllowMockObjectsWithoutExpectations]
     public function testOutputOfSummaryWithValidQueries(): void
     {
         $output = new Standard;
@@ -135,6 +138,7 @@ class StandardTest extends TestCase
      * @covers DavidLienhard\Database\QueryValidator\Output\Standard
      * @test
      */
+    #[AllowMockObjectsWithoutExpectations]
     public function testOutputOfSummaryWithInvalidQueries(): void
     {
         $output = new Standard;
